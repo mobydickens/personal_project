@@ -5,6 +5,13 @@ CREATE TABLE users (
   hash_value TEXT NOT NULL
 );
 
+INSERT INTO users (username, email, hash_value)
+VALUES 
+('mrsshepherd', 'mrsshep@email.com', 'testpassword'),
+('mrshep', 'mrshep@email.com', 'testpassword'),
+('karen', 'karen@email.com', 'testpassword'),
+('hal', 'hal@email.com', 'testpassword');
+
 CREATE TABLE teams (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(45) NOT NULL

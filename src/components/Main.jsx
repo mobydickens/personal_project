@@ -19,8 +19,11 @@ class Main extends Component {
 
   async login() {
     const { email, password } = this.state;
-    let res = await axios.post('/auth/login', { email, password });
-    console.log("Login data", res.data);
+    let res = await axios.post('/auth/login', { email, password } );
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
 
   render() {
@@ -31,11 +34,13 @@ class Main extends Component {
           { this.state.inputShowing ? 
             <div className='flex'>
               <input
+                value={ this.state.email }
                 placeholder='Enter email'
                 className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
                 onChange={ (e) => this.setState({ email: e.target.value }) } 
                 type="text"/> 
               <input
+                value={ this.state.password }
                 placeholder='Enter password'
                 className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
                 onChange={ (e) => this.setState({ password: e.target.value }) } 
