@@ -1,14 +1,52 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      inputShowing: false
+    }
+  }
+
+  showLogin = () => {
+    this.setState({
+      inputShowing: !this.state.inputShowing
+    })
+  }
+
+  async login() {
+    const { email, password } = this.state;
+    let res = await axios.post('/auth/login', { email, password });
+    console.log("Login data", res.data);
+  }
+
   render() {
     return (
       <div>
         <div className='flex justify-between'>
           <div className='text-2xl m-4 lg:text-3xl lg:m-6'>Name</div>
-          <div className='visible sm:invisible lg:visible m-6'>Already a member? 
-            <span className='cursor-pointer hover:grey'> Login</span>
-          </div>
+          { this.state.inputShowing ? 
+            <div className='flex'>
+              <input
+                placeholder='Enter email'
+                className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                onChange={ (e) => this.setState({ email: e.target.value }) } 
+                type="text"/> 
+              <input
+                placeholder='Enter password'
+                className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                onChange={ (e) => this.setState({ password: e.target.value }) } 
+                type="password"/>
+              <button onClick={ () => this.login() } className='m-6 cursor-pointer hover:grey'> Login</button>
+            </div> :
+            <div className='flex'>
+              <div className='visible sm:invisible lg:visible m-6'>Already a member?</div>
+              <div onClick={ () => this.showLogin() } className='m-6 cursor-pointer hover:grey'> Login</div>
+            </div>
+          }
         </div>
         <div>
           <div className='text-2xl mx-4 my-6 lg:m-8 lg:h-32'>Your place for organizing and staying on track.</div>
@@ -19,7 +57,7 @@ class Main extends Component {
             Sign Up
           </button> 
           <p className='lg:invisible mb-6'>Already a member? 
-            <span className='cursor-pointer hover:grey'> Login</span>
+            <button className='cursor-pointer hover:grey'> Login</button>
           </p>
         </div>
         <div className='bg-green w-screen flex flex-col items-center lg:flex-row lg:justify-center'>
