@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
 
 class Home extends Component {
 
   componentDidMount() {
-
+    axios.get(`/api/projects/${this.props.userId}`).then(res => {
+      console.log(res.data);
+    })
   }
 
   render() {

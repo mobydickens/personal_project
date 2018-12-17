@@ -51,9 +51,9 @@ INSERT INTO projects (team_id, title, description, start_date, daily_hours)
 VALUES
   (1, 'My First Project', 'A project for the masses', '2018-12-17', 6),
   (1, 'My Second Project', 'A project for individuals', '2018-12-17', 6),
-  (2, 'My First Project', 'A project to figure out which are better: Starks or Baratheons?', '2018-12-17', 6),
-  (2, 'My Third Project', 'A project about code', '2018-12-17', 5),
-  (2, 'My Third Project', 'A project to learn redux', '2018-12-17', 8);
+  (2, 'My Fourth Project', 'A project to figure out which are better: Starks or Baratheons?', '2018-12-17', 6),
+  (2, 'My Fifth Project', 'A project about code', '2018-12-17', 5),
+  (2, 'My Sixth Project', 'A project to learn redux', '2018-12-17', 8);
 
 
 CREATE TABLE tasks (

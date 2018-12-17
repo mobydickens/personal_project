@@ -23,3 +23,5 @@ massive(CONNECTION_STRING).then(db => {
 app.post('/auth/signup', controller.signup);
 // LOGIN
 app.post('/auth/login', controller.login);
+//INITIAL COMPONENT DID MOUNT GET IN HOME
+app.get('/api/projects/:id', controller.getProjects);
