@@ -12,7 +12,7 @@ module.exports = {
       let hash = bcrypt.hashSync( password, salt );
       let newUser = await db.new_user([ email, username, hash]);
       req.session.user = { email: newUser[0].email, id: newUser[0].id };
-      res.status(200).send({ loggedIn: true, message: 'signup a success' })
+      res.status(200).send({ loggedIn: true, message: 'signup a success', id: newUser[0].id, username: newUser[0].username, email: newUser[0].email });
     }
   },
   login: async (req, res) => {

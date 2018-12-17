@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import MainHeader from './MainHeader.jsx';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { userSignup } from '../ducks/reducer';
+
 
 class Signup extends Component {
 
@@ -16,12 +19,12 @@ class Signup extends Component {
   
   async signup() {
     let res = await axios.post('/auth/signup', { ...this.state } );
-    console.log('Sign up return', res.data);
     this.setState({
       email: '',
       username: '',
       password: ''
     })
+    this.props.userSignup({ userId: res.data.id, email: res.data.email, username: res.data.username });
     if(res.data.loggedIn) {
       this.props.history.push('/home')
     } else {
@@ -66,4 +69,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default connect(null, {userSignup})(Signup);

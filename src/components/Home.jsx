@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // import axios from 'axios';
 
 class Home extends Component {
@@ -8,17 +9,25 @@ class Home extends Component {
   }
 
   render() {
-    const { userId } = this.props;
+    const { userId, username } = this.props;
     return (
       <div>
         <div>Home</div>
         { !userId ? "Please log in" : 
           <div>
-            Logged In
+            {username}, you are logged In
           </div>}
       </div>
     );
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    userId: state.userId,
+    email: state.email,
+    username: state.username,
+    projects: state.projects
+  }
+}
+export default connect(mapStateToProps)(Home);
