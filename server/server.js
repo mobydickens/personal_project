@@ -19,4 +19,7 @@ massive(CONNECTION_STRING).then(db => {
   app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`));
 });
 
+// SIGN UP
+app.post('/auth/signup', controller.signup);
+// LOGIN
 app.post('/auth/login', controller.login);
