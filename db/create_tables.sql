@@ -17,6 +17,11 @@ CREATE TABLE teams (
   name VARCHAR(45) NOT NULL
 );
 
+INSERT INTO teams (name)
+VALUES
+  ('Team Awesome'),
+  ('Team Super Duper Awesome');
+
 CREATE TABLE users_and_teams (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER NOT NULL,
@@ -24,6 +29,13 @@ CREATE TABLE users_and_teams (
   FOREIGN KEY user_id REFERENCES users(id),
   FOREIGN KEY team_id REFERENCES teams(id)
 );
+
+INSERT INTO (user_id, team_id)
+VALUES
+  (7, 1),
+  (7, 2),
+  (6, 1),
+  (6, 2),
 
 CREATE TABLE projects (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -34,6 +46,15 @@ CREATE TABLE projects (
   daily_hours INTEGER NOT NULL,
   FOREIGN KEY team_id REFERENCES teams(id)
 );
+
+INSERT INTO projects (team_id, title, description, start_date, daily_hours)
+VALUES
+  (1, 'My First Project', 'A project for the masses', '2018-12-17', 6),
+  (1, 'My Second Project', 'A project for individuals', '2018-12-17', 6),
+  (2, 'My First Project', 'A project to figure out which are better: Starks or Baratheons?', '2018-12-17', 6),
+  (2, 'My Third Project', 'A project about code', '2018-12-17', 5),
+  (2, 'My Third Project', 'A project to learn redux', '2018-12-17', 8);
+
 
 CREATE TABLE tasks (
   id SERIAL PRIMARY KEY NOT NULL,

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { userLogin } from '../ducks/reducer';
 
 class MainHeader extends Component {
 
@@ -26,7 +28,7 @@ class MainHeader extends Component {
       email: '',
       password: ''
     })
-    console.log("Data from logging in: ", res.data);
+    this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects })
     if(res.data.loggedIn) {
       this.props.history.push('/home')
     } else {
@@ -64,4 +66,4 @@ class MainHeader extends Component {
   }
 }
 
-export default withRouter(MainHeader);
+export default withRouter(connect(null, { userLogin })(MainHeader));

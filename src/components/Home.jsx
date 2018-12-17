@@ -15,7 +15,7 @@ class Home extends Component {
         <div>Home</div>
         { !userId ? "Please log in" : 
           <div>
-            {username}, you are logged In
+            {username}, you are logged in
           </div>}
       </div>
     );
