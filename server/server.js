@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
-const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
+const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, DEV } = process.env;
 const controller = require('./controller');
 
 const app = express();
@@ -13,6 +13,17 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+
+// app.use(async function authBypass(req, res, next) {
+//   if(DEV === 'true') {
+//     let db = req.app.get('db');
+//     let user = await db.session_user();
+//     req.session.user = user[0];
+//     next();
+//   } else {
+//     next();
+//   }
+// })
 
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);

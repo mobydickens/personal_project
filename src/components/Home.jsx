@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { userProjects } from '../ducks/reducer';
+import LoggedInHeader from './LoggedInHeader.jsx';
 
 class Home extends Component {
 
@@ -15,8 +16,10 @@ class Home extends Component {
     const { userId, username, projects } = this.props;
     let projectList = projects.map(project => {
       return (
-        <div key={project.id}>
-          <h4>{project.title}</h4>
+        <div 
+          key={project.id}
+          className='border border-grey m-2 p-2 w-64'>
+          <h4 className='mt-2'>{project.title}</h4>
           <p>Team {project.name}</p>
           <p>{project.description}</p>
           <p>Start date: {project.start_date}</p>
@@ -25,12 +28,14 @@ class Home extends Component {
     })
     return (
       <div>
-        <div>Home</div>
+        <LoggedInHeader />
+        <div className='m-4'>
         { !userId ? "Please log in" : 
-          <div>
+          <div className='flex flex-col w-4/5 lg:flex-row lg:flex-wrap-reverse'>
             <div>{username}, you are logged in.</div>
             {projectList}
           </div>}
+        </div>
       </div>
     );
   }
