@@ -8,6 +8,7 @@ let initialState = {
 // ACTION CONSTANTS
 const USER_SIGNUP = 'USER_SIGNUP';
 const USER_LOGIN = 'USER_LOGIN';
+const USER_PROJECTS = 'USER_PROJECTS'; 
 
 // ACTION CREATORS
 export function userSignup({ userId, username, email }) {
@@ -20,15 +21,20 @@ export function userSignup({ userId, username, email }) {
     }
   }
 }
-export function userLogin({ userId, username, email, projects }) {
+export function userLogin({ userId, username, email }) {
   return {
     type: USER_LOGIN,
     payload: {
       userId, 
       username, 
-      email, 
-      projects
+      email
     }
+  }
+}
+export function userProjects(projects) {
+  return {
+    type: USER_PROJECTS,
+    payload: projects.data
   }
 }
 
@@ -38,7 +44,9 @@ export default function reducer(state=initialState, action) {
     case USER_SIGNUP:
       return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username };
     case USER_LOGIN:
-      return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username, projects: action.payload.projects };
+      return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username };
+    case USER_PROJECTS:
+      return { ...state, projects: action.payload };
     default: 
       return state;
   }

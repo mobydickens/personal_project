@@ -32,11 +32,9 @@ module.exports = {
     }
   },
   getProjects: async (req, res) => {
-    console.log('is endpoint hit?')
     const db = req.app.get('db');
     const { id } = req.params;
     if(req.session.user) {
-      console.log('is req.session.user true?')
       let projects = await db.get_user_projects([ id ]);
       return res.status(200).send(projects);
     }

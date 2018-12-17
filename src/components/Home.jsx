@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { userProjects } from '../ducks/reducer';
 
 class Home extends Component {
 
-  componentDidMount() {
-    axios.get(`/api/projects/${this.props.userId}`).then(res => {
-      console.log(res.data);
-    })
+  async componentDidMount() {
+    let res = await axios.get(`/api/projects/${this.props.userId}`);
+    console.log(res);
+    this.props.userProjects(res);
   }
 
   render() {
-    const { userId, username } = this.props;
+    const { userId, username, projects } = this.props;
+    let projectList = projects.map(project => {
+      return (
+        <div key={project.id}>
+          <h4>{project.title}</h4>
+          <p>Team {project.name}</p>
+          <p>{project.description}</p>
+          <p>Start date: {project.start_date}</p>
+        </div>
+      )
+    })
     return (
       <div>
         <div>Home</div>
         { !userId ? "Please log in" : 
           <div>
-            {username}, you are logged in
+            <div>{username}, you are logged in.</div>
+            {projectList}
           </div>}
       </div>
     );
@@ -32,4 +44,5 @@ function mapStateToProps(state) {
     projects: state.projects
   }
 }
-export default connect(mapStateToProps)(Home);
+
+export default connect(mapStateToProps, { userProjects })(Home);
