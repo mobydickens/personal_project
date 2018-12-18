@@ -19,15 +19,9 @@ class Main extends Component {
         <div className='flex items-center flex-col'>
           <button
             onClick={ () => this.signup() } 
-            className='bg-green hover:bg-green-dark text-white border border-green-base py-2 px-4 m-4 rounded'>
+            className='bg-green hover:bg-green-dark text-white border border-green-base py-2 px-4 m-6 rounded'>
             Sign Up
           </button> 
-          <p className='lg:invisible mb-6'>Already a member? 
-            <button 
-              className='cursor-pointer hover:grey mx-2'> 
-              Login
-            </button>
-          </p>
         </div>
         <div className='bg-green w-screen flex flex-col items-center lg:flex-row lg:justify-center'>
           <img

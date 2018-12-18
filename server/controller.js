@@ -33,10 +33,12 @@ module.exports = {
   },
   getProjects: async (req, res) => {
     const db = req.app.get('db');
-    const { id } = req.params;
+    const { id } = req.session.user;
     if(req.session.user) {
       let projects = await db.get_user_projects([ id ]);
       return res.status(200).send(projects);
+    } else {
+      return res.status(200).send({ loggedIn: false, message: 'Please log in.'})
     }
   }
 }
