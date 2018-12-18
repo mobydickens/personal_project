@@ -26,18 +26,24 @@ class ProjectEdit extends Component {
   }
 
   async newProject() {
-    console.log('running?')
     const { title, devHours, description, start_date, teams } = this.state;
     let team_id = teams.filter(singleteam => singleteam.name === this.state.team);
-    let res = axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date} );
-    console.log(res.data);
-    this.setState({
-      title: '',
-      devHours: '',
-      description: '',
-      team: '',
-      start_date: ''
-    })
+    try {
+      let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date});
+      console.log('success', res)
+    } catch (e) {
+      console.log('it errored!', e)
+    }
+    // let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date} );
+    // console.log(res.data);
+    // this.setState({
+    //   title: '',
+    //   devHours: '',
+    //   description: '',
+    //   team: '',
+    //   start_date: ''
+    // })
+    // this.props.history.push(`/project/${res.data.project.id}`)
   }
 
   render() {
@@ -64,7 +70,6 @@ class ProjectEdit extends Component {
             <textarea 
               onChange={ (e) => this.setState({ description: e.target.value }) }
               className='border' 
-              name="description" 
               rows="5" 
               cols="30">
             </textarea><br/>
@@ -84,7 +89,10 @@ class ProjectEdit extends Component {
               onChange={ (e) => this.setState({ start_date: e.target.value })} 
               className='input' 
               type="date"/>
-            <button onClick={ () => this.newProject() }className='border'>Submit</button>
+            <button 
+              onClick={ () => this.newProject() } 
+              className='border'>Submit
+            </button>
           </form>
         </div>
       </div>

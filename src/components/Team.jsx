@@ -33,13 +33,13 @@ class Team extends Component {
   async addTeam() {
     const { teamName, teammates } = this.state;
     this.props.addNewTeam(this.state.teammates);
-    let res = await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
+    await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
     this.setState({
       teammates: [],
       done: true
     })
   }
-  
+
   //if you add someone by mistake to your team, this allows you to delete them
   deleteFromTeammates = (i) => {
     const { teammates } = this.state;
