@@ -31,10 +31,14 @@ module.exports = {
       }
     }
   },
+  logout: (req, res) => {
+    req.session.destroy();
+    res.status(200).send({ loggedIn: false });
+  },
   getProjects: async (req, res) => {
     const db = req.app.get('db');
-    const { id } = req.session.user;
     if(req.session.user) {
+      const { id } = req.session.user;
       let projects = await db.get_user_projects([ id ]);
       return res.status(200).send(projects);
     } else {

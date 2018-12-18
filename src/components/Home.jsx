@@ -9,7 +9,9 @@ class Home extends Component {
 
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
-    this.props.userProjects(res);
+    if(res.data.loggedIn) {
+      this.props.userProjects(res);
+    }
   }
 
   render() {
