@@ -30,20 +30,18 @@ class ProjectEdit extends Component {
     let team_id = teams.filter(singleteam => singleteam.name === this.state.team);
     try {
       let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date});
-      console.log('success', res)
+      console.log('success', res);
+      this.setState({
+        title: '',
+        devHours: '',
+        description: '',
+        team: '',
+        start_date: ''
+      })
+      this.props.history.push(`/project/${res.data.project[0].id}`)
     } catch (e) {
       console.log('it errored!', e)
     }
-    // let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date} );
-    // console.log(res.data);
-    // this.setState({
-    //   title: '',
-    //   devHours: '',
-    //   description: '',
-    //   team: '',
-    //   start_date: ''
-    // })
-    // this.props.history.push(`/project/${res.data.project.id}`)
   }
 
   render() {

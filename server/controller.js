@@ -46,7 +46,7 @@ module.exports = {
     const { title, devHours, description, team_id, start_date } = req.body;
     const db = req.app.get('db');
     let project = await db.new_project([ team_id, title, description, devHours, start_date ]);
-    res.status(200).send(project[0]);
+    res.status(200).send({message: 'success!', project: project });
   },
 
   // GETS
