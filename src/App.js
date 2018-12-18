@@ -4,6 +4,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import Main from './components/Main.jsx';
 import Signup from './components/Signup.jsx';
 import Home from './components/Home.jsx';
+import Project from './components/Project.jsx';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
             <Route exact path='/' component={ Main } />
             <Route path='/signup' component={ Signup } />
             <Route path='/home' component={ Home } />
+            <Route path='/project' component={ Project } />
           </Switch>
         </HashRouter>
       </div>

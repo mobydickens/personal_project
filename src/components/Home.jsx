@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { userProjects } from '../ducks/reducer';
 import LoggedInHeader from './LoggedInHeader.jsx';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -16,14 +17,14 @@ class Home extends Component {
     const { userId, username, projects } = this.props;
     let projectList = projects.map(project => {
       return (
-        <div 
+        <Link to='/project'><div 
           key={project.id}
           className='border border-grey m-2 p-2 w-64'>
           <h4 className='mt-2'>{project.title}</h4>
           <p>Team {project.name}</p>
           <p>{project.description}</p>
           <p>Start date: {project.start_date}</p>
-        </div>
+        </div></Link>
       )
     })
     return (

@@ -23,7 +23,10 @@ class Main extends Component {
             Sign Up
           </button> 
           <p className='lg:invisible mb-6'>Already a member? 
-            <button className='cursor-pointer hover:grey'> Login</button>
+            <button 
+              className='cursor-pointer hover:grey mx-2'> 
+              Login
+            </button>
           </p>
         </div>
         <div className='bg-green w-screen flex flex-col items-center lg:flex-row lg:justify-center'>
