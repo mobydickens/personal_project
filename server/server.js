@@ -34,7 +34,11 @@ massive(CONNECTION_STRING).then(db => {
 app.post('/auth/signup', controller.signup);
 // LOGIN
 app.post('/auth/login', controller.login);
+//NEW TEAM
+app.post('/api/newteam', controller.newTeam);
 //LOGOUT
 app.get('/auth/logout', controller.logout);
 //INITIAL COMPONENT DID MOUNT GET IN HOME
 app.get('/api/projects', controller.getProjects);
+//WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID
+app.get('/api/member', controller.checkMember);

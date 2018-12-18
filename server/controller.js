@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+
+  // POSTS
   signup: async (req, res) => {
     const { email, username, password } = req.body;
     const db = req.app.get('db');
@@ -31,6 +33,19 @@ module.exports = {
       }
     }
   },
+  newTeam: async (req, res) => {
+    const { name, team } = req.body;
+    console.log("req.body team", team);
+    const db = req.app.get('db');
+    let newTeam = await db.new_team([ name ]);
+    for (let i = 0; i < team.length; i++) {
+      await db.new_connection([ team[i].id, newTeam[0].id ]);
+    }
+    console.log('complete!');
+    res.status(200).send('complete!')
+  },
+
+  // GETS
   logout: (req, res) => {
     req.session.destroy();
     res.status(200).send({ loggedIn: false });
@@ -43,6 +58,16 @@ module.exports = {
       return res.status(200).send(projects);
     } else {
       return res.status(200).send({ loggedIn: false, message: 'Please log in.'})
+    }
+  },
+  checkMember: async (req, res) => {
+    let { email } = req.query;
+    const db = req.app.get('db');
+    let user = await db.find_user([ email ]);
+    if(!user[0]) {
+      res.status(200).send({ found: false, message: 'User not found!'})
+    } else {
+      res.status(200).send({ found: true, message: 'user found!', username: user[0].username, id: user[0].id });
     }
   }
 }
