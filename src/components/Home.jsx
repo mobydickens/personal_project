@@ -9,9 +9,10 @@ class Home extends Component {
 
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
-    if(res.data.loggedIn) {
-      this.props.userProjects(res);
-    }
+    this.props.userProjects(res);
+    //put this back when kingJoff is not logged in
+    // if(res.data.loggedIn) {
+    // }
   }
 
   render() {
@@ -20,11 +21,11 @@ class Home extends Component {
       return (
         <Link key={project.id} to='/project'>
           <div 
-            className='border border-grey m-2 p-2 w-64'>
-            <h4 className='mt-2'>{project.title}</h4>
-            <p>Team {project.name}</p>
-            <p>{project.description}</p>
-            <p>Start date: {project.start_date}</p>
+            className='border border-grey m-2 p-2'>
+            <h4 className='text-black mt-2'>{project.title}</h4>
+            <p className='text-black mt-2'>Team {project.name}</p>
+            <p className='text-black mt-2'>{project.description}</p>
+            <p className='text-black mt-2'>Start date: {project.start_date}</p>
           </div>
         </Link>
       )
@@ -32,12 +33,14 @@ class Home extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='m-4'>
-        { !userId ? "Please log in" : 
-          <div className='flex flex-col w-4/5 lg:flex-row lg:flex-wrap-reverse'>
-            <div>{username}, you are logged in.</div>
-            {projectList}
-          </div>}
+        <div className='m-6'>{username}, you are logged in.</div>
+        <div className='flex justify-center border w-screen'>
+          <div className='m-4'>
+          { !userId ? "Please log in" : 
+            <div className='flex flex-col'>
+              {projectList}
+            </div>}
+          </div>
         </div>
       </div>
     );

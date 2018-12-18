@@ -14,6 +14,17 @@ app.use(session({
   saveUninitialized: false
 }))
 
+app.use(async function authBypass(req, res, next) {
+  if(DEV === 'true') {
+    let db = req.app.get('db');
+    let user = await db.session_user();
+    req.session.user = user[0];
+    next();
+  } else {
+    next();
+  }
+})
+
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);
   app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`));
