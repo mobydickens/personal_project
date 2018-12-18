@@ -15,15 +15,14 @@ class Home extends Component {
     // }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.projects.length !== this.props.projects.length) {
-        console.log('updating')
+      console.log('deleted')
     }
   }
 
   deleteProject = (id) => {
     axios.delete(`/api/deleteproject/${id}`).then(res => {
-      console.log(res.data);
       this.props.userProjects(res);
     });
   }
@@ -35,12 +34,12 @@ class Home extends Component {
         <div
           key={project.id} 
           className='border border-grey m-2 p-2'>
-          <Link to='/project'><h4 className='text-black mt-2'>{project.title}</h4></Link>
+          <Link to={`/project/${project.id}`}><h4 className='text-black mt-2'>{project.title}</h4></Link>
           <p className='mt-2'>Team {project.name}</p>
           <p className='mt-2'>{project.description}</p>
           <p className='mt-2'>Start date: {project.start_date}</p>
           <div className='flex'>
-            <button className='border'>Edit</button>
+            {/* <button onClick={ }className='border'>Edit</button> */}
             <button onClick={ () => this.deleteProject(project.id) } className='border'>Delete</button>
           </div>
         </div>

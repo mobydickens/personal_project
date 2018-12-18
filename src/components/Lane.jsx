@@ -4,8 +4,11 @@ class Lane extends Component {
 
   render() {
     return (
-      <div className='border w-full m-2'>
-        <p className='p-2 bg-grey-light'>To Do</p>
+      <div className='flex flex-col'>
+        <p className='p-2 bg-grey-light'>Task</p>
+        <p className='p-2 bg-grey-light'>Task</p>
+        <p className='p-2 bg-grey-light'>Task</p>
+        <p className='p-2 bg-grey-light'>Task</p>
       </div>
     );
   }
