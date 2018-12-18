@@ -39,7 +39,8 @@ class Team extends Component {
       done: true
     })
   }
-
+  
+  //if you add someone by mistake to your team, this allows you to delete them
   deleteFromTeammates = (i) => {
     const { teammates } = this.state;
     teammates.splice(i, 1);

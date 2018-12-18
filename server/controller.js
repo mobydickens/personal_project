@@ -35,13 +35,11 @@ module.exports = {
   },
   newTeam: async (req, res) => {
     const { name, team } = req.body;
-    console.log("req.body team", team);
     const db = req.app.get('db');
     let newTeam = await db.new_team([ name ]);
     for (let i = 0; i < team.length; i++) {
       await db.new_connection([ team[i].id, newTeam[0].id ]);
     }
-    console.log('complete!');
     res.status(200).send('complete!')
   },
 
@@ -69,5 +67,11 @@ module.exports = {
     } else {
       res.status(200).send({ found: true, message: 'user found!', username: user[0].username, id: user[0].id });
     }
+  },
+  getTeams: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.session.user;
+    let teams = await db.get_user_teams([ id ]);
+    res.status(200).send(teams);
   }
 }
