@@ -40,11 +40,19 @@ class Team extends Component {
     })
   }
 
+  deleteFromTeammates = (i) => {
+    const { teammates } = this.state;
+    teammates.splice(i, 1);
+    this.setState({
+      teammates: teammates
+    })
+  }
+
   render() {
     let team = this.state.teammates.map((user, i) => {
       return (
-        <div key={i}>
-          <p>{user.username}</p>        
+        <div className='flex' key={i}>
+          <p>{user.username}</p><button onClick={ () => this.deleteFromTeammates(i) }className='border'>Delete</button>        
         </div>
       )
     })
