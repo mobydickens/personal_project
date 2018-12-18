@@ -36,6 +36,8 @@ app.post('/auth/signup', controller.signup);
 app.post('/auth/login', controller.login);
 //NEW TEAM
 app.post('/api/newteam', controller.newTeam);
+//NEW PROJECT
+app.post('/api/newproject', controller.newProject);
 //LOGOUT
 app.get('/auth/logout', controller.logout);
 //INITIAL COMPONENT DID MOUNT GET IN HOME

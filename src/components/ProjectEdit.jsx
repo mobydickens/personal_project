@@ -10,7 +10,7 @@ class ProjectEdit extends Component {
     this.state = {
       title: '',
       devHours: '',
-      desc: '',
+      description: '',
       team: '',
       start_date: '',
       teams: [],
@@ -25,6 +25,21 @@ class ProjectEdit extends Component {
     })
   }
 
+  async newProject() {
+    console.log('running?')
+    const { title, devHours, description, start_date, teams } = this.state;
+    let team_id = teams.filter(singleteam => singleteam.name === this.state.team);
+    let res = axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date} );
+    console.log(res.data);
+    this.setState({
+      title: '',
+      devHours: '',
+      description: '',
+      team: '',
+      start_date: ''
+    })
+  }
+
   render() {
     let dropdown = this.state.teams.map(team => {
       return (
@@ -32,6 +47,7 @@ class ProjectEdit extends Component {
       )
     })
     return (
+
       <div>
         <LoggedInHeader />
         <div className='m-6'>
@@ -46,7 +62,7 @@ class ProjectEdit extends Component {
             />
             <label htmlFor="desc">Description:</label><br/>
             <textarea 
-              onChange={ (e) => this.setState({ desc: e.target.value }) }
+              onChange={ (e) => this.setState({ description: e.target.value }) }
               className='border' 
               name="description" 
               rows="5" 
@@ -68,7 +84,7 @@ class ProjectEdit extends Component {
               onChange={ (e) => this.setState({ start_date: e.target.value })} 
               className='input' 
               type="date"/>
-            <button className='border'>Submit</button>
+            <button onClick={ () => this.newProject() }className='border'>Submit</button>
           </form>
         </div>
       </div>
