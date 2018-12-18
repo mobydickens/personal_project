@@ -5,7 +5,7 @@ class LoggedInHeader extends Component {
     return (
       <div className='flex justify-between'>
         <div className='text-2xl m-4 lg:text-3xl lg:m-6'>Name</div>
-        <div className='flex sm:invisible'>
+        <div className='flex invisible lg:visible'>
           <div>New Team</div>
           <div>New Project</div>
           <div>Logout</div>

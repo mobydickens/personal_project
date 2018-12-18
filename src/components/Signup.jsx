@@ -41,19 +41,19 @@ class Signup extends Component {
             <h3 className='self-center'>Welcome to NAME!</h3>
             <input
               onChange={ (e) => this.setState({ email: e.target.value }) }
-              className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline' 
+              className='input' 
               value={ this.state.email }
               placeholder='Enter email' 
               type="text"/>
             <input
               onChange={ (e) => this.setState({ username: e.target.value }) }
-              className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline' 
+              className='input' 
               value={ this.state.username }
               placeholder='Enter username' 
               type="text"/>
             <input
               onChange={ (e) => this.setState({ password: e.target.value }) }
-              className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline' 
+              className='input' 
               value={ this.state.password }
               placeholder='Enter password' 
               type="text"/>

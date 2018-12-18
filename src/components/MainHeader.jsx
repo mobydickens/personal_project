@@ -45,20 +45,20 @@ class MainHeader extends Component {
               <input
                 value={ this.state.email }
                 placeholder='Enter email'
-                className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                className='input'
                 onChange={ (e) => this.setState({ email: e.target.value }) } 
                 type="text"/> 
               <input
                 value={ this.state.password }
                 placeholder='Enter password'
-                className='shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight focus:outline-none focus:shadow-outline'
+                className='input'
                 onChange={ (e) => this.setState({ password: e.target.value }) } 
                 type="password"/>
               <button onClick={ () => this.login() } className='m-6 cursor-pointer hover:grey'> Login</button>
             </div> :
             <div className='flex'>
-              <div className='visible sm:invisible lg:visible m-6'>Already a member?</div>
-              <div onClick={ () => this.showLogin() } className='m-6 cursor-pointer hover:grey'> Login</div>
+              <div className='invisible lg:visible m-6'>Already a member?</div>
+              <div onClick={ () => this.showLogin() } className='m-6 cursor-pointer hover:grey invisible lg:visible'> Login</div>
             </div>
           }
       </div>
