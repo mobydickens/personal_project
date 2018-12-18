@@ -46,3 +46,5 @@ app.get('/api/projects', controller.getProjects);
 app.get('/api/member', controller.checkMember);
 //WHEN GETTING LIST OF TEAMS FOR INDIVIDUAL USER
 app.get('/api/teams', controller.getTeams);
+//DELETE PROJECT
+app.delete('/api/deleteproject/:id', controller.deleteProject);

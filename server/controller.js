@@ -79,5 +79,14 @@ module.exports = {
     const { id } = req.session.user;
     let teams = await db.get_user_teams([ id ]);
     res.status(200).send(teams);
+  },
+
+  // DELETE
+  deleteProject: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    db.delete_project([ id ]);
+    let projects = await db.get_user_projects([ req.session.user.id ])
+    res.status(200).send(projects);
   }
 }

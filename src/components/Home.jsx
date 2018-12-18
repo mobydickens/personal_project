@@ -15,19 +15,35 @@ class Home extends Component {
     // }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.projects.length !== this.props.projects.length) {
+        console.log('updating')
+    }
+  }
+
+  deleteProject = (id) => {
+    axios.delete(`/api/deleteproject/${id}`).then(res => {
+      console.log(res.data);
+      this.props.userProjects(res);
+    });
+  }
+
   render() {
     const { userId, username, projects } = this.props;
     let projectList = projects.map(project => {
       return (
-        <Link key={project.id} to='/project'>
-          <div 
-            className='border border-grey m-2 p-2'>
-            <h4 className='text-black mt-2'>{project.title}</h4>
-            <p className='text-black mt-2'>Team {project.name}</p>
-            <p className='text-black mt-2'>{project.description}</p>
-            <p className='text-black mt-2'>Start date: {project.start_date}</p>
+        <div
+          key={project.id} 
+          className='border border-grey m-2 p-2'>
+          <Link to='/project'><h4 className='text-black mt-2'>{project.title}</h4></Link>
+          <p className='mt-2'>Team {project.name}</p>
+          <p className='mt-2'>{project.description}</p>
+          <p className='mt-2'>Start date: {project.start_date}</p>
+          <div className='flex'>
+            <button className='border'>Edit</button>
+            <button onClick={ () => this.deleteProject(project.id) } className='border'>Delete</button>
           </div>
-        </Link>
+        </div>
       )
     })
     return (
