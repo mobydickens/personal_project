@@ -127,7 +127,7 @@ module.exports = {
     let numId = Number(id);
     await db.delete_all_tasks([ numId ]);
     await db.delete_project([ numId ]);
-    let projects = await db.get_user_projects([ req.session.user.numId ])
+    let projects = await db.get_user_projects([ req.session.user.id ])
     res.status(200).send(projects);
   },
   deleteTask: async (req, res) => {

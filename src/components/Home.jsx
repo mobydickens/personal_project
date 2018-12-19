@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { userProjects } from '../ducks/reducer';
 import LoggedInHeader from './LoggedInHeader.jsx';
-// import { Link } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -14,13 +13,12 @@ class Home extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.projects.length !== this.props.projects.length) {
-      console.log('deleted')
     }
   }
 
   deleteProject = (id) => {
     axios.delete(`/api/deleteproject/${id}`).then(res => {
-      this.props.userProjects(res);
+      this.props.userProjects(res.data);
     });
   }
 
