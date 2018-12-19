@@ -43,12 +43,6 @@ class Project extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if(prevState.needsUpdate !== this.state.needsUpdate) {
-      console.log('component updating!!!');
-    }
-  }
-
   render() {
     let lanes = this.state.laneNames.map((name, i) => {
       return (
@@ -59,7 +53,7 @@ class Project extends Component {
             <div className='m-6'>{name}</div>
             <i onClick={ () => this.setState({ modal: !this.state.modal, status: name, projectId: this.props.match.params.id })} className="fas fa-plus m-6"></i>
           </div>
-          <Lane projectId={this.props.match.params.id} status={name}/>
+          <Lane projectId={this.props.match.params.id} status={name} needsUpdate={this.state.needsUpdate} />
         </div>
       )
     })

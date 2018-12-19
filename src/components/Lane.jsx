@@ -10,13 +10,24 @@ class Lane extends Component {
     this.state = {
       tasks: []
     }
+    this.fetchTasks = this.fetchTasks.bind(this);
   }
   
-  async componentDidMount() {
+  componentWillMount() {
+    this.fetchTasks()
+  }
+
+  async fetchTasks() {
     let res = await axios.get(`/api/tasks?projectid=${this.props.projectId}&status=${this.props.status}`);
     this.setState({
       tasks: res.data
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.needsUpdate !== this.props.needsUpdate) {
+      this.fetchTasks();
+    }
   }
 
   render() {
