@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
+import Task from './Task.jsx';
 
 class Lane extends Component {
 
   render() {
     return (
       <div className='flex flex-col'>
-        <p className='p-2 bg-grey-light'>Task</p>
-        <p className='p-2 bg-grey-light'>Task</p>
-        <p className='p-2 bg-grey-light'>Task</p>
-        <p className='p-2 bg-grey-light'>Task</p>
+        <Task />
       </div>
     );
   }
