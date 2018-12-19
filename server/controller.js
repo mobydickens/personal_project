@@ -73,6 +73,12 @@ module.exports = {
       return res.status(200).send({ loggedIn: false, message: 'Please log in.'})
     }
   },
+  getSingleProject: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    let project = await db.get_single_project([ id ])
+    res.status(200).send(project[0]);
+  },
   getTasks: async (req, res) => {
     const { projectid, status} = req.query;
     const db = req.app.get('db');

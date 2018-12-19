@@ -44,6 +44,8 @@ app.post('/api/task', controller.newTask);
 app.get('/auth/logout', controller.logout);
 //INITIAL COMPONENT DID MOUNT GET IN HOME
 app.get('/api/projects', controller.getProjects);
+//GET PROJECT NAME IN PROJECT VIEW
+app.get('/api/project/:id', controller.getSingleProject);
 //COMPONENT DID MOUNT IN LANE
 app.get('/api/tasks', controller.getTasks);
 //WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID

@@ -19,12 +19,6 @@ class Lane extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.tasks.length !== this.state.tasks.length) {
-      console.log('updating')
-    }
-  }
-  
   render() {
     let tasks = this.state.tasks.map(task => {
       return (

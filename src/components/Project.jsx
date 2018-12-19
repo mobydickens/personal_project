@@ -9,20 +9,31 @@ class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      needsUpdate: false,
       laneNames: ['To Do', 'In Progress', 'Testing', 'Done'],
       modal: false,
       title: '',
       description: '',
       estimate: '',
       status: '',
-      projectId: ''
+      projectId: '',
+      projectName: ''
     }
+    this.addTask = this.addTask.bind(this);
   }
   
+  async componentDidMount() {
+    let res = await axios.get(`/api/project/${this.props.match.params.id}`);
+    this.setState({
+      projectName: res.data.title
+    })
+  }
+
   async addTask() {
     const { title, description, estimate, status, projectId } = this.state;
     await axios.post('/api/task', { title, description, estimate, status, projectId });
     this.setState({
+      needsUpdate: true,
       modal: false,
       title: '',
       description: '',
@@ -32,9 +43,9 @@ class Project extends Component {
     })
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      console.log('updating')
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.needsUpdate !== this.state.needsUpdate) {
+      console.log('component updating!!!');
     }
   }
 
@@ -55,7 +66,7 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <h3 className='m-6'>Individual Project View</h3>
+        <h3 className='m-6'>{this.state.projectName}</h3>
         <div className='flex flex-col lg:flex-row m-6'>
           {lanes}
         </div>
