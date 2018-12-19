@@ -54,3 +54,5 @@ app.get('/api/member', controller.checkMember);
 app.get('/api/teams', controller.getTeams);
 //DELETE PROJECT
 app.delete('/api/deleteproject/:id', controller.deleteProject);
+//DELETE TASK
+app.delete('/api/task/:id', controller.deleteTask);

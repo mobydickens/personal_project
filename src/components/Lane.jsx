@@ -24,10 +24,16 @@ class Lane extends Component {
     })
   }
 
-  componentDidUpdate(prevProps) {
+  //upon task addition update task lists on project page
+  componentDidUpdate(prevProps, prevState) {
     if(prevProps.needsUpdate !== this.props.needsUpdate) {
       this.fetchTasks();
     }
+  }
+
+  async deleteTask(id) {
+    await axios.delete(`/api/task/${id}`);
+    this.fetchTasks();
   }
 
   render() {
@@ -36,6 +42,10 @@ class Lane extends Component {
         <div key={task.id}>
           <div>{task.title}</div>
           <div>{task.description}</div>
+          <div className='flex m-2'>
+            <button>Edit</button>
+            <button onClick={ () => this.deleteTask(task.id) }>Delete</button>
+          </div>
         </div>
       )
     })

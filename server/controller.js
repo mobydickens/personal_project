@@ -109,5 +109,11 @@ module.exports = {
     db.delete_project([ id ]);
     let projects = await db.get_user_projects([ req.session.user.id ])
     res.status(200).send(projects);
+  },
+  deleteTask: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    db.delete_task([ id ]);
+    res.status(200).send('success!');
   }
 }
