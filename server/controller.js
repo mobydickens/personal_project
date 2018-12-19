@@ -48,6 +48,15 @@ module.exports = {
     let project = await db.new_project([ team_id, title, description, devHours, start_date ]);
     res.status(200).send({message: 'success!', project: project });
   },
+  newTask: async (req, res) => {
+    const { title, description, estimate, status, projectId } = req.body;
+    let project_id = Number(projectId);
+    const db = req.app.get('db');
+    let taskArray = await db.all_lane_tasks([ project_id, status ]);
+    let laneOrder = taskArray.length + 1;
+    let newTask = await db.new_task([ projectId, laneOrder, title, description, status, estimate ]);
+    res.status(200).send(newTask);
+  },
 
   // GETS
   logout: (req, res) => {
@@ -63,6 +72,12 @@ module.exports = {
     } else {
       return res.status(200).send({ loggedIn: false, message: 'Please log in.'})
     }
+  },
+  getTasks: async (req, res) => {
+    const { projectid, status} = req.query;
+    const db = req.app.get('db');
+    let tasks = await db.all_lane_tasks([ projectid, status ]);
+    res.status(200).send(tasks);
   },
   checkMember: async (req, res) => {
     let { email } = req.query;

@@ -38,10 +38,14 @@ app.post('/auth/login', controller.login);
 app.post('/api/newteam', controller.newTeam);
 //NEW PROJECT
 app.post('/api/newproject', controller.newProject);
+//NEW TASK
+app.post('/api/task', controller.newTask);
 //LOGOUT
 app.get('/auth/logout', controller.logout);
 //INITIAL COMPONENT DID MOUNT GET IN HOME
 app.get('/api/projects', controller.getProjects);
+//COMPONENT DID MOUNT IN LANE
+app.get('/api/tasks', controller.getTasks);
 //WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID
 app.get('/api/member', controller.checkMember);
 //WHEN GETTING LIST OF TEAMS FOR INDIVIDUAL USER
