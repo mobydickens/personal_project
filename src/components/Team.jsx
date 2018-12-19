@@ -53,7 +53,12 @@ class Team extends Component {
     let team = this.state.teammates.map((user, i) => {
       return (
         <div className='flex' key={i}>
-          <p>{user.username}</p><button onClick={ () => this.deleteFromTeammates(i) }className='border'>Delete</button>        
+          <p className='p-2'>{user.username}</p>
+          <button 
+            onClick={ () => this.deleteFromTeammates(i) }
+            className='ml-2 text-grey-dark'>
+            X
+          </button>        
         </div>
       )
     })
@@ -61,37 +66,45 @@ class Team extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='m-6'>
-          <div>Add a new team</div>
-          <form>
-            <label>Choose team name: </label>
+        <div className='flex flex-col items-center m-6'>
+          <div>Start a new team</div>
+          <form className='bg-grey-lighter flex flex-col items-center w-screen p-6 m-4'>
+            <label className='m-2'>Choose team name: </label>
             <input
               onChange={ (e) => this.setState({ teamName: e.target.value })} 
-              className='input' 
+              className='input-underlined focus:outline-none' 
               type="text" 
               value={ this.state.teamName}
             />
-            <label>Enter email to add teammate: </label>
-            <input
-              onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
-              className='input' 
-              type="text"
-              value={ this.state.memberEmail }/>
-            <button 
-              className='border p-2' 
-              onClick={ () => this.add() }>Add
-            </button>
+            <label className='m-2'>Enter new teammate's email: </label>
+            <div className='flex items-center w-full border-b border-green'>
+              <input
+                onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
+                className='input focus:outline-none' 
+                type="text"
+                value={ this.state.memberEmail }/>
+              <button 
+                onClick={ () => this.add() }>Add
+              </button>
+            </div>
             
             { !this.state.done ?
-              <div>
-                <p>Team members:</p>
-                <div>{team}</div>
-                <button className='border p-2' onClick={ () => this.addTeam() }>Add Team!</button> 
+              <div className='flex flex-col justify-center'>
+                <p className='m-4'>Team members:</p>
+                <div className='m-2'>{team}</div>
+                <button 
+                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
+                  onClick={ () => this.addTeam() }>
+                  <div>Add Team!</div>
+                </button> 
               </div> 
               :
-              <div>
-                <div>Your team has been started!</div>
-                <button onClick={ () => this.props.history.push('/editproject') } className='border p-2'>Start Project!</button>
+              <div className='flex flex-col justify-center m-6'>
+                <div>Your team has been created!</div>
+                <button 
+                  onClick={ () => this.props.history.push('/editproject') } 
+                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6'>Start a Project!
+                </button>
               </div> }
           </form>
         </div>

@@ -560,6 +560,23 @@ table {
   line-height: 1.25;
 }
 
+.input-underlined {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: transparent;
+  width: 100%;
+  color: #606f7b;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 1.25;
+  border-bottom-width: 1px;
+  border-bottom-width: 1px;
+  border-color: #11de30;
+}
+
 .jello {
   letter-spacing: .05em;
   font-family: Josefin Sans, sans-serif;
