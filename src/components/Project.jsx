@@ -3,7 +3,6 @@ import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
 import Lane from './Lane.jsx';
 import axios from 'axios';
-import { stat } from 'fs';
 
 class Project extends Component {
 
@@ -22,7 +21,21 @@ class Project extends Component {
   
   async addTask() {
     const { title, description, estimate, status, projectId } = this.state;
-    let res = await axios.post('/api/task', { title, description, estimate, status, projectId });
+    await axios.post('/api/task', { title, description, estimate, status, projectId });
+    this.setState({
+      modal: false,
+      title: '',
+      description: '',
+      estimate: '',
+      status: '',
+      projectId: ''
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      console.log('updating')
+    }
   }
 
   render() {
@@ -57,8 +70,8 @@ class Project extends Component {
             <label>Description</label>
             <input onChange={ (e) => this.setState({ description: e.target.value })} type="text"/>
             <label>Initial Time Estimate for this task:</label>
-            <input onChange={ (e) => this.setState({ estimate: e.target.value })} type="text"/>
-            <button>Add</button>
+            <input onChange={ (e) => this.setState({ estimate: e.target.value })} type="numbers"/>
+            <button onClick={ () => this.addTask() }>Add</button>
           </div>
         </div>
         : ""

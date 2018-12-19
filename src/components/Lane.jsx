@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import Task from './Task.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTasks } from '../ducks/reducer';
+// import Task from './Task.jsx';
+
 
 class Lane extends Component {
   constructor(props) {
@@ -14,11 +14,15 @@ class Lane extends Component {
   
   async componentDidMount() {
     let res = await axios.get(`/api/tasks?projectid=${this.props.projectId}&status=${this.props.status}`);
-    // this.props.getTasks(res.data);
     this.setState({
       tasks: res.data
     })
-    console.log("Get all tasks response: ", res.data);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.tasks.length !== this.state.tasks.length) {
+      console.log('updating')
+    }
   }
   
   render() {
@@ -37,9 +41,5 @@ class Lane extends Component {
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    tasks: state.tasks
-  }
-}
-export default connect(mapStateToProps, { getTasks })(Lane);
+
+export default connect(null)(Lane);

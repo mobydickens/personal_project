@@ -4,7 +4,6 @@ let initialState = {
   username: 'KingJoff',
   projects: [],
   team: [],
-  tasks: []
 }
 
 // ACTION CONSTANTS
@@ -13,7 +12,6 @@ const USER_LOGIN = 'USER_LOGIN';
 const USER_PROJECTS = 'USER_PROJECTS'; 
 const RESET_STATE = 'RESET_STATE';
 const ADD_NEW_TEAM = 'ADD_NEW_TEAM';
-const GET_TASKS = 'GET_TASKS';
 
 // ACTION CREATORS
 export function userSignup({ userId, username, email }) {
@@ -53,12 +51,6 @@ export function addNewTeam(members) {
     payload: members
   }
 }
-export function getTasks(tasks) {
-  return {
-    type: GET_TASKS,
-    payload: tasks
-  }
-}
 
 // REDUCER
 export default function reducer(state=initialState, action) {
@@ -73,8 +65,6 @@ export default function reducer(state=initialState, action) {
       return { ...state,  userId: '', email: '', username: '', projects: [], team: [], tasks: [] };
     case ADD_NEW_TEAM:
       return { ...state, team: action.payload };
-    case GET_TASKS:
-      return { ...state, tasks: action.payload};
     default: 
       return state;
   }
