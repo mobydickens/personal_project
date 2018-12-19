@@ -39,13 +39,16 @@ class Lane extends Component {
   render() {
     let tasks = this.state.tasks.map(task => {
       return (
-        <div key={task.id}>
-          <div>{task.title}</div>
-          <div>{task.description}</div>
-          <div className='flex m-2'>
-            <button onClick={ () => this.props.getTaskIdToEdit(task.id) }>Edit</button>
-            <button onClick={ () => this.deleteTask(task.id) }>Delete</button>
-            <button>Log</button>
+        <div
+          className='bg-grey-lighter' 
+          key={task.id}>
+          <div className='bg-white m-2'>
+            <div className='p-2'>{task.title}</div>
+            <div className='flex justify-end m-2'>
+              <button className='mx-2 text-grey' onClick={ () => this.props.getTaskIdToEdit(task.id) }>Edit</button>
+              <button className='mx-2 text-grey' onClick={ () => this.deleteTask(task.id) }>Delete</button>
+              <button className='mx-2 text-grey'>Log</button>
+            </div>
           </div>
         </div>
       )

@@ -18,21 +18,21 @@ class Project extends Component {
       editTaskId: ''
     }
   }
-  
+  //this component gets the title of the project to display on the page
   async componentDidMount() {
     let res = await axios.get(`/api/project/${this.props.match.params.id}`);
     this.setState({
       projectName: res.data.title
     })
   }
-
+  //this function gets props and is triggered from the LANE component
   getTaskIdToEdit = (id) => {
     this.setState({
       editTaskId: id,
       modal: true
     })
   }
-
+  //this function is triggered from the newTaskModal component
   setStateFromModal = () => {
     this.setState({
       status: '',
@@ -40,14 +40,22 @@ class Project extends Component {
       needsUpdate: true
     })
   }
-
+  //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
       modal: false
     })
   }
+  //this function is used in newTaskModal component after completing post endpoint for adding a new task
+  componentNeedsUpdate = () => {
+    this.setState({
+      needsUpdate: !this.state.needsUpdate
+    })
+  }
 
   render() {
+
+    // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
     let lanes = this.state.laneNames.map((name, i) => {
       return (
         <div
@@ -74,6 +82,7 @@ class Project extends Component {
         <div className='flex flex-col lg:flex-row p-4'>
           {lanes}
         </div>
+        {/* Below is the modal which is not always visible */}
         { this.state.modal ?
           <NewTaskModal 
             modal={ this.state.modal } 
@@ -81,7 +90,8 @@ class Project extends Component {
             projectId={ this.state.projectId }
             updateStateFn={ this.setStateFromModal }
             editTaskId={ this.state.editTaskId }
-            exitModal={ this.exitModal }/>
+            exitModal={ this.exitModal }
+            needsUpdateFn={ this.componentNeedsUpdate }/>
           : "" }
       </div>
     );

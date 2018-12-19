@@ -25,6 +25,8 @@ class NewTaskModal extends Component {
       description: '',
       estimate: ''
     })
+    this.props.needsUpdateFn();
+    this.props.exitModal();
   }
 
   async editTask() {
