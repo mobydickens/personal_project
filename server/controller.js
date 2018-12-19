@@ -85,6 +85,12 @@ module.exports = {
     let tasks = await db.all_lane_tasks([ projectid, status ]);
     res.status(200).send(tasks);
   },
+  getOneTask: async (req, res) => {
+    const { id } = req.params;
+    const db = req.app.get('db');
+    let task = await db.get_single_task([ Number(id) ]);
+    res.status(200).send(task[0]);
+  },
   checkMember: async (req, res) => {
     let { email } = req.query;
     const db = req.app.get('db');
@@ -100,6 +106,18 @@ module.exports = {
     const { id } = req.session.user;
     let teams = await db.get_user_teams([ id ]);
     res.status(200).send(teams);
+  },
+
+  //PUT
+  editTask: async (req, res) => {
+    console.log('running?')
+    const db = req.app.get('db');
+    const { id } = req.session.user;
+    console.log(id)
+    const { title, description, estimate, projectId } = req.body;
+    console.log(title, description, estimate, projectId)
+    await db.edit_task([ Number(id), Number(projectId), title, description, Number(estimate) ]);
+    res.status(200).send("Success!");
   },
 
   // DELETE

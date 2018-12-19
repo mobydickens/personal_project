@@ -48,10 +48,14 @@ app.get('/api/projects', controller.getProjects);
 app.get('/api/project/:id', controller.getSingleProject);
 //COMPONENT DID MOUNT IN LANE
 app.get('/api/tasks', controller.getTasks);
+//Get one task
+app.get('/api/task/:id', controller.getOneTask)
 //WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID
 app.get('/api/member', controller.checkMember);
 //WHEN GETTING LIST OF TEAMS FOR INDIVIDUAL USER
 app.get('/api/teams', controller.getTeams);
+//Edit Task Details 
+app.put('/api/task/:id', controller.editTask);
 //DELETE PROJECT
 app.delete('/api/deleteproject/:id', controller.deleteProject);
 //DELETE TASK
