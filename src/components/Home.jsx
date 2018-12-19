@@ -32,8 +32,8 @@ class Home extends Component {
       return (
         <div
           key={project.id} 
-          className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm'>
-          <div onClick={ () => this.navigateToProject() }><h4 className='font-josefin text-xl mb-1'>{project.title}</h4></div>
+          className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm w-auto md:w-1/3 lg:w-1/4'>
+          <div onClick={ () => this.navigateToProject(project.id) }><h4 className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</h4></div>
           <p className='pb-2'>{project.name}</p>
           <p>{project.description}</p>
           <div className='flex'>
@@ -52,7 +52,7 @@ class Home extends Component {
         <div className='flex justify-center w-screen'>
           <div>
           { !userId ? "Please log in" : 
-            <div className='flex flex-col w-screen'>
+            <div className='flex flex-col w-screen md:flex-row md:flex-wrap md:ml-8'>
               {projectList}
             </div>}
           </div>
@@ -72,3 +72,4 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { userProjects })(Home);
+// md:flex-row md:flex-wrap md:justify-center lg:flex-row lg:flex-wrap lg:justify-start

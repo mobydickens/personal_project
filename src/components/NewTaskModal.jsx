@@ -53,7 +53,7 @@ class NewTaskModal extends Component {
   render() {
     return (
       <div className='fixed pin-r pin-t w-full h-screen'>
-        <div className='absolute pin-x pin-t h-64 bg-white'>
+        <div className='absolute pin-x pin-t h-64 bg-grey'>
           <button onClick={ () => this.props.exitModal() } className='float-right cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>

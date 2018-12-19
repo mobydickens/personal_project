@@ -51,7 +51,7 @@ class Project extends Component {
     let lanes = this.state.laneNames.map((name, i) => {
       return (
         <div
-          className='border w-full m-2'
+          className='border m-2 lg:w-full'
           key={i}>
           <div className='flex justify-between'>
             <div className='m-6'>{name}</div>
@@ -70,8 +70,8 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <h3 className='m-6'>{this.state.projectName}</h3>
-        <div className='flex flex-col lg:flex-row m-6'>
+        <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
+        <div className='flex flex-col lg:flex-row p-4'>
           {lanes}
         </div>
         { this.state.modal ?
