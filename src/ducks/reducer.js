@@ -37,7 +37,7 @@ export function userLogin({ userId, username, email }) {
 export function userProjects(projects) {
   return {
     type: USER_PROJECTS,
-    payload: projects.data
+    payload: projects
   }
 }
 export function resetState() {

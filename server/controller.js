@@ -124,14 +124,16 @@ module.exports = {
   deleteProject: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    db.delete_project([ id ]);
-    let projects = await db.get_user_projects([ req.session.user.id ])
+    let numId = Number(id);
+    await db.delete_all_tasks([ numId ]);
+    await db.delete_project([ numId ]);
+    let projects = await db.get_user_projects([ req.session.user.numId ])
     res.status(200).send(projects);
   },
   deleteTask: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    db.delete_task([ id ]);
+    db.delete_task([ Number(id) ]);
     res.status(200).send('success!');
   }
 }
