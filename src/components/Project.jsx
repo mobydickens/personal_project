@@ -11,12 +11,12 @@ class Project extends Component {
     super(props);
     this.state = {
       needsUpdate: false,
-      editing: false,
-     
       laneNames: ['To Do', 'In Progress', 'Testing', 'Done'],
-      modal: false
+      modal: false,
+      status: '',
+      projectId: '',
+      editTaskId: ''
     }
-    this.setModal = this.setModal.bind(this);
   }
   
   async componentDidMount() {
@@ -26,15 +26,24 @@ class Project extends Component {
     })
   }
 
-  async setModal(id) {
-    let res = await axios.get(`/api/task/${id}`);
+  getTaskIdToEdit = (id) => {
     this.setState({
-      modal: !this.state.modal,
-      editing: true,
       editTaskId: id,
-      title: res.data.title,
-      description: res.data.description,
-      estimate: res.data.initial_estimate
+      modal: true
+    })
+  }
+
+  setStateFromModal = () => {
+    this.setState({
+      status: '',
+      modal: false,
+      needsUpdate: true
+    })
+  }
+
+  exitModal = () => {
+    this.setState({
+      modal: false
     })
   }
 
@@ -52,7 +61,7 @@ class Project extends Component {
             projectId={this.props.match.params.id} 
             status={ name } 
             needsUpdate={ this.state.needsUpdate }
-            setModalFn={ this.setModal }
+            getTaskIdToEdit={ this.getTaskIdToEdit }
           />
         </div>
       )
@@ -65,6 +74,15 @@ class Project extends Component {
         <div className='flex flex-col lg:flex-row m-6'>
           {lanes}
         </div>
+        { this.state.modal ?
+          <NewTaskModal 
+            modal={ this.state.modal } 
+            status={ this.state.status }
+            projectId={ this.state.projectId }
+            updateStateFn={ this.setStateFromModal }
+            editTaskId={ this.state.editTaskId }
+            exitModal={ this.exitModal }/>
+          : "" }
       </div>
     );
   }

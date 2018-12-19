@@ -43,7 +43,7 @@ class Lane extends Component {
           <div>{task.title}</div>
           <div>{task.description}</div>
           <div className='flex m-2'>
-            <button onClick={ () => this.props.setModalFn(task.id) }>Edit</button>
+            <button onClick={ () => this.props.getTaskIdToEdit(task.id) }>Edit</button>
             <button onClick={ () => this.deleteTask(task.id) }>Delete</button>
             <button>Log</button>
           </div>
