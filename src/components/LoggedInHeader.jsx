@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { resetState } from '../ducks/reducer';
+import Sidebar from './Sidebar.jsx';
 
 class LoggedInHeader extends Component {
 
@@ -22,13 +23,27 @@ class LoggedInHeader extends Component {
     }
   }
 
+  hideSidebar = () => {
+    this.setState({
+      showSidebar: false
+    })
+  }
+
+  hideSidebarLogout = () => {
+    this.setState({
+      showSidebar: false
+    })
+    this.logout();
+  }
+
   render() {
     return (
       <div className='flex justify-between m-8'>
-        <div className={ this.state.showSidebar ? 'flex bg-grey absolute pin w-4/5 h-screen' : 'hidden' }>
-          <div className='font-josefin text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-green m-4'>J</div>
-          <div className='font-josefin text-xl mx-4 my-10'>{this.props.username}</div>
-        </div>
+        <Sidebar 
+          showSidebar={ this.state.showSidebar } 
+          username={ this.props.username }
+          hideSidebarFn={ this.hideSidebar }
+          hideAndLogout={ this.hideSidebarLogout } />
         <div className='jello lg:text-3xl'><span className='text-green'>J</span>ello</div>
         <div className='flex absolute pin-t pin-r invisible lg:visible'>
           <Link to='/home'><button>Home</button></Link>
@@ -49,5 +64,3 @@ function mapPropsToState(state) {
 }
 export default withRouter(connect(mapPropsToState, {resetState})(LoggedInHeader));
 
-//small view, make header show, hide
-// { this.state.showSidebar ? }

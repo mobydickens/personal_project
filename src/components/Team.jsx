@@ -64,17 +64,17 @@ class Team extends Component {
         <div className='m-6'>
           <div>Add a new team</div>
           <form>
+            <label>Choose team name: </label>
             <input
               onChange={ (e) => this.setState({ teamName: e.target.value })} 
               className='input' 
-              placeholder='Team name' 
               type="text" 
               value={ this.state.teamName}
             />
+            <label>Enter email to add teammate: </label>
             <input
               onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
               className='input' 
-              placeholder='Member email' 
               type="text"
               value={ this.state.memberEmail }/>
             <button 

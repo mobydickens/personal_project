@@ -34,7 +34,7 @@ class Home extends Component {
           key={project.id} 
           className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm'>
           <div onClick={ () => this.navigateToProject() }><h4 className='font-josefin text-xl mb-1'>{project.title}</h4></div>
-          <p>{project.name}</p>
+          <p className='pb-2'>{project.name}</p>
           <p>{project.description}</p>
           <div className='flex'>
             {/* <button onClick={ }className='border'>Edit</button> */}
