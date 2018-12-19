@@ -68,15 +68,15 @@ class Team extends Component {
         <LoggedInHeader />
         <div className='flex flex-col items-center m-6'>
           <div>Start a new team</div>
-          <form className='bg-grey-lighter flex flex-col items-center w-screen p-6 m-4'>
-            <label className='m-2'>Choose team name: </label>
+          <form className='bg-grey-lighter flex flex-col w-screen p-6 m-4'>
+            <label className='my-4'>Choose team name: </label>
             <input
               onChange={ (e) => this.setState({ teamName: e.target.value })} 
               className='input-underlined focus:outline-none' 
               type="text" 
               value={ this.state.teamName}
             />
-            <label className='m-2'>Enter new teammate's email: </label>
+            <label className='my-4'>Enter new teammate's email: </label>
             <div className='flex items-center w-full border-b border-green'>
               <input
                 onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
@@ -89,13 +89,13 @@ class Team extends Component {
             </div>
             
             { !this.state.done ?
-              <div className='flex flex-col justify-center'>
-                <p className='m-4'>Team members:</p>
+              <div className='flex flex-col'>
+                <p className='my-4'>Team members:</p>
                 <div className='m-2'>{team}</div>
                 <button 
                   className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
                   onClick={ () => this.addTeam() }>
-                  <div>Add Team!</div>
+                  Add Team!
                 </button> 
               </div> 
               :

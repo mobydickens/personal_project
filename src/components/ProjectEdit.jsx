@@ -54,42 +54,42 @@ class ProjectEdit extends Component {
 
       <div>
         <LoggedInHeader />
-        <div className='m-6'>
+        <div className='flex flex-col items-center m-6'>
           <div>Start a project</div>
-          <form>
-            <label htmlFor="title">Project Name:</label>
+          <form className='bg-grey-lighter flex flex-col w-screen p-6 m-4'>
+            <label className='my-4' htmlFor="title">Project Name:</label>
             <input
               onChange={ (e) => this.setState({ title: e.target.value })} 
-              className='input' 
+              className='input-underlined focus:outline-none'  
               type="text" 
               value={ this.state.title}
             />
-            <label htmlFor="desc">Description:</label><br/>
+            <label className='mt-4' htmlFor="desc">Description:</label><br/>
             <textarea 
               onChange={ (e) => this.setState({ description: e.target.value }) }
-              className='border' 
-              rows="5" 
-              cols="30">
+              className='input-underlined focus:outline-none' 
+              rows="3" 
+              cols="20">
             </textarea><br/>
             <select onChange={ (e) => this.setState( { team: e.target.value })}>
               <option defaultValue="selected">Choose team</option>
               {dropdown}
             </select><br/>
-            <label htmlFor="devhours">Dev hours per day:</label>
+            <label className='my-4' htmlFor="devhours">Dev hours per day:</label>
             <input
               onChange={ (e) => this.setState({ devHours: e.target.value }) }
-              className='input' 
+              className='input-underlined focus:outline-none'  
               type="number"
               value={ this.state.devHours }
             />
-            <label htmlFor="start">Start Date:</label>
+            <label className='my-4' htmlFor="start">Start Date:</label>
             <input
               onChange={ (e) => this.setState({ start_date: e.target.value })} 
-              className='input' 
+              className='input-underlined focus:outline-none'  
               type="date"/>
             <button 
               onClick={ () => this.newProject() } 
-              className='border'>Submit
+              className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6'>Submit
             </button>
           </form>
         </div>
