@@ -22,13 +22,14 @@ class LoggedInHeader extends Component {
       this.props.history.push('/');
     }
   }
-
+  //activated from Sidebar component when Home, New Team, or New Project buttons are clicked
   hideSidebar = () => {
     this.setState({
       showSidebar: false
     })
   }
 
+  //activated from Sidebar component when logout button is clicked
   hideSidebarLogout = () => {
     this.setState({
       showSidebar: false
@@ -39,18 +40,23 @@ class LoggedInHeader extends Component {
   render() {
     return (
       <div className='flex justify-between m-8'>
+      {/* sidebar will only show when bars in header are clicked on in phone view */}
         <Sidebar 
           showSidebar={ this.state.showSidebar } 
           username={ this.props.username }
           hideSidebarFn={ this.hideSidebar }
           hideAndLogout={ this.hideSidebarLogout } />
         <div className='jello lg:text-3xl'><span className='text-green'>J</span>ello</div>
-        <div className='flex absolute pin-t pin-r invisible lg:visible'>
-          <Link to='/home'><button>Home</button></Link>
-          <Link to='/team'><button className='mx-2'>New Team</button></Link>
-          <Link to='/editproject'><button className='mx-2'>New Project</button></Link>
-          <button onClick={ () => this.logout() }className='mx-2'>Logout</button>
+
+        {/* The header navigation below is hidden when in phone view, and bar icon will appear */}
+        <div className='flex absolute pin-t pin-r invisible lg:visible m-8 font-josefin text-xs'>
+          <Link to='/home'><button className='mx-4 hover:text-green'>HOME</button></Link>
+          <Link to='/team'><button className='mx-4 hover:text-green'>NEW TEAM</button></Link>
+          <Link to='/editproject'><button className='mx-4 hover:text-green'>NEW PROJECT</button></Link>
+          <button onClick={ () => this.logout() }className='mx-4 hover:text-green'>LOGOUT</button>
         </div>
+
+        {/* the icon below only shows in phone view - on click will open sidebar for navigation */}
         <div onClick={ () => this.setState({ showSidebar: !this.state.showSidebar }) }><i className="cursor-pointer absolute m-8 pin-t pin-r fas fa-bars lg:invisible text-lg"></i></div>
       </div>
     );

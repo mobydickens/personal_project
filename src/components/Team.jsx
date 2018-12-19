@@ -29,7 +29,7 @@ class Team extends Component {
     }
   }
 
-  //send to back end to add team to db
+  //sends information we gathered in both inputs to back end to add team to db
   async addTeam() {
     const { teamName, teammates } = this.state;
     this.props.addNewTeam(this.state.teammates);
