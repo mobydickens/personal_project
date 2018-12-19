@@ -38,28 +38,36 @@ class MainHeader extends Component {
 
   render() {
     return (
-      <div className='flex justify-between'>
-        <div className='text-2xl m-4 lg:text-3xl lg:m-6'>Name</div>
+      <div className='flex justify-between m-8'>
+        <div className='jello lg:text-3xl'><span className='text-green'>J</span>ello</div>
           { this.state.inputShowing ? 
-            <div className='flex'>
-              <input
-                value={ this.state.email }
-                placeholder='Email'
-                className='input'
-                onChange={ (e) => this.setState({ email: e.target.value }) } 
-                type="text"/> 
-              <input
-                value={ this.state.password }
-                placeholder='Password'
-                className='input'
-                onChange={ (e) => this.setState({ password: e.target.value }) } 
-                type="password"/>
-              <button onClick={ () => this.login() } className='m-6 cursor-pointer hover:grey'> Login</button>
+            <div className='w-full max-w-sm'>
+              <div className='flex items-center border-b border-b-2 border-green py-2'>
+                <input
+                  value={ this.state.email }
+                  placeholder='Email'
+                  className='input focus:outline-none'
+                  onChange={ (e) => this.setState({ email: e.target.value }) } 
+                  type="text"/> 
+                <input
+                  value={ this.state.password }
+                  placeholder='Password'
+                  className='input'
+                  onChange={ (e) => this.setState({ password: e.target.value }) } 
+                  type="password"/>
+                <button
+                  className='flex-no-shrink bg-green hover:bg-green-dark border-green hover:border-green-dark text-sm border-4 text-white py-1 px-2 rounded' 
+                  onClick={ () => this.login() }>LOGIN</button>
+                <button 
+                  className='btn-white'
+                  onClick={ () => this.setState({ inputShowing: !this.state.inputShowing }) }>CANCEL
+                </button>
+              </div>
             </div> :
             <div className='flex'>
-              <div className='invisible lg:visible m-6'>Already a member?</div>
-              <div onClick={ () => this.showLogin() } className='m-6 cursor-pointer hover:grey'> Login</div>
-            </div>
+              <div className='invisible lg:visible text-sm font-josefin'>ALREADY A MEMBER? </div>
+              <div onClick={ () => this.showLogin() } className='btn-white'>LOGIN</div>
+          </div>
           }
       </div>
     );

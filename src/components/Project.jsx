@@ -35,12 +35,21 @@ class Project extends Component {
         <div className='flex flex-col lg:flex-row m-6'>
           {lanes}
         </div>
-        <div className='fixed pin-r pin-t w-full h-screen opacity-0'>
+        { this.state.modal ? 
+        <div className='fixed pin-r pin-t w-full h-screen'>
           <div className='absolute pin-x pin-t h-64 bg-white'>
+            <button onClick={ () => this.setState({ modal: !this.state.modal })} className='float-right cursor-pointer'><i className="fas fa-times"></i></button>
+            <label>Enter a title for this task:</label>
+            <input type="text"/>
+            <label>Description</label>
+            <input type="text"/>
+            <label>Initial Time Estimate for this task:</label>
+            <input type="text"/>
             <button>Add</button>
-            <button>Close</button>
           </div>
         </div>
+        : ""
+        }
       </div>
     );
   }

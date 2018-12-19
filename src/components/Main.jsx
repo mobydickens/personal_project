@@ -13,29 +13,18 @@ class Main extends Component {
         <div>
           <MainHeader />
         </div>
-        <div>
-          <div className='text-2xl mx-4 my-6 lg:m-8 lg:h-32'>Your place for organizing and staying on track.</div>
-        </div>
-        <div className='flex items-center flex-col'>
-          <button
-            onClick={ () => this.signup() } 
-            className='bg-green hover:bg-green-dark text-white border border-green-base py-2 px-4 m-6 rounded'>
-            Sign Up
-          </button> 
-        </div>
-        <div className='bg-green w-screen flex flex-col items-center lg:flex-row lg:justify-center'>
-          <img
-            className='w-3/5 m-6 lg:w-auto lg:h-48'
-            src="https://vignette.wikia.nocookie.net/the-darkest-minds/images/4/47/Placeholder.png/revision/latest?cb=20160927044640" 
-            alt="placeholder" />
-          <img
-            className='w-3/5 m-6 lg:w-auto lg:h-48'
-            src="https://vignette.wikia.nocookie.net/the-darkest-minds/images/4/47/Placeholder.png/revision/latest?cb=20160927044640" 
-            alt="placeholder" />
-            <img
-            className='w-3/5 m-6 lg:w-auto lg:h-48'
-            src="https://vignette.wikia.nocookie.net/the-darkest-minds/images/4/47/Placeholder.png/revision/latest?cb=20160927044640" 
-            alt="placeholder" />
+        <div className='flex m-12 pt-10'>
+          <div className='w-1/2'>
+            <div className='font-josefin text-4xl p-12'>Your place for organizing and staying on track.</div>
+            <button
+              onClick={ () => this.signup() } 
+              className='bg-green hover:bg-green-dark text-white border border-green py-2 px-4 px-4 rounded'>
+              Sign Up
+            </button> 
+          </div>
+          <div className='w-1/2'>
+            <img src="/images/wordcloud2.png" alt="wordcloud"/>
+          </div>
         </div>
       </div>
     );

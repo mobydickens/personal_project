@@ -37,7 +37,6 @@ class Home extends Component {
           <Link to={`/project/${project.id}`}><h4 className='text-black mt-2'>{project.title}</h4></Link>
           <p className='mt-2'>Team {project.name}</p>
           <p className='mt-2'>{project.description}</p>
-          <p className='mt-2'>Start date: {project.start_date}</p>
           <div className='flex'>
             {/* <button onClick={ }className='border'>Edit</button> */}
             <button onClick={ () => this.deleteProject(project.id) } className='border'>Delete</button>

@@ -21,12 +21,24 @@
  @tailwind components;
  
  .input {
-   @apply shadow appearance-none border border-green rounded w-full h-8 py-2 px-3 my-6 mx-2 text-grey-darker leading-tight;
+   @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
 
- .modal {
+ .jello {
+   @apply tracking-wide font-josefin text-2xl;
+ }
+
+ .btn-white {
+   @apply cursor-pointer text-sm font-josefin text-green px-2;
+ }
+
+ /* .modal {
    @apply fixed pin-r pin-t w-full h-screen bg-grey-lighter opacity-0 invisible
  }
+
+.modal-content {
+
+} */
 
  /**
   * Here you would add any of your custom component classes; stuff that you'd
