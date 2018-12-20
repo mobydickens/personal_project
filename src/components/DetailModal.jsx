@@ -40,6 +40,20 @@ class DetailModal extends Component {
     this.props.needsUpdate();
   }
 
+  //see render timelogs variable - this function is invoked upon save of the edits to a timelog
+  async saveTimelogEdit(id) {
+    const { spent_time, estimate_change, comment } = this.state;
+    await axios.put(`/api/timelog/${id}`, { spent_time, estimate_change, comment } );
+    this.getTasksAndLogs();
+    this.setState({
+      editingLog: false,
+      editingId: '',
+      spent_time: '',
+      estimate_change: '',
+      comment: ''
+    })
+  }
+
   render() {
     const { task, logs } = this.state;
     //CALCULATIONS//
@@ -66,16 +80,20 @@ class DetailModal extends Component {
         <div
           className='m-2' 
           key={timelog.id}>
+          {/* this ternary will control whether an item in the history is being edited, and will show/hide inputs */}
           { this.state.editingLog && this.state.editingId === timelog.id ? 
             <div>
+              {/* editing mode */}
               <div>{timelog.username} logged time on {timelog.created_at}</div>
               <div>Time spent: <input onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/></div> 
               <div>Estimate change: <input onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/></div> 
               <div>Comment: <input onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/></div><br/>
-              <button onClick={ () => this.saveTimelogEdit() }>Save</button>
+              <button onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
+              <button onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
             : 
             <div>
+              {/* regular history mode - not editing */}
               <div>{timelog.username} logged time on {timelog.created_at}</div>
               <div>Time spent: {timelog.spent_time}</div>
               <div>Estimate change: {timelog.estimate_change}</div>

@@ -50,6 +50,7 @@ app.get('/api/teams', controller.getTeams); //gets all teams that user is a part
 app.put('/api/updatetitle/:id', controller.updateTitle); //updating TITLE of task. Triggered from edit task component
 app.put('/api/updatedescription/:id', controller.updateDescription); //triggered again from edit task component
 app.put('/api/updatestatus/:id', controller.updateStatus); //status update from INSIDE detail modal and edit task component
+app.put('/api/timelog/:id', controller.editTimelog); //triggered in detail modal component from inside the render. 
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 

@@ -143,6 +143,13 @@ module.exports = {
     let updatedStatus = await db.update_status([ status, id ]);
     res.status(200).send(updatedStatus[0]);
   },
+  editTimelog: async (req, res) => {
+    const db = req.app.get('db');
+    const { spent_time, estimate_change, comment } = req.body;
+    const { id } = req.params;
+    let updatedLog = await db.update_timelog([ id, spent_time, estimate_change, comment ]);
+    res.status(200).send(updatedLog[0]);
+  },
 
   // DELETE
   deleteProject: async (req, res) => {
