@@ -113,6 +113,7 @@ class DetailModal extends Component {
               <div>Time spent: {timelog.spent_time}</div>
               <div>Estimate change: {timelog.estimate_change}</div>
               <div>{timelog.comment}</div>
+              {/* this ternary controls hiding and showing the edit button - only the person who created the timelog can edit it */}
               {  +this.props.userId === timelog.user_id ?
                 <button 
                   onClick={ () => this.setState({

@@ -59,7 +59,7 @@ class EditTask extends Component {
                 value={this.state.title}
                 type="text"/>
               <button onClick={ () => this.updateTitle() } className='mx-2'>Save</button>
-              <button className='mx-2'>Cancel</button> 
+              <button onClick={ () => this.setState({showTitleInput: false }) } className='mx-2'>Cancel</button> 
             </div> }
         </div>
         <div className='my-2'>Created on {this.props.task.created_at}</div>
@@ -76,7 +76,7 @@ class EditTask extends Component {
                 value={this.state.description}
                 type="text"/>
               <button onClick={ () => this.updateDescription() } className='mx-2'>Save</button>
-              <button className='mx-2'>Cancel</button> 
+              <button onClick={ () => this.setState({ showDescriptionInput: false })} className='mx-2'>Cancel</button> 
             </div> 
           }
         </div>
@@ -94,7 +94,7 @@ class EditTask extends Component {
                 <option defaultValue="selected">Done</option>
               </select>
               <button onClick={ () => this.updateStatus() } className='mx-2'>Save</button>
-              <button className='mx-2'>Cancel</button> 
+              <button onClick={ () => this.setState({ showStatusSelector: false })} className='mx-2'>Cancel</button> 
             </div> 
           }
         </div>

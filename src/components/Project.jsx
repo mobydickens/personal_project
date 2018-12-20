@@ -5,6 +5,7 @@ import Lane from './Lane.jsx';
 import axios from 'axios';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
+import { userProjects } from '../ducks/reducer';
 
 class Project extends Component {
 
@@ -46,6 +47,13 @@ class Project extends Component {
       detailTaskId: id
     })
   }
+  // triggered by close button on this page under the header
+  deleteProject = (id) => {
+    axios.delete(`/api/deleteproject/${id}`).then(res => {
+      this.props.userProjects(res.data);
+    });
+    this.props.history.push('/home');
+  }
 
   render() {
 
@@ -74,7 +82,14 @@ class Project extends Component {
       <div>
         <LoggedInHeader />
         <div className='w-screen h-screen bg-grey-lighter pt-4'>
-          <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
+          <div className='flex justify-between'>
+            <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
+            <button 
+              onClick={ () => this.deleteProject(this.props.match.params.id) } 
+              className='p-4 mx-6 text-sm'>
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
           <div className='flex flex-col lg:flex-row p-4'>
             {lanes}
           </div>
@@ -100,4 +115,4 @@ class Project extends Component {
   }
 }
 
-export default connect(null)(Project);
+export default connect(null, { userProjects })(Project);

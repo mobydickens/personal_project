@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { userProjects } from '../ducks/reducer';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
+import { userProjects } from '../ducks/reducer';
 
 class Home extends Component {
 
@@ -16,12 +16,6 @@ class Home extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.projects.length !== this.props.projects.length) {
     }
-  }
-
-  deleteProject = (id) => {
-    axios.delete(`/api/deleteproject/${id}`).then(res => {
-      this.props.userProjects(res.data);
-    });
   }
 
   navigateToProject = (id) => {
@@ -38,11 +32,6 @@ class Home extends Component {
           <div onClick={ () => this.navigateToProject(project.id) }><div className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</div></div>
           <p className='pb-2'>{project.name}</p>
           <p>{project.description}</p>
-          <div className='flex'>
-            <button 
-              onClick={ () => this.deleteProject(project.id) } 
-              className='p-2 text-sm'>Delete</button>
-          </div>
         </div>
       )
     })
