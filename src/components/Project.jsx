@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
 import Lane from './Lane.jsx';
-import axios from 'axios';
+// import axios from 'axios';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
 import { userProjects } from '../ducks/reducer';
+import ProjectHeader from './ProjectHeader.jsx';
 
 class Project extends Component {
 
@@ -18,16 +19,11 @@ class Project extends Component {
       status: '',
       projectId: '',
       detailModal: false,
-      detailTaskId: ''
+      detailTaskId: '',
+   
     }
   }
-  //this component gets the title of the project to display on the page
-  async componentDidMount() {
-    let res = await axios.get(`/api/project/${this.props.match.params.id}`);
-    this.setState({
-      projectName: res.data.title
-    })
-  }
+  
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
@@ -47,16 +43,8 @@ class Project extends Component {
       detailTaskId: id
     })
   }
-  // triggered by close button on this page under the header
-  deleteProject = (id) => {
-    axios.delete(`/api/deleteproject/${id}`).then(res => {
-      this.props.userProjects(res.data);
-    });
-    this.props.history.push('/home');
-  }
 
   render() {
-
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
     let lanes = this.state.laneNames.map((name, i) => {
       return (
@@ -82,14 +70,7 @@ class Project extends Component {
       <div>
         <LoggedInHeader />
         <div className='w-screen h-screen bg-grey-lighter pt-4'>
-          <div className='flex justify-between'>
-            <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
-            <button 
-              onClick={ () => this.deleteProject(this.props.match.params.id) } 
-              className='p-4 mx-6 text-sm'>
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
+          <ProjectHeader />
           <div className='flex flex-col lg:flex-row p-4'>
             {lanes}
           </div>

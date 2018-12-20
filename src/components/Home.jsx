@@ -49,7 +49,7 @@ class Home extends Component {
           <div className='flex justify-center'>
             <div>
             { !userId ? <Redirect to='/'></Redirect> : 
-              <div className='flex flex-col-reverse w-screen md:flex-row md:flex-wrap-reverse md:ml-8'>
+              <div className='flex flex-col-reverse w-screen md:flex-row md:flex-wrap md:ml-8'>
                 {projectList}
               </div>}
             </div>

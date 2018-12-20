@@ -1,2 +1,2 @@
-SELECT title FROM projects
+SELECT title, description FROM projects
 WHERE id=$1;
