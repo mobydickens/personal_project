@@ -57,6 +57,12 @@ module.exports = {
     let newTask = await db.new_task([ projectId, laneOrder, title, description, status, estimate ]);
     res.status(200).send(newTask);
   },
+  newTimelog: async (req, res) => {
+    const { spent_time, estimate_change, comment, taskId, userId } = req.body;
+    const db = req.app.get('db');
+    await db.new_timelog([ taskId, userId, spent_time, estimate_change, comment ]);
+    res.status(200).send('New log has been added. Good job everybody!');
+  },
 
   // GETS
   logout: (req, res) => {

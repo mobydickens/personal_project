@@ -36,6 +36,7 @@ app.post('/auth/login', controller.login); //login
 app.post('/api/newteam', controller.newTeam); //create a NEW team
 app.post('/api/newproject', controller.newProject); //create a NEW project
 app.post('/api/task', controller.newTask); //create a NEW task
+app.post('/api/timelog', controller.newTimelog); //creates a new timelog in timelogs table
 
 app.get('/auth/logout', controller.logout); //logs user out and destroys session
 app.get('/api/projects', controller.getProjects); //gets projects from component did mount in HOME component
@@ -46,7 +47,7 @@ app.get('/api/details/:id', controller.details); //get ALL timelogs for ONE task
 app.get('/api/member', controller.checkMember); //when adding teammate, check if email is in the database
 app.get('/api/teams', controller.getTeams); //gets all teams that user is a part of
 
-app.put('/api/task/:id', controller.editTask); // edit task details
+app.put('/api/task/:id', controller.editTask); // edit task details (DOESN'T WORK ATM)
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 

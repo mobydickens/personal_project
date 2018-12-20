@@ -14,7 +14,6 @@ class DetailModal extends Component {
   
   async componentDidMount() {
     let res = await axios.get(`/api/details/${this.props.detailTaskId}`);
-    console.log(res.data)
     this.setState({
       task: res.data.task[0],
       logs: res.data.logs
