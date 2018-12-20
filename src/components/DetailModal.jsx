@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import LogTime from './LogTime.jsx';
 import EditTask from './EditTask.jsx';
+import { connect } from 'react-redux';
 
 class DetailModal extends Component {
 
@@ -39,6 +40,20 @@ class DetailModal extends Component {
     this.props.detailModal();
     this.props.needsUpdate();
   }
+
+  // checkIfUser = (id, timelogid, spent, change, comment) => {
+  //   console.log(id, this.props.userId)
+  //   if(+this.props.userId === +id) {
+  //   this.setState({
+  //     editingLog: true, 
+  //     editingId: timelogid, 
+  //     spent_time: spent,
+  //     estimate_change: change,
+  //     comment: comment })
+  //   } else {
+  //     console.log('You can only edit your own timelogs')
+  //   }
+  // }
 
   //see render timelogs variable - this function is invoked upon save of the edits to a timelog
   async saveTimelogEdit(id) {
@@ -97,11 +112,20 @@ class DetailModal extends Component {
               <div>{timelog.username} logged time on {timelog.created_at}</div>
               <div>Time spent: {timelog.spent_time}</div>
               <div>Estimate change: {timelog.estimate_change}</div>
-              <div>{timelog.comment}</div> 
-              <button 
-                onClick={ () => this.setState({ editingLog: true, editingId: timelog.id, spent_time: timelog.spent_time, estimate_change: timelog.estimate_change, comment: timelog.comment }) }>
-                Edit
-              </button>
+              <div>{timelog.comment}</div>
+              {  +this.props.userId === timelog.user_id ?
+                <button 
+                  onClick={ () => this.setState({
+                    editingLog: true,
+                    editingId: timelog.id,
+                    spent_time: timelog.spent_time,
+                    estimate_change: timelog.estimate_change,
+                    comment: timelog.comment
+                  }) }>
+                  Edit
+                </button>
+                : ""
+              } 
             </div>
             }
         </div>
@@ -149,4 +173,9 @@ class DetailModal extends Component {
   }
 }
 
-export default DetailModal;
+function mapState(state) {
+  return{
+    userId: state.userId
+  }
+}
+export default connect(mapState)(DetailModal);
