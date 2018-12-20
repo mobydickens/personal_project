@@ -9,7 +9,13 @@ class DetailModal extends Component {
     super(props);
     this.state = {
       task: {},
-      logs: []
+      logs: [],
+      editingLog: false,
+      editingId: '',
+      spent_time: '',
+      estimate_change: '',
+      comment: ''
+
     }
     this.getTasksAndLogs = this.getTasksAndLogs.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
@@ -54,16 +60,32 @@ class DetailModal extends Component {
     // remaining calculates with current estimate, not original
     let remaining = currentEstimate - timeSpent;
     
-    //the map below makes a div of log history for each timelog
+    //the map below makes a div of log history for each timelog that is created in the LogTime component
     let timelogs = this.state.logs.map(timelog => {
       return (
         <div
           className='m-2' 
           key={timelog.id}>
-          <div>{timelog.username} logged time on {timelog.created_at}</div>
-          <div>Time spent: {timelog.spent_time}</div>
-          <div>Estimate change: {timelog.estimate_change}</div>
-          <div>{timelog.comment}</div>
+          { this.state.editingLog && this.state.editingId === timelog.id ? 
+            <div>
+              <div>{timelog.username} logged time on {timelog.created_at}</div>
+              <div>Time spent: <input onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/></div> 
+              <div>Estimate change: <input onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/></div> 
+              <div>Comment: <input onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/></div><br/>
+              <button onClick={ () => this.saveTimelogEdit() }>Save</button>
+            </div>
+            : 
+            <div>
+              <div>{timelog.username} logged time on {timelog.created_at}</div>
+              <div>Time spent: {timelog.spent_time}</div>
+              <div>Estimate change: {timelog.estimate_change}</div>
+              <div>{timelog.comment}</div> 
+              <button 
+                onClick={ () => this.setState({ editingLog: true, editingId: timelog.id, spent_time: timelog.spent_time, estimate_change: timelog.estimate_change, comment: timelog.comment }) }>
+                Edit
+              </button>
+            </div>
+            }
         </div>
       )
     })
