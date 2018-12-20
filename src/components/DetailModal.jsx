@@ -81,7 +81,8 @@ class DetailModal extends Component {
             <hr/>
             <EditTask 
               task={ task }
-              getTasksAndLogs={ this.getTasksAndLogs} />
+              getTasksAndLogs={ this.getTasksAndLogs}
+              needsUpdate={ this.props.needsUpdate } />
             <div>
               <button onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
             </div>

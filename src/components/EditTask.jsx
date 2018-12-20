@@ -11,7 +11,7 @@ class EditTask extends Component {
       status: '',
       showTitleInput: false,
       showDescriptionInput: false,
-      showStatusInput: false
+      showStatusSelector: false
     }
   }
   
@@ -30,6 +30,16 @@ class EditTask extends Component {
     this.setState({
       showDescriptionInput: false,
       description: ''
+    })
+  }
+
+  async updateStatus() {
+    await axios.put(`/api/updatestatus/${this.props.task.id}`, { status: this.state.status })
+    this.props.getTasksAndLogs();
+    this.props.needsUpdate();
+    this.setState({
+      showStatusSelector: false,
+      status: ''
     })
   }
 
@@ -57,9 +67,9 @@ class EditTask extends Component {
           onClick={ () => this.setState({ showDescriptionInput: true, description: this.props.task.description }) } 
           className='my-2'>
           { !this.state.showDescriptionInput ?
-          <div>Description: {this.props.task.description}</div>
-          :
-          <div className='flex flex-col lg:flex-row lg:border-b border-white py-2'>
+            <div>Description: {this.props.task.description}</div>
+            :
+            <div className='flex flex-col lg:flex-row lg:border-b border-white py-2'>
               <input
                 onChange={ (e) => this.setState({ description: e.target.value}) }
                 className='input focus:outline-none bg-grey'
@@ -67,9 +77,27 @@ class EditTask extends Component {
                 type="text"/>
               <button onClick={ () => this.updateDescription() } className='mx-2'>Save</button>
               <button className='mx-2'>Cancel</button> 
-            </div> }
+            </div> 
+          }
         </div>
-        {/* <div onClick={  }className='my-2'>In lane: {this.props.task.status}</div> */}
+        <div 
+          onClick={ () => this.setState({showStatusSelector: true, status: this.props.task.status }) }
+          className='my-2'>
+          { !this.state.showStatusSelector ? 
+            <div>In lane: {this.props.task.status}</div>
+            : 
+            <div className='flex flex-col lg:flex-row lg:border-b border-white py-2'>
+              <select onChange={ (e) => this.setState( { status: e.target.value })}>
+                <option defaultValue="selected">To Do</option>
+                <option defaultValue="selected">In Progress</option>
+                <option defaultValue="selected">Testing</option>
+                <option defaultValue="selected">Done</option>
+              </select>
+              <button onClick={ () => this.updateStatus() } className='mx-2'>Save</button>
+              <button className='mx-2'>Cancel</button> 
+            </div> 
+          }
+        </div>
       </div>
     );
   }

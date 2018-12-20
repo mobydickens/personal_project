@@ -93,7 +93,7 @@ class Project extends Component {
             : <DetailModal 
               detailTaskId={ this.state.detailTaskId }
               detailModal={ this.openDetailModal }
-              needsUpdate={ this.componentNeedsUpdate }/> }
+              needsUpdate={ this.componentNeedsUpdate } /> }
         </div>
       </div>
     );

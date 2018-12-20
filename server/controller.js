@@ -140,6 +140,8 @@ module.exports = {
     const db = req.app.get('db');
     const { status } = req.body;
     const { id } = req.params;
+    let updatedStatus = await db.update_status([ status, id ]);
+    res.status(200).send(updatedStatus[0]);
   },
 
   // DELETE

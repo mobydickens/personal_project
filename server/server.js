@@ -47,8 +47,9 @@ app.get('/api/details/:id', controller.details); //get ALL timelogs for ONE task
 app.get('/api/member', controller.checkMember); //when adding teammate, check if email is in the database
 app.get('/api/teams', controller.getTeams); //gets all teams that user is a part of
 
-app.put('/api/updatetitle/:id', controller.updateTitle); //updating TITLE of task. Triggered from detail modal component
-app.put('/api/updatedescription/:id', controller.updateDescription); //triggered again from detail modal component
+app.put('/api/updatetitle/:id', controller.updateTitle); //updating TITLE of task. Triggered from edit task component
+app.put('/api/updatedescription/:id', controller.updateDescription); //triggered again from edit task component
+app.put('/api/updatestatus/:id', controller.updateStatus); //status update from INSIDE detail modal and edit task component
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 
