@@ -48,6 +48,7 @@ app.get('/api/member', controller.checkMember); //when adding teammate, check if
 app.get('/api/teams', controller.getTeams); //gets all teams that user is a part of
 
 app.put('/api/updatetitle/:id', controller.updateTitle); //updating TITLE of task. Triggered from detail modal component
+app.put('/api/updatedescription/:id', controller.updateDescription); //triggered again from detail modal component
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 

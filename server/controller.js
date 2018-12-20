@@ -129,6 +129,18 @@ module.exports = {
     let updatedTitle = await db.update_task_title([ title, id ]);
     res.status(200).send(updatedTitle[0]);
   },
+  updateDescription: async (req, res) => {
+    const db = req.app.get('db');
+    const { description } = req.body;
+    const { id } = req.params;
+    let updatedDescription = await db.update_task_description([ description, id ]);
+    res.status(200).send(updatedDescription[0]);
+  },
+  updateStatus: async (req, res) => {
+    const db = req.app.get('db');
+    const { status } = req.body;
+    const { id } = req.params;
+  },
 
   // DELETE
   deleteProject: async (req, res) => {
