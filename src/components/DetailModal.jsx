@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import LogTime from './LogTime.jsx';
 
 class DetailModal extends Component {
 
@@ -73,31 +74,16 @@ class DetailModal extends Component {
             <div>In lane: {task.status}</div>
           </div>
           <div className='border w-full p-4'>
-            <div>
-              <div>Log time:</div>
-              <label>Time spent: </label>
-              <input
-                className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4' 
-                type="text"/>
-              <label>Estimate change: </label>
-              <input 
-                className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4'
-                type="text"/>
-              <label>Comment: </label>
-              <input 
-                className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4'
-                type="text"/>
-              <button className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' >Save</button>
-            </div>
-            { !logs ? "" :
+            <LogTime taskId={ this.props.detailTaskId }/>
+            { !logs[0] ? "" :
               <div className='m-2'>
                 <div>History</div>
                 {timelogs}
               </div>
             }
-            </div>
           </div>
         </div>
+      </div>
     );
   }
 }

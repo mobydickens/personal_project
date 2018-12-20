@@ -30,35 +30,23 @@ massive(CONNECTION_STRING).then(db => {
   app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`));
 });
 
-// SIGN UP
-app.post('/auth/signup', controller.signup);
-// LOGIN
-app.post('/auth/login', controller.login);
-//NEW TEAM
-app.post('/api/newteam', controller.newTeam);
-//NEW PROJECT
-app.post('/api/newproject', controller.newProject);
-//NEW TASK
-app.post('/api/task', controller.newTask);
-//LOGOUT
-app.get('/auth/logout', controller.logout);
-//INITIAL COMPONENT DID MOUNT GET IN HOME
-app.get('/api/projects', controller.getProjects);
-//GET PROJECT NAME IN PROJECT VIEW
-app.get('/api/project/:id', controller.getSingleProject);
-//COMPONENT DID MOUNT IN LANE
-app.get('/api/tasks', controller.getTasks);
-//Get one task
-app.get('/api/task/:id', controller.getOneTask)
-//get timelogs for one task:
-app.get('/api/details/:id', controller.details);
-//WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID
-app.get('/api/member', controller.checkMember);
-//WHEN GETTING LIST OF TEAMS FOR INDIVIDUAL USER
-app.get('/api/teams', controller.getTeams);
-//Edit Task Details 
-app.put('/api/task/:id', controller.editTask);
-//DELETE PROJECT
-app.delete('/api/deleteproject/:id', controller.deleteProject);
-//DELETE TASK
-app.delete('/api/task/:id', controller.deleteTask);
+
+app.post('/auth/signup', controller.signup); //signup
+app.post('/auth/login', controller.login); //login
+app.post('/api/newteam', controller.newTeam); //create a NEW team
+app.post('/api/newproject', controller.newProject); //create a NEW project
+app.post('/api/task', controller.newTask); //create a NEW task
+
+app.get('/auth/logout', controller.logout); //logs user out and destroys session
+app.get('/api/projects', controller.getProjects); //gets projects from component did mount in HOME component
+app.get('/api/project/:id', controller.getSingleProject); //gets project name for individual project view
+app.get('/api/tasks', controller.getTasks); //gets tasks in lanes with a component did mount in LANE component
+app.get('/api/task/:id', controller.getOneTask); //get ONE task
+app.get('/api/details/:id', controller.details); //get ALL timelogs for ONE task
+app.get('/api/member', controller.checkMember); //when adding teammate, check if email is in the database
+app.get('/api/teams', controller.getTeams); //gets all teams that user is a part of
+
+app.put('/api/task/:id', controller.editTask); // edit task details
+
+app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
+app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 

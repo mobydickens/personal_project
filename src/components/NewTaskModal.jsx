@@ -57,7 +57,7 @@ class NewTaskModal extends Component {
           <input 
             className='input-underlined focus:outline-none m-2 bg-grey border-white' 
             onChange={ (e) => this.setState({ estimate: e.target.value })} 
-            type="numbers"
+            type="number"
             value={ this.state.estimate } /><br/>
           <div className='flex justify-end'>
             { !this.state.editing ? 
