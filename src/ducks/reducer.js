@@ -3,8 +3,7 @@ let initialState = {
   email: 'joff@email.com',
   username: 'KingJoff',
   projects: [],
-  team: [],
-  editTaskId: ''
+  team: []
 }
 
 // ACTION CONSTANTS
@@ -64,7 +63,7 @@ export default function reducer(state=initialState, action) {
     case USER_PROJECTS:
       return { ...state, projects: action.payload };
     case RESET_STATE:
-      return { ...state,  userId: '', email: '', username: '', projects: [], team: [], editTaskId: '' };
+      return { ...state,  userId: '', email: '', username: '', projects: [], team: [] };
     case ADD_NEW_TEAM:
       return { ...state, team: action.payload };
     default: 

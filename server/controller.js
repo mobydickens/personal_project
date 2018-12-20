@@ -91,6 +91,13 @@ module.exports = {
     let task = await db.get_single_task([ Number(id) ]);
     res.status(200).send(task[0]);
   },
+  details: async (req, res) => {
+    const { id } = req.params;
+    const db = req.app.get('db');
+    let task = await await db.get_single_task([ Number(id) ]);
+    let logs = await db.get_logs([ Number(id) ]);
+    res.status(200).send( { task, logs} );
+  },
   checkMember: async (req, res) => {
     let { email } = req.query;
     const db = req.app.get('db');

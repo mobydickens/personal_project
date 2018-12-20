@@ -50,6 +50,8 @@ app.get('/api/project/:id', controller.getSingleProject);
 app.get('/api/tasks', controller.getTasks);
 //Get one task
 app.get('/api/task/:id', controller.getOneTask)
+//get timelogs for one task:
+app.get('/api/details/:id', controller.details);
 //WHEN ADDING NEW TEAM MEMBER, CHECK IF EMAIL IS VALID
 app.get('/api/member', controller.checkMember);
 //WHEN GETTING LIST OF TEAMS FOR INDIVIDUAL USER
