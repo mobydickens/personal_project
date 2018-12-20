@@ -14,9 +14,12 @@ class NewTaskModal extends Component {
       estimate: ''
     }
     this.addTask = this.addTask.bind(this);
-    this.editTask = this.setModal.bind(this);
-    this.setModal = this.setModal.bind(this);
   }
+
+  // componentDidMount() {
+  //   console.log('running');
+  //   //fetch task information -> put get request here
+  // }
   //adds a new task to any of the lanes depending on which status was passed in as props
   async addTask() {
     const { title, description, estimate } = this.state;
@@ -29,30 +32,6 @@ class NewTaskModal extends Component {
     })
     this.props.needsUpdateFn();
     this.props.exitModal();
-  }
-  //will edit task 
-  async editTask() {
-    console.log('running on the front?')
-    const { title, description, estimate } = this.state;
-    const { projectId, editTaskId } = this.props;
-    let res = await axios.put(`/api/task/${editTaskId}`, { title, description, estimate, projectId } )
-    console.log("Testing testing", res);
-    this.setState({
-      editTaskId: '',
-    })
-  }
- 
-  // will input modal with information from task when clicked on for editing
-  async setModal() {
-    let res = await axios.get(`/api/task/${this.props.editTaskId}`);
-    this.props.setStateFn();
-    this.setState({
-      editing: true,
-      editTaskId: this.props.editTaskId,
-      title: res.data.title,
-      description: res.data.description,
-      estimate: res.data.initial_estimate
-    })
   }
 
   render() {

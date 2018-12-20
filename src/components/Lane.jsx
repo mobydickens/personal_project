@@ -48,8 +48,6 @@ class Lane extends Component {
           <div className='bg-white m-2'>
             <div className='p-2'>{task.title}</div>
             <div className='flex justify-end m-2'>
-              {/* this function comes from the reducer to get the task id that needs to be edited */}
-              <button className='mx-2 text-grey' onClick={ () => this.props.triggerEdit(task.id) }>Edit</button>
               <button className='mx-2 text-grey' onClick={ () => this.deleteTask(task.id) }>Delete</button>
               <button className='mx-2 text-grey'>Log</button>
             </div>
