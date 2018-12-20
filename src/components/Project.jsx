@@ -24,14 +24,6 @@ class Project extends Component {
       projectName: res.data.title
     })
   }
-  //this function is triggered from the newTaskModal component
-  setStateFromModal = () => {
-    this.setState({
-      status: '',
-      modal: false,
-      needsUpdate: true
-    })
-  }
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
@@ -42,12 +34,6 @@ class Project extends Component {
   componentNeedsUpdate = () => {
     this.setState({
       needsUpdate: !this.state.needsUpdate
-    })
-  }
-
-  triggerEdit = (id) => {
-    this.setState({
-      modal: true
     })
   }
 
@@ -87,7 +73,6 @@ class Project extends Component {
             status={ this.state.status }
             projectId={ this.state.projectId }
             updateStateFn={ this.setStateFromModal }
-            editTaskId={ this.state.editTaskId }
             exitModal={ this.exitModal }
             needsUpdateFn={ this.componentNeedsUpdate }
             triggerEdit/>

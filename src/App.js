@@ -7,6 +7,7 @@ import Home from './components/Home.jsx';
 import Project from './components/Project.jsx';
 import Team from './components/Team.jsx';
 import ProjectEdit from './components/ProjectEdit.jsx';
+import Reports from './components/Reports.jsx';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
             <Route path='/project/:id' component={ Project } />
             <Route path='/team' component={ Team } />
             <Route path='/editproject' component={ ProjectEdit }/>
+            <Route path='/reports' component={ Reports }/>
           </Switch>
         </HashRouter>
       </div>

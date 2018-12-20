@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-// import { getTaskId } from '../ducks/reducer';
-// import Task from './Task.jsx';
-
 
 class Lane extends Component {
   constructor(props) {

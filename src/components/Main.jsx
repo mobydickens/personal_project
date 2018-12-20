@@ -13,7 +13,7 @@ class Main extends Component {
         <div>
           <MainHeader />
         </div>
-        <div className='flex m-2 p-2 flex-col lg:m-12 lg:pt-10 lg:flex-row'>
+        <div className='flex m-2 p-2 flex-col lg:m-12 lg:pt-10 lg:flex-row lg:justify-center'>
           <div className='flex flex-col w-full lg:w-1/2'>
             <div className='font-josefin p-6 text-3xl lg:text-4xl lg:p-12'>Your place for organizing and staying on track.</div>
             <div>
@@ -24,7 +24,7 @@ class Main extends Component {
               </button> 
             </div>
           </div>
-          <div className='p-4 w-full lg:w-1/2'>
+          <div className='p-4 w-full lg:w-2/5'>
             <img src="/images/wordcloud2.png" alt="wordcloud"/>
           </div>
         </div>

@@ -66,7 +66,7 @@ class MainHeader extends Component {
                 </div>
     return (
       <div>
-        <div className='flex justify-between m-8'>
+        <div className='flex justify-between m-6'>
           <div className='jello lg:text-3xl'><span className='text-green'>J</span>ello</div>
             { this.state.inputShowing ? 
               <div className='hidden lg:block w-full max-w-sm'>

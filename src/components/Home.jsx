@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { userProjects } from '../ducks/reducer';
 import LoggedInHeader from './LoggedInHeader.jsx';
+import { Redirect } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -32,12 +34,11 @@ class Home extends Component {
       return (
         <div
           key={project.id} 
-          className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm w-auto md:w-1/3 lg:w-1/4'>
-          <div onClick={ () => this.navigateToProject(project.id) }><h4 className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</h4></div>
+          className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm w-auto md:w-1/3 lg:w-1/4 bg-white'>
+          <div onClick={ () => this.navigateToProject(project.id) }><div className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</div></div>
           <p className='pb-2'>{project.name}</p>
           <p>{project.description}</p>
           <div className='flex'>
-            {/* <button onClick={ }className='border'>Edit</button> */}
             <button 
               onClick={ () => this.deleteProject(project.id) } 
               className='p-2 text-sm'>Delete</button>
@@ -48,13 +49,21 @@ class Home extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='font-josefin m-6'>Welcome back, {username}</div>
-        <div className='flex justify-center w-screen'>
-          <div>
-          { !userId ? "Please log in" : 
-            <div className='flex flex-col-reverse w-screen md:flex-row md:flex-wrap-reverse md:ml-8'>
-              {projectList}
-            </div>}
+        <div className='w-screen h-screen bg-grey-lighter pt-4'>
+        <div className='flex justify-between'>
+          <div className='font-josefin m-4'>Welcome back, {username}</div>
+          <Link className='no-underline' to='/editproject'><div 
+            className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
+            <i className="fas fa-plus m-4 px-8"></i>
+          </div></Link>
+        </div>
+          <div className='flex justify-center'>
+            <div>
+            { !userId ? <Redirect to='/'></Redirect> : 
+              <div className='flex flex-col-reverse w-screen md:flex-row md:flex-wrap-reverse md:ml-8'>
+                {projectList}
+              </div>}
+            </div>
           </div>
         </div>
       </div>
