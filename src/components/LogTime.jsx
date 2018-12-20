@@ -21,6 +21,7 @@ class LogTime extends Component {
       estimate_change: '',
       comment: '',
     })
+    this.props.getTasksAndLogs();
   }
   
   render() {
@@ -47,7 +48,7 @@ class LogTime extends Component {
           value={ this.state.comment } />
         <button
           onClick={ () => this.newTimelog() } 
-          className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' >Save</button>
+          className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 focus:outline-none' >Save</button>
       </div>
     );
   }

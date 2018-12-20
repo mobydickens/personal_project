@@ -52,7 +52,7 @@ class LoggedInHeader extends Component {
         <div className='flex absolute pin-t pin-r invisible lg:visible m-8 font-josefin text-xs'>
           <Link to='/home'><button className='mx-4 hover:text-green'>PROJECTS</button></Link>
           <Link to='/team'><button className='mx-4 hover:text-green'>TEAMS</button></Link>
-          <Link to='/report'><button className='mx-4 hover:text-green'>REPORTS</button></Link>
+          <Link to='/reports'><button className='mx-4 hover:text-green'>REPORTS</button></Link>
           <button onClick={ () => this.logout() }className='mx-4 hover:text-green'>LOGOUT</button>
         </div>
 

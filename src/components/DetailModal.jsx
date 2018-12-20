@@ -10,9 +10,15 @@ class DetailModal extends Component {
       task: {},
       logs: []
     }
+    this.getTasksAndLogs = this.getTasksAndLogs.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
   
-  async componentDidMount() {
+  componentDidMount() {
+    this.getTasksAndLogs()
+  }
+
+  async getTasksAndLogs() {
     let res = await axios.get(`/api/details/${this.props.detailTaskId}`);
     this.setState({
       task: res.data.task[0],
@@ -86,7 +92,9 @@ class DetailModal extends Component {
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <LogTime taskId={ this.props.detailTaskId }/>
+            <LogTime 
+              taskId={ this.props.detailTaskId }
+              getTasksAndLogs={ this.getTasksAndLogs }/>
             { !logs[0] ? "" :
               <div className='m-2'>
                 <div>History</div>
