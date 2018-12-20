@@ -30,30 +30,20 @@ class Lane extends Component {
     }
   }
 
-  //triggered by button below (one inside each task)
-  async deleteTask(id) {
-    await axios.delete(`/api/task/${id}`);
-    this.fetchTasks();
-  }
-
   render() {
     let tasks = this.state.tasks.map(task => {
       return (
         <div
-          className='bg-grey-lighter' 
           key={task.id}>
           <div 
-            className='bg-white m-2'
+            className='bg-white m-2 border'
             onClick={ () => this.props.openDetailModal(task.id) } >
-            <div className='p-2'>{task.title}</div>
-            <div className='flex justify-end m-2'>
-              <button className='mx-2 text-grey' onClick={ () => this.deleteTask(task.id) }>Delete</button>
-              <button className='mx-2 text-grey'>Log</button>
-            </div>
+            <div className='p-4'>{task.title}</div>
           </div>
         </div>
       )
     })
+
     return (
       <div
         className='flex flex-col'>

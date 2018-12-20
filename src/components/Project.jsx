@@ -53,7 +53,7 @@ class Project extends Component {
     let lanes = this.state.laneNames.map((name, i) => {
       return (
         <div
-          className='border m-2 lg:w-full'
+          className='border m-2 lg:w-full bg-white'
           key={i}>
           <div className='flex justify-between'>
             <div className='m-6'>{name}</div>
@@ -73,23 +73,28 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
-        <div className='flex flex-col lg:flex-row p-4'>
-          {lanes}
+        <div className='w-screen h-screen bg-grey-lighter pt-4'>
+          <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
+          <div className='flex flex-col lg:flex-row p-4'>
+            {lanes}
+          </div>
+          {/* Below is the modal which is not always visible */}
+          { this.state.modal ?
+            <NewTaskModal 
+              modal={ this.state.modal } 
+              status={ this.state.status }
+              projectId={ this.state.projectId }
+              updateStateFn={ this.setStateFromModal }
+              exitModal={ this.exitModal }
+              needsUpdateFn={ this.componentNeedsUpdate }
+              triggerEdit/>
+            : "" }
+          { !this.state.detailModal ? ""
+            : <DetailModal 
+              detailTaskId={ this.state.detailTaskId }
+              detailModal={ this.openDetailModal }
+              needsUpdate={ this.componentNeedsUpdate }/> }
         </div>
-        {/* Below is the modal which is not always visible */}
-        { this.state.modal ?
-          <NewTaskModal 
-            modal={ this.state.modal } 
-            status={ this.state.status }
-            projectId={ this.state.projectId }
-            updateStateFn={ this.setStateFromModal }
-            exitModal={ this.exitModal }
-            needsUpdateFn={ this.componentNeedsUpdate }
-            triggerEdit/>
-          : "" }
-        { !this.state.detailModal ? ""
-          : <DetailModal detailTaskId={ this.state.detailTaskId }/> }
       </div>
     );
   }
