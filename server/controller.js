@@ -122,15 +122,12 @@ module.exports = {
   },
 
   //PUT
-  editTask: async (req, res) => {
-    console.log('running?')
+  updateTitle: async (req, res) => {
     const db = req.app.get('db');
-    const { id } = req.session.user;
-    console.log(id)
-    const { title, description, estimate, projectId } = req.body;
-    console.log(title, description, estimate, projectId)
-    await db.edit_task([ Number(id), Number(projectId), title, description, Number(estimate) ]);
-    res.status(200).send("Success!");
+    const { title } = req.body;
+    const { id } = req.params;
+    let updatedTitle = await db.update_task_title([ title, id ]);
+    res.status(200).send(updatedTitle[0]);
   },
 
   // DELETE

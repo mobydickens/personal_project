@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import LogTime from './LogTime.jsx';
+import EditTask from './EditTask.jsx';
 
 class DetailModal extends Component {
 
@@ -26,7 +27,7 @@ class DetailModal extends Component {
     }) 
   }
 
-   //triggered by button below (one inside each task)
+   //triggered by delete button below
    async deleteTask(id) {
     await axios.delete(`/api/task/${id}`);
     this.props.detailModal();
@@ -78,10 +79,9 @@ class DetailModal extends Component {
               <div>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }</div>
             </div>
             <hr/>
-            <div>{task.title}</div>
-            <div>Created on: {task.created_at}</div>
-            <div>Description: {task.description}</div>
-            <div>In lane: {task.status}</div>
+            <EditTask 
+              task={ task }
+              getTasksAndLogs={ this.getTasksAndLogs} />
             <div>
               <button onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
             </div>

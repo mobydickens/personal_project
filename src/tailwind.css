@@ -24,7 +24,7 @@
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
  .input-underlined {
-   @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-b border-green;
+   @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-green;
  }
  .jello {
    @apply tracking-wide font-josefin text-2xl;
