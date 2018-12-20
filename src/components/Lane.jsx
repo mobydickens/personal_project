@@ -1,6 +1,8 @@
+//lives in project
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+// import { getTaskId } from '../ducks/reducer';
 // import Task from './Task.jsx';
 
 
@@ -24,13 +26,14 @@ class Lane extends Component {
     })
   }
 
-  //upon task addition update task lists on project page
+  //upon task being added will update lanes to reflect new tasks
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.needsUpdate !== this.props.needsUpdate) {
       this.fetchTasks();
     }
   }
 
+  //triggered by button below (one inside each task)
   async deleteTask(id) {
     await axios.delete(`/api/task/${id}`);
     this.fetchTasks();
@@ -45,7 +48,8 @@ class Lane extends Component {
           <div className='bg-white m-2'>
             <div className='p-2'>{task.title}</div>
             <div className='flex justify-end m-2'>
-              <button className='mx-2 text-grey' onClick={ () => this.props.getTaskIdToEdit(task.id) }>Edit</button>
+              {/* this function comes from the reducer to get the task id that needs to be edited */}
+              <button className='mx-2 text-grey' onClick={ () => this.props.triggerEdit(task.id) }>Edit</button>
               <button className='mx-2 text-grey' onClick={ () => this.deleteTask(task.id) }>Delete</button>
               <button className='mx-2 text-grey'>Log</button>
             </div>

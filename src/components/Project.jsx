@@ -14,8 +14,7 @@ class Project extends Component {
       laneNames: ['To Do', 'In Progress', 'Testing', 'Done'],
       modal: false,
       status: '',
-      projectId: '',
-      editTaskId: ''
+      projectId: ''
     }
   }
   //this component gets the title of the project to display on the page
@@ -23,13 +22,6 @@ class Project extends Component {
     let res = await axios.get(`/api/project/${this.props.match.params.id}`);
     this.setState({
       projectName: res.data.title
-    })
-  }
-  //this function gets props and is triggered from the LANE component
-  getTaskIdToEdit = (id) => {
-    this.setState({
-      editTaskId: id,
-      modal: true
     })
   }
   //this function is triggered from the newTaskModal component
@@ -43,13 +35,19 @@ class Project extends Component {
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
-      modal: false
+      modal: !this.state.modal
     })
   }
   //this function is used in newTaskModal component after completing post endpoint for adding a new task
   componentNeedsUpdate = () => {
     this.setState({
       needsUpdate: !this.state.needsUpdate
+    })
+  }
+
+  triggerEdit = (id) => {
+    this.setState({
+      modal: true
     })
   }
 
@@ -69,7 +67,7 @@ class Project extends Component {
             projectId={this.props.match.params.id} 
             status={ name } 
             needsUpdate={ this.state.needsUpdate }
-            getTaskIdToEdit={ this.getTaskIdToEdit }
+            triggerEdit={ this.triggerEdit }
           />
         </div>
       )
@@ -91,7 +89,8 @@ class Project extends Component {
             updateStateFn={ this.setStateFromModal }
             editTaskId={ this.state.editTaskId }
             exitModal={ this.exitModal }
-            needsUpdateFn={ this.componentNeedsUpdate }/>
+            needsUpdateFn={ this.componentNeedsUpdate }
+            triggerEdit/>
           : "" }
       </div>
     );

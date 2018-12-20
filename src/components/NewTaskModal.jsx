@@ -1,21 +1,23 @@
+//lives in project
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 
 class NewTaskModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editing: false,
-      editTaskId: '',
       title: '',
       description: '',
-      estimate: '',
+      estimate: ''
     }
     this.addTask = this.addTask.bind(this);
     this.editTask = this.setModal.bind(this);
     this.setModal = this.setModal.bind(this);
   }
-
+  //adds a new task to any of the lanes depending on which status was passed in as props
   async addTask() {
     const { title, description, estimate } = this.state;
     const { status, projectId } = this.props;
@@ -28,7 +30,7 @@ class NewTaskModal extends Component {
     this.props.needsUpdateFn();
     this.props.exitModal();
   }
-
+  //will edit task 
   async editTask() {
     console.log('running on the front?')
     const { title, description, estimate } = this.state;
@@ -39,7 +41,8 @@ class NewTaskModal extends Component {
       editTaskId: '',
     })
   }
-
+ 
+  // will input modal with information from task when clicked on for editing
   async setModal() {
     let res = await axios.get(`/api/task/${this.props.editTaskId}`);
     this.props.setStateFn();
@@ -84,4 +87,4 @@ class NewTaskModal extends Component {
   }
 }
 
-export default NewTaskModal;
+export default connect(null)(NewTaskModal);
