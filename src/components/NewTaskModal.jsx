@@ -37,29 +37,38 @@ class NewTaskModal extends Component {
   render() {
     return (
       <div className='fixed pin-r pin-t w-full h-screen'>
-        <div className='absolute pin-x pin-t h-64 bg-grey'>
+        <div className='absolute pin-x pin-t bg-grey p-6'>
           <button onClick={ () => this.props.exitModal() } className='float-right cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
-          <label>Enter a title for this task:</label>
+          <label>Enter a title for this task:</label><br/>
           <input 
+            className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4' 
             onChange={ (e) => this.setState({ title: e.target.value })} 
             type="text"
-            value={ this.state.title }/>
-          <label>Description</label>
+            value={ this.state.title }/><br/>
+          <label>Description</label><br/>
           <input 
+            className='input-underlined focus:outline-none m-2 bg-grey border-white' 
             onChange={ (e) => this.setState({ description: e.target.value })} 
             type="text"
-            value={ this.state.description }/>
-          <label>Initial Time Estimate for this task:</label>
+            value={ this.state.description }/><br/>
+          <label>Initial Time Estimate for this task:</label><br/>
           <input 
+            className='input-underlined focus:outline-none m-2 bg-grey border-white' 
             onChange={ (e) => this.setState({ estimate: e.target.value })} 
             type="numbers"
-            value={ this.state.estimate } />
-          { !this.state.editing ? 
-            <button onClick={ () => this.addTask() }>Add</button> 
-            : <button onClick={ () => this.editTask() }>Save</button>
-          }
+            value={ this.state.estimate } /><br/>
+          <div className='flex justify-end'>
+            { !this.state.editing ? 
+              <button
+                className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
+                onClick={ () => this.addTask() }>Add</button> 
+              : <button
+                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full px-4 py-2 m-4'  
+                  onClick={ () => this.editTask() }>Save</button>
+            }
+          </div>
         </div>
       </div>
     );

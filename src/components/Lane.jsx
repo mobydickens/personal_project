@@ -42,7 +42,9 @@ class Lane extends Component {
         <div
           className='bg-grey-lighter' 
           key={task.id}>
-          <div className='bg-white m-2'>
+          <div 
+            className='bg-white m-2'
+            onClick={ () => this.props.openDetailModal(task.id) } >
             <div className='p-2'>{task.title}</div>
             <div className='flex justify-end m-2'>
               <button className='mx-2 text-grey' onClick={ () => this.deleteTask(task.id) }>Delete</button>
@@ -53,7 +55,8 @@ class Lane extends Component {
       )
     })
     return (
-      <div className='flex flex-col'>
+      <div
+        className='flex flex-col'>
         {tasks}
       </div>
     );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Lane from './Lane.jsx';
 import axios from 'axios';
 import NewTaskModal from './NewTaskModal.jsx';
+import DetailModal from './DetailModal.jsx';
 
 class Project extends Component {
 
@@ -14,7 +15,9 @@ class Project extends Component {
       laneNames: ['To Do', 'In Progress', 'Testing', 'Done'],
       modal: false,
       status: '',
-      projectId: ''
+      projectId: '',
+      detailModal: false,
+      detailTaskId: ''
     }
   }
   //this component gets the title of the project to display on the page
@@ -37,6 +40,13 @@ class Project extends Component {
     })
   }
 
+  openDetailModal = (id) => {
+    this.setState({
+      detailModal: !this.state.detailModal,
+      detailTaskId: id
+    })
+  }
+
   render() {
 
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
@@ -54,6 +64,7 @@ class Project extends Component {
             status={ name } 
             needsUpdate={ this.state.needsUpdate }
             triggerEdit={ this.triggerEdit }
+            openDetailModal={ this.openDetailModal }
           />
         </div>
       )
@@ -77,6 +88,8 @@ class Project extends Component {
             needsUpdateFn={ this.componentNeedsUpdate }
             triggerEdit/>
           : "" }
+        { !this.state.detailModal ? ""
+          : <DetailModal detailTaskId={ this.state.detailTaskId }/> }
       </div>
     );
   }
