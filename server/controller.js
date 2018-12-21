@@ -171,19 +171,13 @@ module.exports = {
     let newDescription = await db.update_project_description([ Number(id), description ]);
     res.status(200).send(newDescription[0]);
   },
-  editTeam: async (req, res) => {
-    console.log('edit team running')
+  addTeammate: async (req, res) => {
     const db = req.app.get('db');
-    const { id } = req.params;
-    const { name, team } = req.body;
-    let updatedTeam = await db.update_team([ id, name ]);
-    for (let i = 0; i < team.length; i++) {
-      let userId = team[i].id;
-      await db.new_connection([ Number(userId), updatedTeam[0].id ]);
-    }
-    let teams = await db.get_user_teams([ id ]);
-    console.log('updated teams')
-    res.status(200).send(teams);
+    const { email, team_id } = req.body;
+    let user = await db.find_user([ email ]);
+    await db.new_connection([ user[0].id, Number(team_id) ]);
+    let details = await db.get_team_details([ Number(team_id) ]);
+    res.status(200).send(details);
   },
 
   // DELETE
@@ -205,7 +199,6 @@ module.exports = {
   leaveTeam: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    console.log(req.session.user.id)
     await db.delete_leave_team([ id, req.session.user.id ]);
     let teams = await db.get_user_teams([ req.session.user.id ]);
     res.status(200).send(teams);
