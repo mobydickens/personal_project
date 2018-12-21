@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
 import Lane from './Lane.jsx';
-// import axios from 'axios';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
-import { userProjects } from '../ducks/reducer';
 import ProjectHeader from './ProjectHeader.jsx';
+// import axios from 'axios';
 
 class Project extends Component {
 
@@ -96,4 +95,4 @@ class Project extends Component {
   }
 }
 
-export default connect(null, { userProjects })(Project);
+export default connect(null)(Project);

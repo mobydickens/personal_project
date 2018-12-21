@@ -9,7 +9,9 @@ class ProjectHeader extends Component {
     super(props);
     this.state = {
       projectName: '',
-      projectDescription: ''
+      projectDescription: '',
+      editName: false,
+      editDesc: false
     }
   }
   
@@ -22,7 +24,6 @@ class ProjectHeader extends Component {
     })
   }
 
-   // triggered by close button on this page under the header
    deleteProject = (id) => {
     axios.delete(`/api/deleteproject/${id}`).then(res => {
       this.props.userProjects(res.data);
@@ -34,17 +35,32 @@ class ProjectHeader extends Component {
     return (
       <div>
         <div className='flex justify-between'>
-          <h3 className='font-josefin m-6'>{this.state.projectName}</h3>
+          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin m-6'>{this.state.projectName}</h3>
+            : <div>Project Name: 
+                <input 
+                  onChange={ (e) => this.setState({ projectName: e.target.value }) }
+                  type="text"
+                  value={ this.state.projectName }/>
+                <button>Save</button>
+                <button onClick={ () => this.setState({ editName: false })}>Cancel</button>
+              </div>
+          }
           <button 
             onClick={ () => this.deleteProject(this.props.match.params.id) } 
             className='p-4 mx-6 text-sm'>
             <i className="fas fa-times"></i>
           </button>
         </div>
-        <div className='mx-6'>{ this.state.projectDescription}</div>
+        <div className='mx-6'>
+        { !this.state.editDesc ? <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 
+          : <div>Project description:
+              <input type="text"/>
+            </div>
+        }
+        </div>
       </div>
     );
   }
 }
 
-export default withRouter(connect(null, {userProjects})(ProjectHeader));
+export default withRouter(connect(null, { userProjects })(ProjectHeader));
