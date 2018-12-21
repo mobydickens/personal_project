@@ -38,7 +38,8 @@ module.exports = {
     const db = req.app.get('db');
     let newTeam = await db.new_team([ name ]);
     for (let i = 0; i < team.length; i++) {
-      await db.new_connection([ team[i].id, newTeam[0].id ]);
+      let id = team[i].id;
+      await db.new_connection([ Number(team[i].id), newTeam[0].id ]);
     }
     res.status(200).send('complete!')
   },
@@ -170,6 +171,13 @@ module.exports = {
     let newDescription = await db.update_project_description([ Number(id), description ]);
     res.status(200).send(newDescription[0]);
   },
+  editTeam: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    const { name, teammates } = req.body;
+    await db.update_team([ ]);
+  },
+
   // DELETE
   deleteProject: async (req, res) => {
     const db = req.app.get('db');

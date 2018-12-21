@@ -54,6 +54,7 @@ app.put('/api/updatestatus/:id', controller.updateStatus); //status update from 
 app.put('/api/timelog/:id', controller.editTimelog); //triggered in detail modal component from inside the render. 
 app.put('/api/editname/:id', controller.editProjectName); //triggered from Project Header component
 app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered from Project Header component
+app.put('/api/editteam/:id', controller.editTeam); //edit team (add members or change name) triggered in TeamList and axios executed Team component
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
