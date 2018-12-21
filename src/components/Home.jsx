@@ -11,10 +11,8 @@ class Home extends Component {
 
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
-    console.log("first call for projects: ", res.data)
     this.props.userProjects(res.data);
     let res2 = await axios.get('/api/teams');
-    console.log("second call for teams: ", res2.data)
     this.props.getMyTeams(res2.data);
   }
 

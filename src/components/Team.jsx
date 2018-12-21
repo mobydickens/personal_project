@@ -16,10 +16,7 @@ class Team extends Component {
         { id: this.props.userId, username: this.props.username }
       ],
       newTeammates: [],
-      done: false,
-      editingTeam: false,
-      editingId: '',
-      editingUserDetails: []
+      done: false
     }
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
@@ -59,16 +56,12 @@ class Team extends Component {
     })
   }
 
-  triggerEdit = (name, id, details) => {
-    this.setState({ editingTeam: true, teamName: name, editingId: id, editingUserDetails: details })
-  }
-
   render() {
 
     let team = this.state.teammates.map((user, i) => {
       return (
         <div className='flex' key={i}>
-          { !this.state.editingTeam ? <p className='p-2'>{user.username}</p> : "" }
+          <p className='p-2'>{user.username}</p>
           { user.username !== this.props.username ? 
             <button 
               onClick={ () => this.deleteFromTeammates(i) }
@@ -83,7 +76,7 @@ class Team extends Component {
       <div className='flex flex-col w-full h-screen'>
         <LoggedInHeader />
         <div className='flex flex-col justify-center items-center'>
-          <TeamList triggerEdit={ this.triggerEdit }/>
+          <TeamList />
           <div>Start a new team</div>
           <form className='border flex flex-col p-2'>
             <label>Choose team name: </label>
