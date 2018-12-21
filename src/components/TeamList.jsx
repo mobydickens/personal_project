@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 class TeamList extends Component {
+
+  
   render() {
     return (
       <div>
-        Team List
+        Team List: 
       </div>
     );
   }

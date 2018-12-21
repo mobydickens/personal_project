@@ -59,9 +59,9 @@ class Team extends Component {
           <p className='p-2'>{user.username}</p>
           { user.username !== this.props.username ? 
             <button 
-            onClick={ () => this.deleteFromTeammates(i) }
-            className='ml-2 text-grey-dark'>
-            X
+              onClick={ () => this.deleteFromTeammates(i) }
+              className='ml-2 text-grey-dark'>
+              X
             </button> : "" }        
         </div>
       )

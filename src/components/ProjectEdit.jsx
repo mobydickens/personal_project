@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { getMyTeams } from '../ducks/reducer';
 
 
 class ProjectEdit extends Component {
@@ -13,20 +15,18 @@ class ProjectEdit extends Component {
       description: '',
       team: '',
       start_date: '',
-      teams: [],
       edit: false
     }
   }
   
   async componentDidMount() {
     let res = await axios.get('/api/teams');
-    this.setState({
-      teams: res.data
-    })
+    this.props.getMyTeams(res.data);
   }
 
   async newProject() {
-    const { title, devHours, description, start_date, teams } = this.state;
+    const { teams } = this.props;
+    const { title, devHours, description, start_date } = this.state;
     let team_id = teams.filter(singleteam => singleteam.name === this.state.team);
     try {
       let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date});
@@ -45,7 +45,7 @@ class ProjectEdit extends Component {
   }
 
   render() {
-    let dropdown = this.state.teams.map(team => {
+    let dropdown = this.props.teams.map(team => {
       return (
         <option key={team.id} value={team.name}>{team.name}</option>
       )
@@ -97,5 +97,9 @@ class ProjectEdit extends Component {
     );
   }
 }
-
-export default ProjectEdit;
+function mapState(state) {
+  return {
+    teams: state.myTeams
+  }
+}
+export default connect(mapState, { getMyTeams })(ProjectEdit);

@@ -3,7 +3,8 @@ let initialState = {
   email: 'joff@email.com',
   username: 'KingJoff',
   projects: [],
-  team: []
+  team: [],
+  myTeams: []
 }
 
 // ACTION CONSTANTS
@@ -12,6 +13,7 @@ const USER_LOGIN = 'USER_LOGIN';
 const USER_PROJECTS = 'USER_PROJECTS'; 
 const RESET_STATE = 'RESET_STATE';
 const ADD_NEW_TEAM = 'ADD_NEW_TEAM';
+const GET_MY_TEAMS = 'GET_MY_TEAMS';
 
 
 // ACTION CREATORS
@@ -52,6 +54,12 @@ export function addNewTeam(members) {
     payload: members
   }
 }
+export function getMyTeams(teams) {
+  return {
+    type: GET_MY_TEAMS,
+    payload: teams
+  }
+}
 
 // REDUCER
 export default function reducer(state=initialState, action) {
@@ -66,6 +74,8 @@ export default function reducer(state=initialState, action) {
       return { ...state,  userId: '', email: '', username: '', projects: [], team: [] };
     case ADD_NEW_TEAM:
       return { ...state, team: action.payload };
+    case GET_MY_TEAMS:
+      return { ...state, myTeams: action.payload};
     default: 
       return state;
   }
