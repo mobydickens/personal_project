@@ -11,8 +11,10 @@ class Home extends Component {
 
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
+    console.log("first call for projects: ", res.data)
     this.props.userProjects(res.data);
     let res2 = await axios.get('/api/teams');
+    console.log("second call for teams: ", res2.data)
     this.props.getMyTeams(res2.data);
   }
 
@@ -27,10 +29,10 @@ class Home extends Component {
 
   render() {
     const { userId, username, projects } = this.props;
-    let projectList = projects.map(project => {
+    let projectList = projects.map((project, i) => {
       return (
         <div
-          key={project.id} 
+          key={i} 
           className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm w-auto md:w-1/3 lg:w-1/4 bg-white'>
           <div onClick={ () => this.navigateToProject(project.id) }><div className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</div></div>
           <p className='pb-2'>{project.name}</p>

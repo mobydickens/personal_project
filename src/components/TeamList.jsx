@@ -18,12 +18,19 @@ class TeamList extends Component {
   }
   
   async getTeamDetails(id) {
-    let res = await axios.get(`/api/teamdetails/${id}`);
-    this.setState({
-      teamDetails: res.data,
-      showDetails: true,
-      currentTeamId: id,
-    })
+    if(this.state.showDetails) {
+      this.setState({
+        showDetails: false,
+        currentTeamId: ''
+      })
+    } else {
+      let res = await axios.get(`/api/teamdetails/${id}`);
+      this.setState({
+        teamDetails: res.data,
+        showDetails: true,
+        currentTeamId: id,
+      })
+    }
   }
 
   async leaveTeam(id) {
@@ -37,11 +44,11 @@ class TeamList extends Component {
   }
 
   render() {
-
-    let teamsList = this.props.teams.map(team => {
+    console.log(this.props.teams)
+    let teamsList = this.props.teams.map((team, i) => {
       return (
         <div
-          key={team.id}>
+          key={i}>
           <div className='flex'>
             <i onClick={ () => this.leaveTeam(team.id) } className="far fa-times-circle mr-2 cursor-pointer"></i>
             <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>

@@ -1,4 +1,4 @@
-UPDATE timelogs
-SET spent_time = $2, estimate_change = $3, comment = $4
+UPDATE teams
+SET name = $2
 WHERE id = $1
 RETURNING *; 

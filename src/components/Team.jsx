@@ -21,7 +21,6 @@ class Team extends Component {
       editingId: '',
       editingUserDetails: []
     }
-    this.edit = this.edit.bind(this);
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
   }
@@ -43,7 +42,6 @@ class Team extends Component {
   async addTeam() {
     const { teamName, teammates } = this.state;
     this.props.addNewTeam(this.state.teammates);
-    console.log(teammates)
     await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
     this.setState({
       teammates: [],
@@ -65,29 +63,7 @@ class Team extends Component {
     this.setState({ editingTeam: true, teamName: name, editingId: id, editingUserDetails: details })
   }
 
-  async edit() {
-    const { newTeammates, teamName, editingId } = this.state;
-    let res = await axios.put(`/api/editteam/${editingId}`, { name: teamName, newTeammates: [...newTeammates] } )
-    this.setState({
-      editingTeam: false
-    })
-  }
-
   render() {
-
-    let usersInTeam = this.state.editingUserDetails.map((user, i) => {
-      return (
-        <div className='flex' key={i}>
-          <p className='p-2'>{user.username}</p>
-          { user.username !== this.props.username ? 
-            <button 
-              onClick={ () => this.deleteFromTeammates(i) }
-              className='ml-2 text-grey-dark'>
-              X
-            </button> : "" }        
-        </div>
-      )
-    })
 
     let team = this.state.teammates.map((user, i) => {
       return (
@@ -108,14 +84,14 @@ class Team extends Component {
         <LoggedInHeader />
         <div className='flex flex-col justify-center items-center'>
           <TeamList triggerEdit={ this.triggerEdit }/>
-          { !this.state.editingTeam ? <div>Start a new team</div> : <div>Edit your team</div> }
+          <div>Start a new team</div>
           <form className='border flex flex-col p-2'>
             <label>Choose team name: </label>
             <input
               onChange={ (e) => this.setState({ teamName: e.target.value })} 
               className='input-underlined focus:outline-none' 
               type="text" 
-              value={ this.state.teamName}
+              value={ this.state.teamName }
             />
             <label>Enter new teammate's email: </label>
             <div className='flex items-center w-full border-b border-green'>
@@ -130,18 +106,12 @@ class Team extends Component {
             { !this.state.done ?
               <div className='flex flex-col'>
                 <p className='my-4'>Team members:</p>
-                { !this.state.editingTeam ? <div className='m-2'>{team}</div> : 
-                  <div className='m-2'>
-                    <div>{ usersInTeam }</div>
-                    <div>{ team }</div>
-                  </div> }
-                { !this.state.editingTeam ? 
-                  <button 
-                    className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
-                    onClick={ () => this.addTeam() }>
-                    Add Team!
-                  </button>
-                  : <button className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' onClick={ () => this.edit() }>Save</button> } 
+                <div className='m-2'>{team}</div> 
+                <button 
+                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
+                  onClick={ () => this.addTeam() }>
+                  Add Team!
+                </button>
               </div> 
               :
               <div className='flex flex-col justify-center m-6'>

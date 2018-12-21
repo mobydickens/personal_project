@@ -37,9 +37,9 @@ class ProjectEdit extends Component {
   }
 
   render() {
-    let dropdown = this.props.teams.map(team => {
+    let dropdown = this.props.teams.map((team, i) => {
       return (
-        <option key={team.id} value={team.name}>{team.name}</option>
+        <option key={i} value={team.name}>{team.name}</option>
       )
     })
     return (
