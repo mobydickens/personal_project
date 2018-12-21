@@ -81,7 +81,7 @@ class EditTask extends Component {
           }
         </div>
         <div 
-          onClick={ () => console.log('parent') || this.setState({showStatusSelector: true, status: this.props.task.status }) }
+          onClick={ () => this.setState({showStatusSelector: true, status: this.props.task.status }) }
           className='my-2'>
           { !this.state.showStatusSelector ? 
             <div>In lane: {this.props.task.status}</div>

@@ -150,7 +150,20 @@ module.exports = {
     let updatedLog = await db.update_timelog([ id, spent_time, estimate_change, comment ]);
     res.status(200).send(updatedLog[0]);
   },
-
+  editProjectName: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    const { title } = req.body;
+    let name = await db.update_project_name([ Number(id), title ]);
+    res.status(200).send(name[0]);
+  },
+  editProjectDescription: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    const { description } = req.body;
+    let newDescription = await db.update_project_description([ Number(id), description ]);
+    res.status(200).send(newDescription[0]);
+  },
   // DELETE
   deleteProject: async (req, res) => {
     const db = req.app.get('db');

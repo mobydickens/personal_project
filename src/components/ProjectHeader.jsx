@@ -31,6 +31,22 @@ class ProjectHeader extends Component {
     this.props.history.push('/home');
   }
 
+  async editName() {
+    let res = await axios.put(`/api/editname/${ this.props.projectId }`, { title: this.state.projectName } );
+    this.setState({
+      projectName: res.data.title,
+      editName: false
+    })
+  }
+
+  async editDescription() {
+    let res = await axios.put(`/api/editdesc/${ this.props.projectId }`, { description: this.state.projectDescription });
+    this.setState({
+      projectName: res.data.description,
+      editDesc: false
+    })
+  }
+
   render() {
     return (
       <div>
@@ -41,20 +57,25 @@ class ProjectHeader extends Component {
                   onChange={ (e) => this.setState({ projectName: e.target.value }) }
                   type="text"
                   value={ this.state.projectName }/>
-                <button>Save</button>
+                <button onClick={ () => this.editName() }>Save</button>
                 <button onClick={ () => this.setState({ editName: false })}>Cancel</button>
               </div>
           }
           <button 
             onClick={ () => this.deleteProject(this.props.match.params.id) } 
             className='p-4 mx-6 text-sm'>
-            <i className="fas fa-times"></i>
+            <i className="fas fa-trash-alt"></i>
           </button>
         </div>
         <div className='mx-6'>
         { !this.state.editDesc ? <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 
           : <div>Project description:
-              <input type="text"/>
+              <input 
+                onChange={ (e) => this.setState({ projectDescription: e.target.value }) }
+                value={ this.state.projectDescription } 
+                type="text"/>
+              <button onClick={ () => this.editDescription() }>Save</button>
+              <button onClick={ () => this.setState({ editDesc: false })}>Cancel</button>
             </div>
         }
         </div>
