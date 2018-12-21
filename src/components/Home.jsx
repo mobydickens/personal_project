@@ -5,12 +5,16 @@ import LoggedInHeader from './LoggedInHeader.jsx';
 import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { userProjects } from '../ducks/reducer';
+import { getMyTeams } from '../ducks/reducer';
 
 class Home extends Component {
 
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
     this.props.userProjects(res.data);
+    let res2 = await axios.get('/api/teams');
+    console.log("get my teams in project edit", res2.data)
+    this.props.getMyTeams(res2.data);
   }
 
   componentDidUpdate(prevProps) {
@@ -69,5 +73,5 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { userProjects })(Home);
+export default connect(mapStateToProps, { userProjects, getMyTeams })(Home);
 // md:flex-row md:flex-wrap md:justify-center lg:flex-row lg:flex-wrap lg:justify-start

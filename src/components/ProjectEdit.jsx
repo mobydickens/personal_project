@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getMyTeams } from '../ducks/reducer';
-
 
 class ProjectEdit extends Component {
 
@@ -18,11 +16,6 @@ class ProjectEdit extends Component {
       edit: false
     }
   }
-  
-  async componentDidMount() {
-    let res = await axios.get('/api/teams');
-    this.props.getMyTeams(res.data);
-  }
 
   async newProject() {
     const { teams } = this.props;
@@ -30,7 +23,6 @@ class ProjectEdit extends Component {
     let team_id = teams.filter(singleteam => singleteam.name === this.state.team);
     try {
       let res = await axios.post('/api/newproject', { title, devHours, description, team_id: team_id[0].id, start_date});
-      console.log('success', res);
       this.setState({
         title: '',
         devHours: '',
@@ -102,4 +94,4 @@ function mapState(state) {
     teams: state.myTeams
   }
 }
-export default connect(mapState, { getMyTeams })(ProjectEdit);
+export default connect(mapState)(ProjectEdit);
