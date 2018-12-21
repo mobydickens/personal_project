@@ -120,6 +120,12 @@ module.exports = {
     let teams = await db.get_user_teams([ id ]);
     res.status(200).send(teams);
   },
+  teamDetails: async (req, res) => {
+    const { id } = req.params;
+    const db = req.app.get('db');
+    let details = await db.get_team_details([ id ]);
+    res.status(200).send(details);
+  },
 
   //PUT
   updateTitle: async (req, res) => {
@@ -177,7 +183,15 @@ module.exports = {
   deleteTask: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    db.delete_task([ Number(id) ]);
+    await db.delete_task([ Number(id) ]);
     res.status(200).send('success!');
+  },
+  leaveTeam: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    console.log(req.session.user.id)
+    await db.delete_leave_team([ id, req.session.user.id ]);
+    let teams = await db.get_user_teams([ req.session.user.id ]);
+    res.status(200).send(teams);
   }
 }

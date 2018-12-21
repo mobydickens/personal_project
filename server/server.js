@@ -46,6 +46,7 @@ app.get('/api/task/:id', controller.getOneTask); //get ONE task
 app.get('/api/details/:id', controller.details); //get ALL timelogs for ONE task
 app.get('/api/member', controller.checkMember); //when adding teammate, check if email is in the database
 app.get('/api/teams', controller.getTeams); //gets all teams that user is a part of
+app.get('/api/teamdetails/:id', controller.teamDetails); //get details for team list triggered in Team component
 
 app.put('/api/updatetitle/:id', controller.updateTitle); //updating TITLE of task. Triggered from edit task component
 app.put('/api/updatedescription/:id', controller.updateDescription); //triggered again from edit task component
@@ -55,4 +56,5 @@ app.put('/api/editname/:id', controller.editProjectName); //triggered from Proje
 app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered from Project Header component
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
-app.delete('/api/task/:id', controller.deleteTask); //deletes a single task 
+app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
+app.delete('/api/leaveteam/:id', controller.leaveTeam); //leave team, triggered from TeamList component 

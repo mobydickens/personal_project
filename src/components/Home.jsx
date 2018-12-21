@@ -13,7 +13,6 @@ class Home extends Component {
     let res = await axios.get(`/api/projects`);
     this.props.userProjects(res.data);
     let res2 = await axios.get('/api/teams');
-    console.log("get my teams in project edit", res2.data)
     this.props.getMyTeams(res2.data);
   }
 
