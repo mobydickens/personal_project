@@ -3,6 +3,7 @@ import LoggedInHeader from './LoggedInHeader.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { addNewTeam } from '../ducks/reducer';
+import TeamList from './TeamList.jsx';
 
 class Team extends Component {
 
@@ -11,12 +12,14 @@ class Team extends Component {
     this.state = {
       teamName: '',
       memberEmail: '',
-      teammates: [],
+      teammates: [ 
+        { userId: this.props.userId, username: this.props.username, email: this.props.email }
+      ],
       done: false
     }
   }
   
-  //this checks whether email is valid in db. If yes, it adds the member to the teammates array. 
+  //this checks whether email is valid in db. If yes, it adds the user to the teammates array. 
   async add() {
     let res = await axios.get(`/api/member/?email=${this.state.memberEmail}`);
     if(res.data.found) {
@@ -54,29 +57,31 @@ class Team extends Component {
       return (
         <div className='flex' key={i}>
           <p className='p-2'>{user.username}</p>
-          <button 
+          { user.username !== this.props.username ? 
+            <button 
             onClick={ () => this.deleteFromTeammates(i) }
             className='ml-2 text-grey-dark'>
             X
-          </button>        
+            </button> : "" }        
         </div>
       )
     })
 
     return (
-      <div>
+      <div className='flex flex-col w-full h-screen'>
         <LoggedInHeader />
-        <div className='flex flex-col items-center m-6'>
+        <div className='flex flex-col justify-center items-center'>
+          <TeamList />
           <div>Start a new team</div>
-          <form className='bg-grey-lighter flex flex-col w-screen p-6 m-4'>
-            <label className='my-4'>Choose team name: </label>
+          <form className='border flex flex-col p-2'>
+            <label>Choose team name: </label>
             <input
               onChange={ (e) => this.setState({ teamName: e.target.value })} 
               className='input-underlined focus:outline-none' 
               type="text" 
               value={ this.state.teamName}
             />
-            <label className='my-4'>Enter new teammate's email: </label>
+            <label>Enter new teammate's email: </label>
             <div className='flex items-center w-full border-b border-green'>
               <input
                 onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
@@ -112,5 +117,11 @@ class Team extends Component {
     );
   }
 }
-
-export default connect(null, { addNewTeam })(Team);
+function mapState(state) {
+  return {
+    userId: state.userId,
+    username: state.username,
+    email: state.email
+  }
+}
+export default connect(mapState, { addNewTeam })(Team);
