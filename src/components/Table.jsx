@@ -90,7 +90,17 @@ class Table extends Component {
       let percent_expected = Number((( devHours_expected / initialEstimate ) * 100).toFixed(2));
       devHours_actual += actual_hours_today;
       let percent_actual = Number((( devHours_actual / initialEstimate) * 100).toFixed(2));
-      console.log('% actual: ', percent_actual);
+
+      let expected_hrs_remaining = initialEstimate - devHours_expected;
+      if(expected_hrs_remaining < 0) {
+        expected_hrs_remaining = 0;
+      }
+     
+      //should this be current estimate or initial estimate??
+      let actual_hrs_remaining = currentEstimate - devHours_actual;
+      if(expected_hrs_remaining < 0) {
+        expected_hrs_remaining = 0;
+      };
 
       rows.push( { 
         date: date.format('L dddd'), 
@@ -99,13 +109,13 @@ class Table extends Component {
         currentEstimate: currentEstimate,
         percent_expected: percent_expected,
         percent_actual: percent_actual,
-        hours_expected: '',
-        hours_remaining: '' } )
+        hours_expected: expected_hrs_remaining,
+        hours_remaining: actual_hrs_remaining } )
 
       date.add(1, 'day');
     }
-    // console.log()
-    console.log("Initial Estimate: ", initialEstimate, "Rows Needed: ", rowsNeeded, "Current Rows: ", rows)
+    console.log("Initial Estimate: ", initialEstimate, "Rows Needed: ", rowsNeeded, "Current Rows: ", rows);
+    return rows;
   }
 
 
