@@ -131,12 +131,9 @@ module.exports = {
     const { id } = req.params;
     const db = req.app.get('db');
     let projectInfo = await db.get_project_for_table([ id ]);
-    console.log("project information for table: ", projectInfo);
     let taskInfo = await db.get_tasks_for_table([ id ]);
-    console.log("task info for table: ", taskInfo);
     let timelogs = await db.get_timelogs_for_table([ id ]);
-    console.log("timelogs for table: ", timelogs)
-    res.status(200).send({ projectInfo, taskInfo, timelogs })
+    res.status(200).send({ projectInfo: projectInfo[0], taskInfo, timelogs })
   },
 
   //PUT

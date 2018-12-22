@@ -8,7 +8,14 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      //project response:
+      daily_dev_hours: '',
+      title: '',
+      description: '',
+      start_date: '',
+      //tasks and timelogs responses:
+      taskInfo: [],
+      timelogs: []
     }
     this.getTableInfo = this.getTableInfo.bind(this);
   }
@@ -20,9 +27,19 @@ class Table extends Component {
   async getTableInfo() {
     let res = await axios.get( `/api/table/${this.props.projectId}`);
     console.log(res.data);
+    const { projectInfo, taskInfo, timelogs } = res.data;
+    this.setState({
+      daily_dev_hours: projectInfo.daily_hours,
+      title: projectInfo.title,
+      description: projectInfo.description,
+      start_date: projectInfo.start_date,
+      taskInfo: taskInfo,
+      timelogs: timelogs
+    })
   }
 
   render() {
+
     return (
       <div>
         Table component
