@@ -5,7 +5,7 @@ let initialState = {
   projects: [],
   team: [],
   myTeams: [],
-  currentProjectId: ''
+  currentProjectId: 70
 }
 
 // ACTION CONSTANTS
