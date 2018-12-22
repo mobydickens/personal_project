@@ -3,6 +3,7 @@ import axios from 'axios';
 import { userProjects } from '../ducks/reducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ProjectHeader extends Component {
   constructor(props) {
@@ -61,11 +62,14 @@ class ProjectHeader extends Component {
                 <button onClick={ () => this.setState({ editName: false })}>Cancel</button>
               </div>
           }
-          <button 
-            onClick={ () => this.deleteProject(this.props.match.params.id) } 
-            className='p-4 mx-6 text-sm'>
-            <i className="fas fa-trash-alt"></i>
-          </button>
+          <div>
+            <Link to='/reports'><button>See reports for this project</button></Link>
+            <button 
+              onClick={ () => this.deleteProject(this.props.match.params.id) } 
+              className='p-4 mx-6 text-sm'>
+              <i className="fas fa-trash-alt"></i>
+            </button>
+          </div>
         </div>
         <div className='mx-6'>
         { !this.state.editDesc ? <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 

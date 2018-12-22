@@ -20,12 +20,19 @@ class TeamList extends Component {
   }
   
   async getTeamDetails(id) {
+    // this else closes the details on the team if the user clicks the title and it is already open
+    if(this.state.showDetails) {
+      this.setState({
+        showDetails: false
+      })
+    } else {
       let res = await axios.get(`/api/teamdetails/${id}`);
       this.setState({
         teamDetails: res.data,
         showDetails: true,
         currentTeamId: id,
       })
+    }
   }
   //deletes user from team without deleting team
   async leaveTeam(id) {

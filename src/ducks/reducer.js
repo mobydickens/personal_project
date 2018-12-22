@@ -4,7 +4,8 @@ let initialState = {
   username: 'KingJoff',
   projects: [],
   team: [],
-  myTeams: []
+  myTeams: [],
+  currentProjectId: ''
 }
 
 // ACTION CONSTANTS
@@ -14,6 +15,7 @@ const USER_PROJECTS = 'USER_PROJECTS';
 const RESET_STATE = 'RESET_STATE';
 const ADD_NEW_TEAM = 'ADD_NEW_TEAM';
 const GET_MY_TEAMS = 'GET_MY_TEAMS';
+const GET_PROJECT_ID = 'GET_PROJECT_ID'; 
 
 
 // ACTION CREATORS
@@ -60,6 +62,12 @@ export function getMyTeams(teams) {
     payload: teams
   }
 }
+export function getProjectId(id) {
+  return {
+    type: GET_PROJECT_ID,
+    payload: id
+  }
+}
 
 // REDUCER
 export default function reducer(state=initialState, action) {
@@ -76,6 +84,8 @@ export default function reducer(state=initialState, action) {
       return { ...state, team: action.payload };
     case GET_MY_TEAMS:
       return { ...state, myTeams: action.payload};
+    case GET_PROJECT_ID:
+      return { ...state, currentProjectId: action.payload };
     default: 
       return state;
   }

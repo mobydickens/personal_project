@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
+import { getProjectId } from '../ducks/reducer';
 import Lane from './Lane.jsx';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
@@ -23,6 +24,9 @@ class Project extends Component {
     }
   }
   
+  componentDidMount() {
+    this.props.getProjectId(this.props.match.params.id);
+  }
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
@@ -95,4 +99,4 @@ class Project extends Component {
   }
 }
 
-export default connect(null)(Project);
+export default connect(null, { getProjectId })(Project);
