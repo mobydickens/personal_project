@@ -62,7 +62,7 @@ class Table extends Component {
     for (let i = 1; i <= rowsNeeded; i++) {
       devHours_expected += daily_dev_hours;
       let actual_hours_today = 0;
-      let totalEstimateChange = 0;
+      let currentEstimate = initialEstimate;
       
       for (let j = 0; j < timelogs.length; j++) {
         let logged_date = moment(timelogs[j].created_at).format('L'); 
@@ -70,28 +70,24 @@ class Table extends Component {
         if( logged_date === date.format('L') ) {
           actual_hours_today += Number(timelogs[j].spent_time);
         }
-        //get estimate change for project based on changes made to estimates in each timelog
-        totalEstimateChange += Number(timelogs[j].estimate_change);
 
+        //calculate current estimate per day for the rows (only need to recalculate if the date is NOW or later)
+        if( logDate <= date.toDate() ) {
+          currentEstimate += Number(timelogs[j].estimate_change);
+        }
       }
       //get dates for column dates, skipping weekends
       let dateCheck = date.format('dddd');
       if(dateCheck.includes("Saturday")) {
         date.add(2, 'days');
       }
-      //calculate current estimate per day for the rows (only need to recalculate if the date is NOW or later)
-      let currentEstimate = initialEstimate;
-      if( logDate >= today ) {
-        currentEstimate = initialEstimate - totalEstimateChange;
-      }
 
       //calculate expected % of project complete based on dev hours per day that we alloted to work
       // total hours (initial estimate - dev hours per day (added up to the date) )
-      let percent_expected = Number((( devHours_expected / initialEstimate ) * 100).toFixed(2));
+      let percent_expected = Number( devHours_expected / (daily_dev_hours * rowsNeeded ));
       devHours_actual += actual_hours_today;
-      let percent_actual = Number((( devHours_actual / initialEstimate) * 100).toFixed(2));
 
-      let expected_hrs_remaining = initialEstimate - devHours_expected;
+      let expected_hrs_remaining = currentEstimate * (1 - percent_expected);
       if(expected_hrs_remaining < 0) {
         expected_hrs_remaining = 0;
       }
@@ -103,14 +99,13 @@ class Table extends Component {
       };
 
       rows.push( { 
-        date: date.format('L dddd'), 
+        date: date.format('L'), 
         expected_hours: daily_dev_hours, 
-        actual_hours_today: actual_hours_today, 
+        spent_today: actual_hours_today, 
         currentEstimate: currentEstimate,
         percent_expected: percent_expected,
-        percent_actual: percent_actual,
-        hours_expected: expected_hrs_remaining,
-        hours_remaining: actual_hrs_remaining } )
+        remaining_expected: expected_hrs_remaining,
+        remaining_actual: ( date.toDate() <= today ? actual_hrs_remaining : "" ) })
 
       date.add(1, 'day');
     }
@@ -120,11 +115,34 @@ class Table extends Component {
 
 
   render() {
-    this.createTableRows();
+    let tableArray = this.createTableRows();
+    let table = tableArray.map((row, i) => {
+      return (
+        <tr key={i}>
+          <td>{row.date}</td>
+          <td>{row.expected_hours}</td>
+          <td>{row.currentEstimate}</td>
+          <td>{row.spent_today}</td>
+          <td>{row.remaining_expected}</td>
+          <td>{row.remaining_actual}</td>
+          <td>{row.percent_expected}</td>
+        </tr>
+      )
+    })
+
     return (
-      <div>
-        Table component
-      </div>
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Dev Hours Per Day</th>
+          <th>Current Total Estimate (hrs)</th>
+          <th>Hours Spent</th>
+          <th>Expected Remaining Hours</th>
+          <th>Actual Remaining Hours</th>
+          <th>% Finished (expected)</th>
+        </tr>
+        {table}
+      </table>
     );
   }
 }
