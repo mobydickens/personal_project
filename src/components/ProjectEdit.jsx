@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class ProjectEdit extends Component {
@@ -48,7 +49,7 @@ class ProjectEdit extends Component {
         <LoggedInHeader />
         <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
           <div className='mb-2'>Start a new project</div>
-          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4 lg:w-2/5 lg:p-16'>
+          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4 lg:w-2/5 lg:py-16 lg:px-24'>
             <label htmlFor="title">Project Name:</label>
             <input
               onChange={ (e) => this.setState({ title: e.target.value })} 
@@ -81,6 +82,9 @@ class ProjectEdit extends Component {
               onClick={ () => this.newProject() } 
               className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24'>Submit
             </button>
+            <div className='flex justify-center m-2'>
+              <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+            </div>
           </form>
         </div>
       </div>

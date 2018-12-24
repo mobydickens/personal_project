@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { addNewTeam } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
+import { Link } from 'react-router-dom';
 
 class Team extends Component {
 
@@ -73,49 +74,56 @@ class Team extends Component {
     })
 
     return (
-      <div className='flex flex-col w-full h-screen'>
+      <div className='flex flex-col'>
         <LoggedInHeader />
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
           <TeamList />
-          <div>Start a new team</div>
-          <form className='border flex flex-col p-2'>
-            <label>Choose team name: </label>
-            <input
-              onChange={ (e) => this.setState({ teamName: e.target.value })} 
-              className='input-underlined focus:outline-none' 
-              type="text" 
-              value={ this.state.teamName }
-            />
-            <label>Enter new teammate's email: </label>
-            <div className='flex items-center w-full border-b border-green'>
+          <div className='mt-4'>Start a new team</div>
+          <div className='bg-white shadow-md w-5/6 p-6 m-4 lg:w-2/5'>
+            <form className='flex flex-col p-2 lg:p-16'>
+              <label>Choose team name: </label>
               <input
-                onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
-                className='input focus:outline-none' 
-                type="text"
-                value={ this.state.memberEmail }/>
-              <button onClick={ () => this.add() }>Add</button>
-            </div>
-            
-            { !this.state.done ?
-              <div className='flex flex-col'>
-                <p className='my-4'>Team members:</p>
-                <div className='m-2'>{team}</div> 
-                <button 
-                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
-                  onClick={ () => this.addTeam() }>
-                  Add Team!
-                </button>
-              </div> 
-              :
-              <div className='flex flex-col justify-center m-6'>
-                <div>Your team has been created!</div>
-                <button 
-                  onClick={ () => this.props.history.push('/editproject') } 
-                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6'>Start a Project!
-                </button>
-              </div> }
-          </form>
-          
+                onChange={ (e) => this.setState({ teamName: e.target.value })} 
+                className='input-underlined focus:outline-none' 
+                type="text" 
+                value={ this.state.teamName }
+              />
+              <label className='my-4'>Enter new teammate's email: </label>
+              <div className='flex items-center w-full border-b border-green'>
+                <input
+                  onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
+                  className='input focus:outline-none' 
+                  type="text"
+                  value={ this.state.memberEmail }/>
+                <button className='text-grey' onClick={ () => this.add() }>Add</button>
+              </div>
+              
+              { !this.state.done ?
+                <div className='flex flex-col'>
+                  <p className='my-4'>Team members:</p>
+                  <div>{team}</div> 
+                  <button 
+                    className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24' 
+                    onClick={ () => this.addTeam() }>
+                    Add Team!
+                  </button>
+                  <div className='flex justify-center m-2'>
+                    <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                  </div>
+                </div> 
+                :
+                <div className='flex flex-col justify-center m-6'>
+                  <div>Your team has been created!</div>
+                  <button 
+                    onClick={ () => this.props.history.push('/editproject') } 
+                    className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24'>Start a Project!
+                  </button>
+                  <div className='flex justify-center m-2'>
+                    <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                  </div>
+                </div> }
+            </form>
+          </div>
         </div>
       </div>
     );
