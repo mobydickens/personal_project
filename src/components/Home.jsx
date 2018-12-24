@@ -29,12 +29,12 @@ class Home extends Component {
     const { userId, username, projects } = this.props;
     let projectList = projects.map((project, i) => {
       return (
-        <div className='w-auto md:w-1/2 lg:w-1/3 h-auto' key={i}>
-          <div className='shadow-md border-l-4 border-green m-4 p-6 rounded-sm lg:my-6 lg:mr-2 bg-white rounded-sm'>
+        <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>
+          <div className='shadow-md border-l-4 border-green m-4 p-6 rounded-sm lg:my-4 lg:mr-2 bg-white rounded-sm lg:h-32'>
           <div onClick={ () => this.navigateToProject(project.id) }><div className='text-lg cursor-pointer'>{project.title}</div></div>
           {/* displays the team name */}
           <p className='pb-2 text-sm'>{project.name}</p>
-          <p className='text-grey-darker text-sm'>{project.description.length > 50 ? project.description.slice(0, 50) + "..." : project.description}</p>
+          <p className='text-grey-darker text-sm'>{project.description.length > 40 ? project.description.slice(0, 40) + "..." : project.description}</p>
           </div>
         </div>
       )

@@ -34,11 +34,12 @@ class Lane extends Component {
     let tasks = this.state.tasks.map(task => {
       return (
         <div
+          className='border-l-4 border-green mx-4 my-2 rounded'
           key={task.id}>
           <div 
-            className='bg-white m-2 border'
+            className='border border-grey shadow bg-white rounded-r p-2'
             onClick={ () => this.props.openDetailModal(task.id) } >
-            <div className='p-4'>{task.title}</div>
+            <div className='py-4 px-2'>{task.title}</div>
           </div>
         </div>
       )
