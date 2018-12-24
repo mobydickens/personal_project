@@ -12,7 +12,6 @@ class Sidebar extends Component {
         <div className='flex flex-col m-6'>
           <Link to='/home'><button className='p-2' onClick={ () => this.props.hideSidebarFn() }>PROJECTS</button></Link>
           <Link to='/team'><button className='p-2' onClick={ () => this.props.hideSidebarFn() }>TEAMS</button></Link>
-          <Link to='/reports'><button className='p-2' onClick={ () => this.props.hideSidebarFn() }>REPORTS</button></Link>
           <Link to='/'><button className='p-2' onClick={ () => this.props.hideAndLogout() }>LOGOUT</button></Link>
         </div>
       </div>

@@ -29,32 +29,38 @@ class Home extends Component {
     const { userId, username, projects } = this.props;
     let projectList = projects.map((project, i) => {
       return (
-        <div
-          key={i} 
-          className='shadow border-l-8 border-green mx-4 my-4 p-2 rounded-sm w-auto md:w-1/3 lg:w-1/4 bg-white'>
-          <div onClick={ () => this.navigateToProject(project.id) }><div className='font-josefin text-xl mb-1 cursor-pointer'>{project.title}</div></div>
-          <p className='pb-2'>{project.name}</p>
-          <p>{project.description}</p>
+        <div className='w-auto md:w-1/2 lg:w-1/3 h-auto' key={i}>
+          <div className='shadow-md border-l-4 border-green m-4 p-6 rounded-sm lg:my-6 lg:mr-2 bg-white rounded-sm'>
+          <div onClick={ () => this.navigateToProject(project.id) }><div className='text-lg cursor-pointer'>{project.title}</div></div>
+          {/* displays the team name */}
+          <p className='pb-2 text-sm'>{project.name}</p>
+          <p className='text-grey-darker text-sm'>{project.description.length > 50 ? project.description.slice(0, 50) + "..." : project.description}</p>
+          </div>
         </div>
       )
     })
     return (
       <div>
         <LoggedInHeader />
-        <div className='w-screen h-screen bg-grey-lighter pt-4'>
-        <div className='flex justify-between'>
-          <div className='font-josefin m-4'>Welcome back, {username}</div>
-          <Link className='no-underline' to='/editproject'><div 
-            className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
-            <i className="fas fa-plus m-4 px-8"></i>
-          </div></Link>
-        </div>
-          <div className='flex justify-center'>
-            <div>
+        <div className='flex justify-center w-screen bg-grey-light pt-4 lg:h-screen'>
+          <div className='lg:w-3/4'>
+            <div className='lg:mt-6'>
+            {/* if not logged in, will be redirected to login main page */}
             { !userId ? <Redirect to='/'></Redirect> : 
-              <div className='flex flex-col-reverse w-screen md:flex-row md:flex-wrap md:ml-8'>
-                {projectList}
-              </div>}
+              <div>
+                <div className='flex justify-between'>
+                  <div className='font-josefin m-4'>Welcome back, {username}</div>
+                  {/* this link will direct to create project page */}
+                  <Link className='no-underline' to='/editproject'><div 
+                    className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
+                    <i className="fas fa-plus m-4 px-8"></i>
+                  </div></Link>
+                </div>
+                <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
+                  {projectList.reverse()}
+                </div> 
+              </div>
+            }
             </div>
           </div>
         </div>

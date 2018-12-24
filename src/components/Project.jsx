@@ -6,7 +6,6 @@ import Lane from './Lane.jsx';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
 import ProjectHeader from './ProjectHeader.jsx';
-// import axios from 'axios';
 
 class Project extends Component {
 
