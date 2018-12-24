@@ -46,28 +46,26 @@ class ProjectEdit extends Component {
 
       <div>
         <LoggedInHeader />
-        <div className='flex flex-col items-center m-6'>
-          <div>Start a project</div>
-          <form className='bg-grey-lighter flex flex-col w-screen p-6 m-4'>
-            <label className='my-4' htmlFor="title">Project Name:</label>
+        <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
+          <div className='mb-2'>Start a new project</div>
+          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4'>
+            <label htmlFor="title">Project Name:</label>
             <input
               onChange={ (e) => this.setState({ title: e.target.value })} 
-              className='input-underlined focus:outline-none'  
+              className='input-underlined focus:outline-none mb-4'  
               type="text" 
               value={ this.state.title}
             />
-            <label className='mt-4' htmlFor="desc">Description:</label><br/>
-            <textarea 
+            <label htmlFor="desc">Description:</label><br/>
+            <input 
               onChange={ (e) => this.setState({ description: e.target.value }) }
               className='input-underlined focus:outline-none' 
-              rows="3" 
-              cols="20">
-            </textarea><br/>
-            <select onChange={ (e) => this.setState( { team: e.target.value })}>
+            /><br/>
+            <select className='bg-grey-light border border-grey focus:outline-none' onChange={ (e) => this.setState( { team: e.target.value })}>
               <option defaultValue="selected">Choose team</option>
               {dropdown}
             </select><br/>
-            <label className='my-4' htmlFor="devhours">Dev hours per day:</label>
+            <label htmlFor="devhours">Team dev hours available per day:</label>
             <input
               onChange={ (e) => this.setState({ devHours: e.target.value }) }
               className='input-underlined focus:outline-none'  
