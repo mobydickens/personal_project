@@ -48,7 +48,7 @@ class ProjectEdit extends Component {
         <LoggedInHeader />
         <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
           <div className='mb-2'>Start a new project</div>
-          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4'>
+          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4 lg:w-2/5 lg:p-16'>
             <label htmlFor="title">Project Name:</label>
             <input
               onChange={ (e) => this.setState({ title: e.target.value })} 
@@ -79,7 +79,7 @@ class ProjectEdit extends Component {
               type="date"/>
             <button 
               onClick={ () => this.newProject() } 
-              className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6'>Submit
+              className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24'>Submit
             </button>
           </form>
         </div>
