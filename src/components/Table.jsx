@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { getTableArray } from '../ducks/reducer';
 
 class Table extends Component {
 
@@ -76,30 +77,32 @@ class Table extends Component {
           currentEstimate += Number(timelogs[j].estimate_change);
         }
       }
-      //get dates for column dates, skipping weekends
+
+      //get dates for column, skipping weekends (Sat/Sun)
       let dateCheck = date.format('dddd');
       if(dateCheck.includes("Saturday")) {
         date.add(2, 'days');
       }
 
-      //calculate expected % of project complete based on dev hours per day that we alloted to work
-      // total hours (initial estimate - dev hours per day (added up to the date) )
+      //calculate expected % of project that is expected to be complete based on dev hours per day that we alloted to work
       let percent_expected = Number( devHours_expected / (daily_dev_hours * rowsNeeded ));
       devHours_actual += actual_hours_today;
 
+      //calculated expected hours remaining to finish project
       let expected_hrs_remaining = currentEstimate * (1 - percent_expected);
       if(expected_hrs_remaining < 0) {
         expected_hrs_remaining = 0;
       }
      
-      //should this be current estimate or initial estimate??
+      // estimate actual hours remaining to finish project
       let actual_hrs_remaining = currentEstimate - devHours_actual;
       if(expected_hrs_remaining < 0) {
         expected_hrs_remaining = 0;
       };
 
+      // push all of the data to the array
       rows.push( { 
-        date: date.format('L'), 
+        date: date.clone(), 
         expected_hours: daily_dev_hours, 
         spent_today: actual_hours_today, 
         currentEstimate: currentEstimate,
@@ -109,7 +112,9 @@ class Table extends Component {
 
       date.add(1, 'day');
     }
-    console.log("Initial Estimate: ", initialEstimate, "Rows Needed: ", rowsNeeded, "Current Rows: ", rows);
+    //put the array in the reducer
+    console.log(rows)
+    this.props.getTableArray(rows);
     return rows;
   }
 
@@ -119,29 +124,31 @@ class Table extends Component {
     let table = tableArray.map((row, i) => {
       return (
         <tr key={i}>
-          <td>{row.date}</td>
-          <td>{row.expected_hours}</td>
-          <td>{row.currentEstimate}</td>
-          <td>{row.spent_today}</td>
-          <td>{row.remaining_expected}</td>
-          <td>{row.remaining_actual}</td>
-          <td>{row.percent_expected}</td>
+          <td className='border'>{row.date.format('L')}</td>
+          <td className='border'>{row.expected_hours}</td>
+          <td className='border'>{row.currentEstimate.toFixed(2)}</td>
+          <td className='border'>{row.spent_today}</td>
+          <td className='border'>{row.remaining_expected.toFixed(2)}</td>
+          <td className='border'>{row.remaining_actual ? row.remaining_actual.toFixed(2) : ""}</td>
+          <td className='border'>{(row.percent_expected * 100).toFixed(1)}%</td>
         </tr>
       )
     })
 
     return (
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Dev Hours Per Day</th>
-          <th>Current Total Estimate (hrs)</th>
-          <th>Hours Spent</th>
-          <th>Expected Remaining Hours</th>
-          <th>Actual Remaining Hours</th>
-          <th>% Finished (expected)</th>
-        </tr>
-        {table}
+      <table className='border'>
+        <tbody>
+          <tr>
+            <th>Date</th>
+            <th>Dev Hours Per Day</th>
+            <th>Current Total Estimate (hrs)</th>
+            <th>Hours Spent</th>
+            <th>Expected Remaining Hours</th>
+            <th>Actual Remaining Hours</th>
+            <th>% Finished (expected)</th>
+          </tr>
+          {table}
+        </tbody>
       </table>
     );
   }
@@ -152,10 +159,4 @@ function mapState(state) {
     projectId: state.currentProjectId
   }
 }
-export default connect(mapState)(Table);
-
-//neeed to fetch start_date for the particular project
-//fetch dev_hours per day
-//timelogs for this particular project from all statuses
-
-// moment().format('L'); 
+export default connect(mapState, { getTableArray })(Table);
