@@ -3,7 +3,7 @@ import MainHeader from './MainHeader.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { userSignup } from '../ducks/reducer';
-
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
 
@@ -36,32 +36,37 @@ class Signup extends Component {
     return (
       <div>
         <MainHeader />
-        <div className='flex flex-col justify-center bg-green-dark w-full h-screen lg:bg-white'>
-          <div className='flex flex-col self-center bg-white w-5/6 h-auto p-6 lg:w-1/2'>
-            <h3 className='self-center'>Welcome to NAME!</h3>
+        <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
+          <div className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+          <div className='flex justify-center'>
+            <div className='font-josefin text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-green m-4'>J</div>
+          </div>
             <input
               onChange={ (e) => this.setState({ email: e.target.value }) }
-              className='input' 
+              className='input-underlined focus:outline-none m-2 border-grey'
               value={ this.state.email }
               placeholder='Enter email' 
               type="text"/>
             <input
               onChange={ (e) => this.setState({ username: e.target.value }) }
-              className='input' 
+              className='input-underlined focus:outline-none m-2 border-grey' 
               value={ this.state.username }
               placeholder='Enter username' 
               type="text"/>
             <input
               onChange={ (e) => this.setState({ password: e.target.value }) }
-              className='input' 
+              className='input-underlined focus:outline-none m-2 border-grey' 
               value={ this.state.password }
               placeholder='Enter password' 
               type="text"/>
             <button
               onClick={ this.signup }
-              className=' self-center bg-green hover:bg-green-dark text-white border border-green-base py-2 px-4 m-4 rounded'>
+              className=' self-center bg-green hover:bg-green-dark text-white border border-green-base py-2 px-4 m-4 rounded-full'>
               Sign Up
             </button>
+            <div className='flex justify-center'>
+              <Link className='no-underline text-smoke' to='/'>Cancel</Link>
+            </div>
           </div>
         </div>
       </div>
