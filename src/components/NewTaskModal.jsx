@@ -36,26 +36,26 @@ class NewTaskModal extends Component {
 
   render() {
     return (
-      <div className='fixed pin-r pin-t w-full h-screen opacity'>
-        <div className=' bg-grey p-6'>
-          <button onClick={ () => this.props.exitModal() } className='float-right cursor-pointer'>
+      <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
+        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded'>
+          <button onClick={ () => this.props.exitModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
-          <label>Enter a title for this task:</label><br/>
+          <label>Enter a title:</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4' 
+            className='input-underlined focus:outline-none m-2 border-grey px-6' 
             onChange={ (e) => this.setState({ title: e.target.value })} 
             type="text"
             value={ this.state.title }/><br/>
           <label>Description</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 bg-grey border-white' 
+            className='input-underlined focus:outline-none m-2 border-grey px-6' 
             onChange={ (e) => this.setState({ description: e.target.value })} 
             type="text"
             value={ this.state.description }/><br/>
-          <label>Initial Time Estimate for this task:</label><br/>
+          <label>Initial time estimate (in hours):</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 bg-grey border-white' 
+            className='input-underlined focus:outline-none m-2 border-grey px-6' 
             onChange={ (e) => this.setState({ estimate: e.target.value })} 
             type="number"
             value={ this.state.estimate } /><br/>
