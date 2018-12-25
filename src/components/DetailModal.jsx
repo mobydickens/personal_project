@@ -3,6 +3,7 @@ import axios from 'axios';
 import LogTime from './LogTime.jsx';
 import EditTask from './EditTask.jsx';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 class DetailModal extends Component {
 
@@ -109,7 +110,7 @@ class DetailModal extends Component {
             : 
             <div>
               {/* regular history mode - not editing */}
-              <div>{timelog.username} logged time on {timelog.created_at}</div>
+              <div>{timelog.username} logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
               <div>Time spent: {timelog.spent_time}</div>
               <div>Estimate change: {timelog.estimate_change}</div>
               <div>{timelog.comment}</div>
@@ -134,30 +135,28 @@ class DetailModal extends Component {
     })
 
     return (
-      <div className='fixed pin-r pin-t w-full h-screen'>
-        <div className='flex flex-col lg:flex-row absolute pin-x pin-t bg-grey p-6'>
-          <div className='border w-full p-4'>
-            <div>
-              <div>Initial time estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }</div>
-              <div>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }</div>
-              <div>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }</div>
-              <div>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }</div>
-            </div>
-            <hr/>
+      <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
+        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded'>
+          <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
+            <i className="fas fa-times"></i>
+          </button>
+          <div className='w-full p-4'>
             <EditTask 
               task={ task }
               getTasksAndLogs={ this.getTasksAndLogs}
               needsUpdate={ this.props.needsUpdate } />
             <div>
+              <div>
+                <div>Initial time estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }</div>
+                <div>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }</div>
+                <div>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }</div>
+                <div>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }</div>
+              </div>
               <button onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
             </div>
           </div>
-          <div className='border w-full p-4'>
-            <div className='flex justify-end'>
-              <button onClick={ () => this.props.detailModal() } className='cursor-pointer'>
-                <i className="fas fa-times"></i>
-              </button>
-            </div>
+          <div className='w-full p-4'>
+           
             <LogTime 
               taskId={ this.props.detailTaskId }
               getTasksAndLogs={ this.getTasksAndLogs }/>

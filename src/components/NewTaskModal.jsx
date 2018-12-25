@@ -43,19 +43,19 @@ class NewTaskModal extends Component {
           </button>
           <label>Enter a title:</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 border-grey px-6' 
+            className='input-underlined focus:outline-none m-2 border-grey' 
             onChange={ (e) => this.setState({ title: e.target.value })} 
             type="text"
             value={ this.state.title }/><br/>
           <label>Description</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 border-grey px-6' 
+            className='input-underlined focus:outline-none m-2 border-grey' 
             onChange={ (e) => this.setState({ description: e.target.value })} 
             type="text"
             value={ this.state.description }/><br/>
           <label>Initial time estimate (in hours):</label><br/>
           <input 
-            className='input-underlined focus:outline-none m-2 border-grey px-6' 
+            className='input-underlined focus:outline-none m-2 border-grey' 
             onChange={ (e) => this.setState({ estimate: e.target.value })} 
             type="number"
             value={ this.state.estimate } /><br/>
