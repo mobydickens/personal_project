@@ -113,7 +113,6 @@ class Table extends Component {
       date.add(1, 'day');
     }
     //put the array in the reducer
-    console.log(rows)
     this.props.getTableArray(rows);
     return rows;
   }
@@ -124,28 +123,24 @@ class Table extends Component {
     let table = tableArray.map((row, i) => {
       return (
         <tr key={i}>
-          <td className='border'>{row.date.format('L')}</td>
-          <td className='border'>{row.expected_hours}</td>
+          <td className='border'>{row.date.format('MMM Do')}</td>
           <td className='border'>{row.currentEstimate.toFixed(2)}</td>
           <td className='border'>{row.spent_today}</td>
           <td className='border'>{row.remaining_expected.toFixed(2)}</td>
           <td className='border'>{row.remaining_actual ? row.remaining_actual.toFixed(2) : ""}</td>
-          <td className='border'>{(row.percent_expected * 100).toFixed(1)}%</td>
         </tr>
       )
     })
 
     return (
-      <table className='border'>
+      <table className='border w-full'>
         <tbody>
           <tr>
             <th>Date</th>
-            <th>Dev Hours Per Day</th>
-            <th>Current Total Estimate (hrs)</th>
-            <th>Hours Spent</th>
-            <th>Expected Remaining Hours</th>
-            <th>Actual Remaining Hours</th>
-            <th>% Finished (expected)</th>
+            <th>Current estimate</th>
+            <th>Hours spent</th>
+            <th>Expected remaining</th>
+            <th>Actual remaining</th>
           </tr>
           {table}
         </tbody>

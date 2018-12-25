@@ -12,7 +12,6 @@ class Reports extends Component {
     let dateArray = this.props.tableArray.map(obj => {
       return obj.date.format();
     })
-    console.log(dateArray)
     let expectedRemaining = this.props.tableArray.map(obj => {
       return Number((obj.remaining_expected).toFixed(2));
     })
@@ -26,29 +25,64 @@ class Reports extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <Link to={`/project/${this.props.currentProjectId}`}><i class="fas fa-arrow-left"></i></Link>
-        <Plot data={[
-          {
-            x: dateArray,
-            y: expectedRemaining,
-            type: 'scatter',
-            mode: 'Line Dash',
-            marker: {color: 'blue'},
-            name: 'expected'
-          },
-          {
-            x: dateArray,
-            y: actualRemaining,
-            type: 'scatter',
-            mode: 'Line Dash',
-            marker: {color: 'green'},
-            name: 'actual'
-          }
-        ]}
-        layout={
-          {width: 920, height: 640, title: 'Progress chart', yaxis: { title: 'Hours' }}
-          } />
-        <Table />
+        <Link to={`/project/${this.props.currentProjectId}`}><i className="fas fa-arrow-left text-black m-4"></i></Link>
+        {/* for large screen */}
+        <div className='hidden lg:block w-1/2 border-b border-grey'>
+          <Plot 
+          useResizeHandler={true}
+          data={[
+            {
+              x: dateArray,
+              y: expectedRemaining,
+              type: 'scatter',
+              mode: 'Line Dash',
+              marker: {color: 'blue'},
+              name: 'expected'
+            },
+            {
+              x: dateArray,
+              y: actualRemaining,
+              type: 'scatter',
+              mode: 'Line Dash',
+              marker: {color: 'green'},
+              name: 'actual'
+            }
+          ]}
+          layout={
+            {title: 'Progress chart', yaxis: { title: 'Hours' }, showlegend:true, legend: {x:1, y:1, xanchor:'auto'}, displayModeBar:false}
+            } 
+          config={{displayModeBar: false}}/>
+          </div>
+            {/* //for small screen */}
+          <div className='w-full lg:hidden border-b border-grey'>
+          <Plot 
+          data={[
+            {
+              x: dateArray,
+              y: expectedRemaining,
+              type: 'scatter',
+              mode: 'Line Dash',
+              marker: {color: 'blue'},
+              name: 'expected'
+            },
+            {
+              x: dateArray,
+              y: actualRemaining,
+              type: 'scatter',
+              mode: 'Line Dash',
+              marker: {color: 'green'},
+              name: 'actual'
+            }
+          ]}
+          layout={
+            {width: window.screen.width-10, height: window.screen.height / 2, title: 'Progress chart', yaxis: { title: 'Hours' }, showlegend:true, legend: {x:1, y:1, xanchor:'auto'}, displayModeBar:false}
+            } 
+          config={{displayModeBar: false}}/>
+          </div>
+
+        <div className='lg:block'>
+          <Table />
+        </div>
       </div>
     );
   }
