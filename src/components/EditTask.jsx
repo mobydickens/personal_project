@@ -47,7 +47,7 @@ class EditTask extends Component {
   render() {
     return (
       <div>
-        <div className='flex justify-between'>
+        <div className='flex flex-col lg:flex-row lg:justify-between'>
           <div 
             onClick={ () => this.setState({ showTitleInput: true, title: this.props.task.title }) }>
             { !this.state.showTitleInput ? 
@@ -69,9 +69,9 @@ class EditTask extends Component {
           onClick={ () => this.setState({showStatusSelector: true, status: this.props.task.status }) }
           className='my-2'>
           { !this.state.showStatusSelector ? 
-            <div className='text-smoke lg:border-b border-grey py-2'>{this.props.task.status}</div>
+            <div className='text-smoke lg:border-b border-grey lg:py-2'>{this.props.task.status}</div>
             : 
-            <div className='flex flex-col lg:flex-row lg:border-b border-grey py-2'>
+            <div className='flex flex-col lg:flex-row lg:border-b border-grey lg:py-2'>
               <select className='focus:outline-none' onChange={ (e) => this.setState( { status: e.target.value })}>
                 <option defaultValue="selected">To Do</option>
                 <option defaultValue="selected">In Progress</option>
@@ -85,7 +85,7 @@ class EditTask extends Component {
         </div>
         <div 
           onClick={ () => this.setState({ showDescriptionInput: true, description: this.props.task.description }) } 
-          className='my-2'>
+          className='my-2 lg:my-4'>
           { !this.state.showDescriptionInput ?
             <div>{this.props.task.description}</div>
             :

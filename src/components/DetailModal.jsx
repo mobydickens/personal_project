@@ -84,11 +84,11 @@ class DetailModal extends Component {
     //calculating time spent from the all logs for this task
     let timeSpent = function() {
       return logs.reduce((acc, logValue) => {
-        return acc + +logValue.spent_time;
+        return Number((acc + +logValue.spent_time).toFixed(1));
       }, 0)
     }();
     // remaining calculates with current estimate, not original
-    let remaining = currentEstimate - timeSpent;
+    let remaining = Number((currentEstimate - timeSpent).toFixed(1));
     
     //the map below makes a div of log history for each timelog that is created in the LogTime component
     let timelogs = this.state.logs.map(timelog => {
@@ -147,27 +147,34 @@ class DetailModal extends Component {
 
     return (
       <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+        <div className='relative p-2 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
           <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
-          <div className='w-full p-4'>
+          <div className='w-full p-2 lg:p-4'>
             <EditTask 
               task={ task }
               getTasksAndLogs={ this.getTasksAndLogs}
               needsUpdate={ this.props.needsUpdate } />
             <div>
-              <div>
-                <div>Initial time estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }</div>
-                <div>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }</div>
-                <div>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }</div>
-                <div>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }</div>
+              <div className='flex'>
+                <div 
+                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
+                </div>
+                <div 
+                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
+                </div>
+                <div 
+                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
+                </div>
+                <div 
+                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
+                </div>
               </div>
               
             </div>
           </div>
-          <div className='w-full p-4'>
-           
+          <div className='w-full p-2'>
             <LogTime 
               taskId={ this.props.detailTaskId }
               getTasksAndLogs={ this.getTasksAndLogs }/>

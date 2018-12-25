@@ -63,8 +63,7 @@ class ProjectHeader extends Component {
               </div>
           }
           <div className='my-2 mx-6 flex flex-row'>
-            <Link className='no-underline' to='/reports'><button className='lg:m-4 hidden lg:block'>See reports for this project</button></Link>
-            <Link to='/reports'><i class="lg:m-4 text-sm lg:hidden fas fa-chart-bar hover:text-red"></i></Link>
+            <Link className='no-underline' to='/reports'><button className='lg:m-4'>See reports for this project</button></Link>
             <button 
               onClick={ () => this.deleteProject(this.props.match.params.id) } 
               className='mx-4 text-sm'>
