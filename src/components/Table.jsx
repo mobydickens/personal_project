@@ -104,8 +104,8 @@ class Table extends Component {
       rows.push( { 
         date: date.clone(), 
         expected_hours: daily_dev_hours, 
-        spent_today: actual_hours_today, 
-        currentEstimate: currentEstimate,
+        spent_today: ( date.toDate() <= today ? actual_hours_today : "" ), 
+        currentEstimate: ( date.toDate() <= today ? currentEstimate : "" ),
         percent_expected: percent_expected,
         remaining_expected: expected_hrs_remaining,
         remaining_actual: ( date.toDate() <= today ? actual_hrs_remaining : "" ) })
@@ -122,25 +122,25 @@ class Table extends Component {
     let tableArray = this.createTableRows();
     let table = tableArray.map((row, i) => {
       return (
-        <tr key={i}>
-          <td className='border'>{row.date.format('MMM Do')}</td>
-          <td className='border'>{row.currentEstimate.toFixed(2)}</td>
-          <td className='border'>{row.spent_today}</td>
-          <td className='border'>{row.remaining_expected.toFixed(2)}</td>
-          <td className='border'>{row.remaining_actual ? row.remaining_actual.toFixed(2) : ""}</td>
+        <tr className={ i % 2 !== 0 ? 'bg-white' : 'bg-grey-lightest' } key={i}>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.date.format('MMM Do')}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_expected.toFixed(2)}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.spent_today}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.currentEstimate ? row.currentEstimate.toFixed(2) : ""}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_actual ? row.remaining_actual.toFixed(2) : ""}</td>
         </tr>
       )
     })
 
     return (
-      <table className='border w-full'>
+      <table className='border shadow-md w-full bg-white mt-4 lg:mt-0 lg:m-6'>
         <tbody>
           <tr>
-            <th>Date</th>
-            <th>Current estimate</th>
-            <th>Hours spent</th>
-            <th>Expected remaining</th>
-            <th>Actual remaining</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Date</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Expected <br/>remaining</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Hours <br/>spent</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Current <br/>estimate</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Actual <br/>remaining</th>
           </tr>
           {table}
         </tbody>
