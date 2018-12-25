@@ -100,32 +100,43 @@ class DetailModal extends Component {
           { this.state.editingLog && this.state.editingId === timelog.id ? 
             <div>
               {/* editing mode */}
-              <div>{timelog.username} logged time on {timelog.created_at}</div>
-              <div>Time spent: <input onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/></div> 
-              <div>Estimate change: <input onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/></div> 
-              <div>Comment: <input onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/></div><br/>
-              <button onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
-              <button onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
+              <div>{timelog.username} logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              <div>Time spent: 
+                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
+              </div> 
+              <div>Estimate change: 
+                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/>
+              </div>
+              <div>Comment: 
+                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
+              </div>
+              <button 
+                className='m-2 bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-1 mt-2 focus:outline-none' 
+                onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
+              <button className='m-2' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
             : 
-            <div>
+            <div className='border-b border-grey-lighter'>
               {/* regular history mode - not editing */}
-              <div>{timelog.username} logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
-              <div>Time spent: {timelog.spent_time}</div>
-              <div>Estimate change: {timelog.estimate_change}</div>
-              <div>{timelog.comment}</div>
+              <div><span className='text-green-dark'>{timelog.username}</span> logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              <div>Time spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}</div>
+              <div>Estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
+              <div>Comment: {timelog.comment}</div>
               {/* this ternary controls hiding and showing the edit button - only the person who created the timelog can edit it */}
               {  +this.props.userId === timelog.user_id ?
-                <button 
-                  onClick={ () => this.setState({
-                    editingLog: true,
-                    editingId: timelog.id,
-                    spent_time: timelog.spent_time,
-                    estimate_change: timelog.estimate_change,
-                    comment: timelog.comment
-                  }) }>
-                  Edit
-                </button>
+                <div className='flex justify-end'>
+                  <button
+                    className='text-smoke' 
+                    onClick={ () => this.setState({
+                      editingLog: true,
+                      editingId: timelog.id,
+                      spent_time: timelog.spent_time,
+                      estimate_change: timelog.estimate_change,
+                      comment: timelog.comment
+                    }) }>
+                    Edit
+                  </button>
+                </div>
                 : ""
               } 
             </div>
@@ -136,7 +147,7 @@ class DetailModal extends Component {
 
     return (
       <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded'>
+        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
           <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
@@ -152,7 +163,7 @@ class DetailModal extends Component {
                 <div>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }</div>
                 <div>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }</div>
               </div>
-              <button onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
+              
             </div>
           </div>
           <div className='w-full p-4'>
@@ -162,10 +173,13 @@ class DetailModal extends Component {
               getTasksAndLogs={ this.getTasksAndLogs }/>
             { !logs[0] ? "" :
               <div className='m-2'>
-                <div>History</div>
+                <div className='text-smoke'>History</div>
                 {timelogs}
               </div>
             }
+          </div>
+          <div className='flex justify-center'>
+            <button className='text-red-lighter' onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
           </div>
         </div>
       </div>

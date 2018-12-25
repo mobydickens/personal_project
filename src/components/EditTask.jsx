@@ -53,10 +53,10 @@ class EditTask extends Component {
             { !this.state.showTitleInput ? 
               <div className='text-xl'>{this.props.task.title}</div> 
               : 
-              <div className='flex flex-col lg:flex-row lg:border-b border-white py-2'>
+              <div className='flex flex-col lg:flex-row'>
                 <input
                   onChange={ (e) => this.setState({ title: e.target.value}) }
-                  className='input focus:outline-none bg-grey'
+                  className='input focus:outline-none bg-grey-lighter rounded'
                   value={this.state.title}
                   type="text"/>
                 <button onClick={ () => this.updateTitle() } className='mx-2'>Save</button>
@@ -69,7 +69,7 @@ class EditTask extends Component {
           onClick={ () => this.setState({showStatusSelector: true, status: this.props.task.status }) }
           className='my-2'>
           { !this.state.showStatusSelector ? 
-            <div className='text-smoke lg:border-b border-grey'>{this.props.task.status}</div>
+            <div className='text-smoke lg:border-b border-grey py-2'>{this.props.task.status}</div>
             : 
             <div className='flex flex-col lg:flex-row lg:border-b border-grey py-2'>
               <select className='focus:outline-none' onChange={ (e) => this.setState( { status: e.target.value })}>
@@ -89,10 +89,10 @@ class EditTask extends Component {
           { !this.state.showDescriptionInput ?
             <div>{this.props.task.description}</div>
             :
-            <div className='flex flex-col lg:flex-row lg:border-b border-white py-2'>
+            <div className='flex flex-col lg:flex-row'>
               <input
                 onChange={ (e) => this.setState({ description: e.target.value}) }
-                className='input focus:outline-none bg-grey'
+                className='input focus:outline-none bg-grey-lighter rounded'
                 value={this.state.description}
                 type="text"/>
               <button onClick={ () => this.updateDescription() } className='mx-2'>Save</button>

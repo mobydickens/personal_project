@@ -27,28 +27,30 @@ class LogTime extends Component {
   render() {
     return (
       <div>
-        <div>Log time:</div>
         <label>Time spent: </label>
         <input
           onChange={ (e) => this.setState({ spent_time: e.target.value})}
-          className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4' 
+          className='input focus:outline-none bg-grey-lighter rounded' 
           type="number"
           value={ this.state.spent_time } />
         <label>Estimate change: </label>
         <input
           onChange={ (e) => this.setState({ estimate_change: e.target.value})} 
-          className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4'
+          className='input focus:outline-none bg-grey-lighter rounded'
           type="number"
-          value={ this.state.estimate_change } />
+          value={ this.state.estimate_change } /><br/>
         <label>Comment: </label>
         <input
           onChange={ (e) => this.setState({ comment: e.target.value})} 
-          className='input-underlined focus:outline-none m-2 bg-grey border-white lg:w-3/4'
+          className='input focus:outline-none bg-grey-lighter rounded'
           type="text"
           value={ this.state.comment } />
-        <button
-          onClick={ () => this.newTimelog() } 
-          className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 focus:outline-none' >Save</button>
+        <div className='flex justify-end'>
+          <button
+            onClick={ () => this.newTimelog() } 
+            className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-1 mt-2 focus:outline-none'>Save
+          </button>
+        </div>
       </div>
     );
   }
