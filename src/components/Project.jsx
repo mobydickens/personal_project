@@ -92,6 +92,13 @@ class Project extends Component {
               detailTaskId={ this.state.detailTaskId }
               detailModal={ this.openDetailModal }
               needsUpdate={ this.componentNeedsUpdate } /> }
+        <div className='flex justify-center'>
+          <button 
+            onClick={ () => this.deleteProject(this.props.match.params.id) } 
+            className='m-4 text-sm lg:hidden'>
+            <i className="fas fa-trash-alt"></i>
+          </button>
+        </div>
         </div>
       </div>
     );

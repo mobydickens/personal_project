@@ -4,6 +4,7 @@ import Table from './Table.jsx';
 import { connect } from 'react-redux';
 import { getTableArray } from '../ducks/reducer';
 import Plot from 'react-plotly.js';
+import { Link } from 'react-router-dom';
 
 class Reports extends Component {
   
@@ -25,6 +26,7 @@ class Reports extends Component {
     return (
       <div>
         <LoggedInHeader />
+        <Link to={`/project/${this.props.currentProjectId}`}><i class="fas fa-arrow-left"></i></Link>
         <Plot data={[
           {
             x: dateArray,
@@ -54,7 +56,8 @@ class Reports extends Component {
 
 function mapState(state) {
   return {
-    tableArray: state.tableArray
+    tableArray: state.tableArray,
+    currentProjectId: state.currentProjectId
   }
 }
 export default connect(mapState, { getTableArray })(Reports);
