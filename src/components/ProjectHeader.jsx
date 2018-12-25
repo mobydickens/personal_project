@@ -51,8 +51,8 @@ class ProjectHeader extends Component {
   render() {
     return (
       <div>
-        <div className='flex justify-between'>
-          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin m-6'>{this.state.projectName}</h3>
+        <div className='flex flex-col lg:flex-row justify-between'>
+          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin m-4'>{this.state.projectName}</h3>
             : <div>Project Name: 
                 <input 
                   onChange={ (e) => this.setState({ projectName: e.target.value }) }
@@ -62,16 +62,17 @@ class ProjectHeader extends Component {
                 <button onClick={ () => this.setState({ editName: false })}>Cancel</button>
               </div>
           }
-          <div>
-            <Link to='/reports'><button>See reports for this project</button></Link>
+          <div className='my-2 mx-6 flex flex-row'>
+            <Link className='no-underline' to='/reports'><button className='lg:m-4 hidden lg:block'>See reports for this project</button></Link>
+            <Link to='/reports'><i class="lg:m-4 text-sm lg:hidden fas fa-chart-bar hover:text-red"></i></Link>
             <button 
               onClick={ () => this.deleteProject(this.props.match.params.id) } 
-              className='p-4 mx-6 text-sm'>
+              className='mx-4 text-sm'>
               <i className="fas fa-trash-alt"></i>
             </button>
           </div>
         </div>
-        <div className='mx-6'>
+        <div className='mx-6 hidden lg:block'>
         { !this.state.editDesc ? <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 
           : <div>Project description:
               <input 

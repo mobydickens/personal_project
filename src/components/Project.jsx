@@ -71,7 +71,7 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='w-screen h-screen bg-grey-light pt-4'>
+        <div className='w-screen h-full lg:h-screen bg-grey-light pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <div className='flex flex-col lg:flex-row p-4'>
             {lanes}

@@ -30,7 +30,7 @@ class Reports extends Component {
             x: dateArray,
             y: expectedRemaining,
             type: 'scatter',
-            mode: 'lines+points',
+            mode: 'Line Dash',
             marker: {color: 'blue'},
             name: 'expected'
           },
@@ -38,7 +38,7 @@ class Reports extends Component {
             x: dateArray,
             y: actualRemaining,
             type: 'scatter',
-            mode: 'lines+points',
+            mode: 'Line Dash',
             marker: {color: 'green'},
             name: 'actual'
           }
