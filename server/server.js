@@ -41,7 +41,7 @@ app.post('/api/timelog', controller.newTimelog); //creates a new timelog in time
 app.get('/auth/logout', controller.logout); //logs user out and destroys session
 app.get('/api/projects', controller.getProjects); //gets projects from component did mount in HOME component
 app.get('/api/project/:id', controller.getSingleProject); //gets project name for individual project view
-app.get('/api/tasks', controller.getTasks); //gets tasks in lanes with a component did mount in LANE component
+app.get('/api/tasks/:id', controller.getTasks); //gets tasks in lanes with a component did mount in LANE component
 app.get('/api/task/:id', controller.getOneTask); //get ONE task
 app.get('/api/details/:id', controller.details); //get ALL timelogs for ONE task
 app.get('/api/member', controller.checkMember); //when adding teammate, check if email is in the database

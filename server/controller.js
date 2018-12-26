@@ -87,9 +87,9 @@ module.exports = {
     res.status(200).send(project[0]);
   },
   getTasks: async (req, res) => {
-    const { projectid, status} = req.query;
+    const { id } = req.params;
     const db = req.app.get('db');
-    let tasks = await db.all_lane_tasks([ projectid, status ]);
+    let tasks = await db.all_lane_tasks([ id  ]);
     res.status(200).send(tasks);
   },
   getOneTask: async (req, res) => {

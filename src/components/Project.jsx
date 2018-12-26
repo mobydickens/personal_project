@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
-import { getProjectId } from '../ducks/reducer';
+import { getProjectId, getTasks } from '../ducks/reducer';
 import Lane from './Lane.jsx';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
 import ProjectHeader from './ProjectHeader.jsx';
+import axios from 'axios';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 
@@ -22,11 +23,21 @@ class Project extends Component {
       detailModal: false,
       detailTaskId: '',
     }
+    this.fetchTasks = this.fetchTasks.bind(this);
   }
   
   async componentDidMount() {
     await this.props.getProjectId(this.props.match.params.id);
+    await this.fetchTasks(this.props.match.params.id);
   }
+  
+  async fetchTasks(id) {
+    console.log('running?')
+    let res = await axios.get(`/api/tasks/${id}`);
+    console.log("response: ", res.data)
+    this.props.getTasks(res.data);
+  }
+
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
@@ -38,6 +49,13 @@ class Project extends Component {
     this.setState({
       needsUpdate: !this.state.needsUpdate
     })
+  }
+
+  //upon task being added will update lanes to reflect new tasks
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.needsUpdate !== this.props.needsUpdate) {
+      this.fetchTasks();
+    }
   }
 
   openDetailModal = (id) => {
@@ -112,4 +130,4 @@ class Project extends Component {
   }
 }
 
-export default connect(null, { getProjectId })(Project);
+export default connect(null, { getProjectId, getTasks })(Project);

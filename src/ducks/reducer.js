@@ -6,6 +6,7 @@ let initialState = {
   team: [],
   myTeams: [],
   currentProjectId: 70,
+  currentProjectTasks: [],
   tableArray: []
 }
 
@@ -18,6 +19,7 @@ const ADD_NEW_TEAM = 'ADD_NEW_TEAM';
 const GET_MY_TEAMS = 'GET_MY_TEAMS';
 const GET_PROJECT_ID = 'GET_PROJECT_ID'; 
 const GET_TABLE_ARRAY = 'GET_TABLE_ARRAY';
+const GET_PROJECT_TASKS = 'GET_PROJECT_TASKS';
 
 
 // ACTION CREATORS
@@ -76,6 +78,12 @@ export function getTableArray(arr) {
     payload: arr
   }
 }
+export function getTasks(taskArray) {
+  return {
+    type: GET_PROJECT_TASKS,
+    payload: taskArray
+  }
+}
 
 // REDUCER
 export default function reducer(state=initialState, action) {
@@ -96,6 +104,8 @@ export default function reducer(state=initialState, action) {
       return { ...state, currentProjectId: action.payload };
     case GET_TABLE_ARRAY:
       return { ...state, tableArray: action.payload };
+    case GET_PROJECT_TASKS:
+      return { ...state, currentProjectTasks: action.payload };
     default: 
       return state;
   }
