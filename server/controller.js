@@ -187,6 +187,13 @@ module.exports = {
     let details = await db.get_team_details([ Number(team_id) ]);
     res.status(200).send(details);
   },
+  editLaneOrder: async (req, res) => {
+    const { id } = req.params;
+    const { index } = req.body;
+    const db = req.app.get('db');
+    let task = await db.update_lane_order([ id, index ]);
+    res.status(200).send(task);
+  },
 
   // DELETE
   deleteProject: async (req, res) => {

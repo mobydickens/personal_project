@@ -8,12 +8,13 @@ import { Droppable } from 'react-beautiful-dnd';
 class Lane extends Component {
   
   render() {
+
     let tasks = this.props.tasks
       .filter(task => {
         return task.status === this.props.status})
-      .map(task => <Task key={task.id} task={task} openDetailModal={this.props.openDetailModal} />)
-      console.log(this.props.tasks)
-      console.log(tasks)
+      .sort((a,b) => b.lane_order - a.lane_order)
+      .map((task, index) => <Task key={task.id} task={task} index={index} openDetailModal={this.props.openDetailModal} />)
+    console.log("Tasks, should be ordered: ", tasks)
 
     return (
       <Droppable droppableId={this.props.status}>

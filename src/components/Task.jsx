@@ -4,7 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 class Task extends Component {
   render() {
     return (
-      <Draggable draggableId={this.props.task.id} index={this.props.task.lane_order}>
+      <Draggable draggableId={this.props.task.id} index={this.props.index}>
         { provided => (
           <div
             {...provided.draggableProps}

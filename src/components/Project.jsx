@@ -101,10 +101,32 @@ class Project extends Component {
       ) {
         return;
     }
-    console.log("droppable id: ", source) //where task is COMING FROM
     const column = this.state.columns[source.droppableId];
     console.log("column?" , column)
-    // const newTaskIds = Array.from(source.droppableId.)
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...column,
+      taskIds: newTaskIds
+    }
+    console.log('new column', newColumn)
+    
+    newColumn.taskIds.map((taskId, index) => {
+      axios.put(`/task/${taskId}`, {index: index} ).then(res => {
+        console.log("Reordered data: ", res.data);
+      })
+    })
+
+    const newState = {
+      ...this.state,
+      columns: {
+        ...this.state.columns,
+        [newColumn.id]: newColumn
+      }
+    }
+    this.setState(newState);
   }
   //draggable id = id of the TASK user was dragging
   //source = location info about where it started. DroppableId = which status started and index, the index
@@ -127,6 +149,7 @@ class Project extends Component {
             needsUpdate={ this.state.needsUpdate }
             triggerEdit={ this.triggerEdit }
             openDetailModal={ this.openDetailModal }
+            columns={this.state.columns}
           />
         </div>
       )

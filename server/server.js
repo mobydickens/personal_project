@@ -56,6 +56,7 @@ app.put('/api/timelog/:id', controller.editTimelog); //triggered in detail modal
 app.put('/api/editname/:id', controller.editProjectName); //triggered from Project Header component
 app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered from Project Header component
 app.put('/api/addteammate', controller.addTeammate); //triggered from TeamList component
+app.put('/task/:id', controller.editLaneOrder) //triggered from project component
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
