@@ -22,6 +22,7 @@ class Project extends Component {
       projectId: '',
       detailModal: false,
       detailTaskId: '',
+      columns: {}
     }
     this.fetchTasks = this.fetchTasks.bind(this);
   }
@@ -32,9 +33,7 @@ class Project extends Component {
   }
   
   async fetchTasks(id) {
-    console.log('running?')
     let res = await axios.get(`/api/tasks/${id}`);
-    console.log("response: ", res.data)
     this.props.getTasks(res.data);
   }
 
@@ -65,9 +64,28 @@ class Project extends Component {
     })
   }
 
+  //set column states:
+
+  //react-beautiful-dnd
   onDragEnd = result => {
-    //TODO - reorder our column
+    const { destination, source, draggableId } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index 
+      ) {
+        return;
+    }
+    console.log("droppable id: ", source.droppableId) //where task is COMING FROM
+    // const column = this.state[source.droppableId];
+    // console.log("column?" , column)
+    // const newTaskIds = Array.from(source.droppableId.)
   }
+  //draggable id = id of the TASK user was dragging
+  //source = location info about where it started. DroppableId = which status started and index, the index
+  //destination droppable id, where status ends and index
 
   render() {
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
@@ -94,7 +112,7 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='w-screen h-screen bg-grey-light pt-4'>
+        <div className='w-screen h-full lg:h-screen bg-grey-light pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>
             <div className='flex flex-col lg:flex-row p-4'>
@@ -130,4 +148,10 @@ class Project extends Component {
   }
 }
 
-export default connect(null, { getProjectId, getTasks })(Project);
+function mapState(state) {
+  return {
+    tasks: state.currentProjectTasks
+  }
+}
+
+export default connect(mapState, { getProjectId, getTasks })(Project);
