@@ -7,6 +7,8 @@ import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
 import ProjectHeader from './ProjectHeader.jsx';
 
+import { DragDropContext } from 'react-beautiful-dnd';
+
 class Project extends Component {
 
   constructor(props) {
@@ -45,6 +47,10 @@ class Project extends Component {
     })
   }
 
+  onDragEnd = result => {
+    //TODO - reorder our column
+  }
+
   render() {
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
     let lanes = this.state.laneNames.map((name, i) => {
@@ -56,7 +62,7 @@ class Project extends Component {
             <div className='m-6'>{name}</div>
             <i onClick={ () => this.setState({ modal: !this.state.modal, status: name, projectId: this.props.match.params.id })} className="fas fa-plus m-6"></i>
           </div>
-          <Lane 
+          <Lane
             projectId={this.props.match.params.id} 
             status={ name } 
             needsUpdate={ this.state.needsUpdate }
@@ -72,9 +78,11 @@ class Project extends Component {
         <LoggedInHeader />
         <div className='w-screen h-screen bg-grey-light pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
-          <div className='flex flex-col lg:flex-row p-4'>
-            {lanes}
-          </div>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <div className='flex flex-col lg:flex-row p-4'>
+              {lanes}
+            </div>
+          </DragDropContext>
           {/* Below is the modal which is not always visible */}
           { this.state.modal ?
             <NewTaskModal 

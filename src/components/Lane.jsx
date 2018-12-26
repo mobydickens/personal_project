@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import Task from './Task.jsx';
+
+// import { Draggable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 
 class Lane extends Component {
   constructor(props) {
@@ -31,25 +35,19 @@ class Lane extends Component {
   }
 
   render() {
-    let tasks = this.state.tasks.map(task => {
-      return (
-        <div
-          className='border-l-4 border-green mx-4 my-2 rounded'
-          key={task.id}>
-          <div 
-            className='border border-grey shadow bg-white rounded-r p-2'
-            onClick={ () => this.props.openDetailModal(task.id) } >
-            <div className='py-4 px-2'>{task.title}</div>
-          </div>
-        </div>
-      )
-    })
 
     return (
-      <div
-        className='flex flex-col'>
-        {tasks}
-      </div>
+      <Droppable droppableId={this.props.status}>
+        { provided => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className='flex flex-col'>
+            {this.state.tasks.map(task => <Task key={task.id} task={task} />)}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     );
   }
 }
