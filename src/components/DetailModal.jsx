@@ -4,6 +4,7 @@ import LogTime from './LogTime.jsx';
 import EditTask from './EditTask.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Loading from './Loading.jsx';
 
 class DetailModal extends Component {
 
@@ -16,15 +17,19 @@ class DetailModal extends Component {
       editingId: '',
       spent_time: '',
       estimate_change: '',
-      comment: ''
+      comment: '',
+      loading: true
 
     }
     this.getTasksAndLogs = this.getTasksAndLogs.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
   }
   
-  componentDidMount() {
-    this.getTasksAndLogs()
+  async componentDidMount() {
+    await this.getTasksAndLogs()
+    this.setState({
+      loading: false
+    })
   }
 
   async getTasksAndLogs() {
@@ -41,20 +46,6 @@ class DetailModal extends Component {
     this.props.detailModal();
     this.props.needsUpdate();
   }
-
-  // checkIfUser = (id, timelogid, spent, change, comment) => {
-  //   console.log(id, this.props.userId)
-  //   if(+this.props.userId === +id) {
-  //   this.setState({
-  //     editingLog: true, 
-  //     editingId: timelogid, 
-  //     spent_time: spent,
-  //     estimate_change: change,
-  //     comment: comment })
-  //   } else {
-  //     console.log('You can only edit your own timelogs')
-  //   }
-  // }
 
   //see render timelogs variable - this function is invoked upon save of the edits to a timelog
   async saveTimelogEdit(id) {
@@ -84,11 +75,11 @@ class DetailModal extends Component {
     //calculating time spent from the all logs for this task
     let timeSpent = function() {
       return logs.reduce((acc, logValue) => {
-        return Number((acc + +logValue.spent_time).toFixed(1));
+        return Number((acc + +logValue.spent_time).toFixed(2));
       }, 0)
     }();
     // remaining calculates with current estimate, not original
-    let remaining = Number((currentEstimate - timeSpent).toFixed(1));
+    let remaining = Number((currentEstimate - timeSpent).toFixed(2));
     
     //the map below makes a div of log history for each timelog that is created in the LogTime component
     let timelogs = this.state.logs.map(timelog => {
@@ -148,46 +139,52 @@ class DetailModal extends Component {
     return (
       <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
         <div className='relative p-2 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
-          <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
-            <i className="fas fa-times"></i>
-          </button>
-          <div className='w-full p-2 lg:p-4'>
-            <EditTask 
-              task={ task }
-              getTasksAndLogs={ this.getTasksAndLogs}
-              needsUpdate={ this.props.needsUpdate } />
-            <div>
-              <div className='flex'>
-                <div 
-                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
+          { this.state.loading ? 
+          <Loading />
+          : 
+          <div>
+            <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
+              <i className="fas fa-times"></i>
+            </button>
+            <div className='w-full p-2 lg:p-4'>
+              <EditTask 
+                task={ task }
+                getTasksAndLogs={ this.getTasksAndLogs}
+                needsUpdate={ this.props.needsUpdate } />
+              <div>
+                <div className='flex'>
+                  <div 
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
+                  </div>
+                  <div 
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
+                  </div>
+                  <div 
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
+                  </div>
+                  <div 
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
+                  </div>
                 </div>
-                <div 
-                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
-                </div>
-                <div 
-                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
-                </div>
-                <div 
-                  className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
-                </div>
+                
               </div>
-              
             </div>
+            <div className='w-full p-2'>
+              <LogTime 
+                taskId={ this.props.detailTaskId }
+                getTasksAndLogs={ this.getTasksAndLogs }/>
+              { !logs[0] ? "" :
+                <div className='m-2'>
+                  <div className='text-smoke'>History</div>
+                  {timelogs}
+                </div>
+              }
+            </div>
+            <div className='flex justify-center'>
+              <button className='text-red-lighter' onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
+            </div> 
           </div>
-          <div className='w-full p-2'>
-            <LogTime 
-              taskId={ this.props.detailTaskId }
-              getTasksAndLogs={ this.getTasksAndLogs }/>
-            { !logs[0] ? "" :
-              <div className='m-2'>
-                <div className='text-smoke'>History</div>
-                {timelogs}
-              </div>
-            }
-          </div>
-          <div className='flex justify-center'>
-            <button className='text-red-lighter' onClick={ () => this.deleteTask(this.props.detailTaskId) }>Delete task</button>
-          </div>
+          }
         </div>
       </div>
     );

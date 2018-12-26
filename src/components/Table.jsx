@@ -28,7 +28,6 @@ class Table extends Component {
   //getting all of the required information for the table and chart in one request and setting state. 
   async getTableInfo() {
     let res = await axios.get( `/api/table/${this.props.projectId}`);
-    console.log(res.data);
     const { projectInfo, taskInfo, timelogs } = res.data;
     this.setState({
       daily_dev_hours: projectInfo.daily_hours,
@@ -124,9 +123,9 @@ class Table extends Component {
       return (
         <tr className={ i % 2 !== 0 ? 'bg-white' : 'bg-grey-lightest' } key={i}>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.date.format('MMM Do')}</td>
-          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_expected.toFixed(2)}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.spent_today}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.currentEstimate ? row.currentEstimate.toFixed(2) : ""}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_expected.toFixed(2)}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_actual ? row.remaining_actual.toFixed(2) : ""}</td>
         </tr>
       )
@@ -137,9 +136,9 @@ class Table extends Component {
         <tbody>
           <tr>
             <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Date</th>
-            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Expected <br/>remaining</th>
             <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Hours <br/>spent</th>
             <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Current <br/>estimate</th>
+            <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Expected <br/>remaining</th>
             <th className='px-1 lg:px-4 py-2 text-sm lg:text-base'>Actual <br/>remaining</th>
           </tr>
           {table}

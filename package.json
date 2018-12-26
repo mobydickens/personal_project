@@ -12,6 +12,7 @@
     "moment": "^2.23.0",
     "plotly.js": "^1.43.1",
     "react": "^16.6.3",
+    "react-beautiful-dnd": "^10.0.3",
     "react-dom": "^16.6.3",
     "react-plotly.js": "^2.2.0",
     "react-redux": "^6.0.0",

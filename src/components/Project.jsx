@@ -19,12 +19,11 @@ class Project extends Component {
       projectId: '',
       detailModal: false,
       detailTaskId: '',
-   
     }
   }
   
-  componentDidMount() {
-    this.props.getProjectId(this.props.match.params.id);
+  async componentDidMount() {
+    await this.props.getProjectId(this.props.match.params.id);
   }
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
@@ -71,7 +70,7 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='w-screen h-full lg:h-screen bg-grey-light pt-4'>
+        <div className='w-screen h-screen bg-grey-light pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <div className='flex flex-col lg:flex-row p-4'>
             {lanes}
@@ -92,13 +91,13 @@ class Project extends Component {
               detailTaskId={ this.state.detailTaskId }
               detailModal={ this.openDetailModal }
               needsUpdate={ this.componentNeedsUpdate } /> }
-        <div className='flex justify-center'>
+          <div className='flex justify-center'>
           <button 
             onClick={ () => this.deleteProject(this.props.match.params.id) } 
             className='m-4 text-sm lg:hidden'>
             <i className="fas fa-trash-alt"></i>
           </button>
-        </div>
+          </div>
         </div>
       </div>
     );

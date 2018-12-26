@@ -33,6 +33,17 @@
    @apply cursor-pointer text-sm font-josefin text-green px-2;
  }
 
+.loader {
+  @apply border-t border-green;
+  border-right: solid 4px transparent;
+  animation: spin 1s linear infinite;
+}
+
+ @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
  /* .modal {
    @apply fixed pin-r pin-t w-full h-screen bg-grey-lighter opacity-0 invisible
  }
