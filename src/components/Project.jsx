@@ -30,6 +30,7 @@ class Project extends Component {
   async componentDidMount() {
     await this.props.getProjectId(this.props.match.params.id);
     await this.fetchTasks(this.props.match.params.id);
+    await this.sortColumns();
   }
   
   async fetchTasks(id) {
@@ -64,7 +65,29 @@ class Project extends Component {
     })
   }
 
-  //set column states:
+  //sort tasks into columns for the on Drag End function below. 
+  sortColumns = () => {
+    let columns = {
+      'To Do': { id: 'To Do', taskIds: [] }, 
+      'In Progress': { id: 'In Progress', taskIds: [] }, 
+      'Testing': { id: 'Testing', taskIds: [] }, 
+      'Done': { id: 'Done', taskIds: [] }
+    }
+    this.props.tasks.map(task => {
+      if(task.status === columns['To Do'].id) {
+        columns['To Do'].taskIds.push(task.id);
+      } else if(task.status === columns['In Progress'].id) {
+        columns['In Progress'].taskIds.push(task.id);
+      } else if(task.status === columns['Testing'].id) {
+        columns['Testing'].taskIds.push(task.id);
+      } else if(task.status === columns['Done'].id) {
+        columns['Done'].taskIds.push(task.id);
+      }
+    })
+    this.setState({
+      columns: columns
+    })
+  }
 
   //react-beautiful-dnd
   onDragEnd = result => {
@@ -78,9 +101,9 @@ class Project extends Component {
       ) {
         return;
     }
-    console.log("droppable id: ", source.droppableId) //where task is COMING FROM
-    // const column = this.state[source.droppableId];
-    // console.log("column?" , column)
+    console.log("droppable id: ", source) //where task is COMING FROM
+    const column = this.state.columns[source.droppableId];
+    console.log("column?" , column)
     // const newTaskIds = Array.from(source.droppableId.)
   }
   //draggable id = id of the TASK user was dragging
