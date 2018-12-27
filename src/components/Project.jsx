@@ -39,21 +39,21 @@ class Project extends Component {
     let res = await axios.get(`/api/tasks/${id}`);
     this.props.getTasks(res.data);
   }
-
+  
   //exit modal is triggered mainly from NewTaskModal component whenever modal needs to be closed
   exitModal = () => {
     this.setState({
       modal: !this.state.modal
     })
   }
-
+  
   //this function is used in newTaskModal component after completing post endpoint for adding a new task. Will trigger component did update to trigger fetch tasks and reset the state in the reducer function. 
   componentNeedsUpdate = () => {
     this.setState({
       needsUpdate: !this.state.needsUpdate
     })
   }
-
+  
   //upon task being added will update lanes to reflect new tasks
   componentDidUpdate(prevProps, prevState) {
     if(prevState.needsUpdate !== this.state.needsUpdate) {
@@ -95,15 +95,11 @@ class Project extends Component {
 
   // This function was written to be used in my OnDragEnd function below when reordering my lane orders
   async updateLaneOrders(id, index) {
-    let res = await axios.put(`/task/${id}`, {index: index} );
-    this.props.getTasks(res.data);
+    await axios.put(`/task/${id}`, {index: index} );
   }
 
   async updateOrderAndStatus(id, index, status) {
-    console.log('function running?')
-    let res = await axios.put(`/taskstatus/${id}`, { index: index, status: status });
-    console.log("response from udpate: ", res.data);
-    this.props.getTasks(res.data);
+    await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
 
   //react-beautiful-dnd
@@ -161,7 +157,6 @@ class Project extends Component {
       return;
     }
     // MOVING FROM ONE LANE TO ANOTHER
-    debugger;
     //this startTaskIds contains same ids as the old array named newTaskIds above
     const startTaskIds = Array.from(start.taskIds);
     //remove the dragged task id from this array. 
@@ -172,7 +167,6 @@ class Project extends Component {
       ...start,
       taskIds: startTaskIds
     }
-    console.log("New start ids: ", newStart);
 
     //contains same task ids as the last FINISH column
     const finishTaskIds = Array.from(finish.taskIds);
@@ -183,21 +177,8 @@ class Project extends Component {
       ...finish,
       taskIds: finishTaskIds
     }
-    console.log("new finish ids: ", newFinish)
     //EVERY THING ABOVE THIS LINE IS WORKING AT 10:26AM//
-
-    let startPromises = newStart.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, source.droppableId);
-    })
-
-    let finishPromises = newFinish.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, destination.droppableId);
-    })
-
-    
-    //again, SET columns in state while I am waiting for my axios calls to finish (otherwise I have jumping tasks in my lanes)
     let copyOfTasks = this.props.tasks.map(task => {
-      
       let index = startTaskIds.indexOf(task.id);
       if(index !== -1) {
         task.lane_order = index; 
@@ -208,6 +189,15 @@ class Project extends Component {
       }
       return task;
     });
+
+    let startPromises = newStart.taskIds.map((taskId, index) => {
+      return this.updateOrderAndStatus(taskId, index, source.droppableId);
+    })
+
+    let finishPromises = newFinish.taskIds.map((taskId, index) => {
+      return this.updateOrderAndStatus(taskId, index, destination.droppableId);
+    })
+
     this.props.getTasks(copyOfTasks);
     
     const newState = {
@@ -222,6 +212,8 @@ class Project extends Component {
 
     await Promise.all(startPromises);
     await Promise.all(finishPromises);
+
+    this.fetchTasks(this.props.match.params.id);
 
     return;
   }
