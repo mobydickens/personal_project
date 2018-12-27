@@ -101,7 +101,7 @@ class Project extends Component {
 
   //react-beautiful-dnd
   async onDragEnd(result) {
-    debugger;
+    // debugger;
     //if there is no destination for the task, return
     const { destination, source, draggableId } = result;
     if (!destination) {
@@ -153,22 +153,30 @@ class Project extends Component {
       await Promise.all(taskUpdatePromises); 
       return;
     }
-    //MOVING FROM ONE LANE TO ANOTHER
-    // const startTaskIds = Array.from(start.taskIds);
-    // startTaskIds.splice(source.index, 1);
+    // MOVING FROM ONE LANE TO ANOTHER
+    //this startTaskIds contains same ids as the old array named newTaskIds above
+    const startTaskIds = Array.from(start.taskIds);
+    //remove the dragged task id from this array. 
+    startTaskIds.splice(source.index, 1);
+    console.log("Should be array minus dragged item: ", startTaskIds);
+    //this creates a new START column with the new StartTaskIds array (the task should be missing)
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds
+    }
+    console.log("New start ids: ", newStart);
 
-    // const newStart = {
-    //   ...start,
-    //   taskIds: startTaskIds
-    // }
-
-    // const finishTaskIds = Array.from(finish.taskIds);
-    // finishTaskIds.splice(destination.index, 0, draggableId);
-
-    // const newFinish = {
-    //   ...finish,
-    //   taskIds: finishTaskIds
-    // }
+    //contains same task ids as the last FINISH column
+    const finishTaskIds = Array.from(finish.taskIds);
+    //inserting the draggable id from destination that we spliced out of the startTaskIds
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    console.log("finish task ids: ", finishTaskIds)
+    //new column for the FINISH. Should have one index added
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds
+    }
+    console.log("new finish object: ", newFinish)
 
     // let taskUpdatePromises = newFinish.taskIds.map((taskId, index) => {
     //   return this.updateLaneOrders(taskId, index);
