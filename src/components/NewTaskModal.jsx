@@ -16,10 +16,6 @@ class NewTaskModal extends Component {
     this.addTask = this.addTask.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log('running');
-  //   //fetch task information -> put get request here
-  // }
   //adds a new task to any of the lanes depending on which status was passed in as props
   async addTask() {
     const { title, description, estimate } = this.state;
