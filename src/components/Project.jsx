@@ -210,12 +210,15 @@ class Project extends Component {
     };
     this.setState(newState);
 
-    await Promise.all(startPromises);
-    await Promise.all(finishPromises);
-
-    this.fetchTasks(this.props.match.params.id);
-
-    return;
+    try {
+      await Promise.all(startPromises);
+      await Promise.all(finishPromises);
+  } catch (e) {
+     console.error("Failed to save tasks", e)
+  }
+  console.log("Finished")
+  this.fetchTasks(this.props.match.params.id)
+  return;
   }
 
 

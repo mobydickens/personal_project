@@ -1,11 +1,11 @@
 let initialState = {
-  userId: '6',
-  email: 'joff@email.com',
-  username: 'KingJoff',
+  userId: '',
+  email: '',
+  username: '',
   projects: [],
   team: [],
   myTeams: [],
-  currentProjectId: 70,
+  currentProjectId: '',
   currentProjectTasks: [],
   tableArray: []
 }

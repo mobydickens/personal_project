@@ -73,7 +73,7 @@ module.exports = {
   getProjects: async (req, res) => {
     const db = req.app.get('db');
     if(req.session.user) {
-      const { id } = req.session.user;
+      const { id } = req.session.user;  
       let projects = await db.get_user_projects([ id ]);
       return res.status(200).send(projects);
     } else {
