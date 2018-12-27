@@ -3974,6 +3974,10 @@ table {
   min-height: 0;
 }
 
+.min-h-100 {
+  min-height: 100px;
+}
+
 .min-h-full {
   min-height: 100%;
 }
@@ -9859,6 +9863,10 @@ table {
     min-height: 0;
   }
 
+  .sm\:min-h-100 {
+    min-height: 100px;
+  }
+
   .sm\:min-h-full {
     min-height: 100%;
   }
@@ -15712,6 +15720,10 @@ table {
 
   .md\:min-h-0 {
     min-height: 0;
+  }
+
+  .md\:min-h-100 {
+    min-height: 100px;
   }
 
   .md\:min-h-full {
@@ -21569,6 +21581,10 @@ table {
     min-height: 0;
   }
 
+  .lg\:min-h-100 {
+    min-height: 100px;
+  }
+
   .lg\:min-h-full {
     min-height: 100%;
   }
@@ -27422,6 +27438,10 @@ table {
 
   .xl\:min-h-0 {
     min-height: 0;
+  }
+
+  .xl\:min-h-100 {
+    min-height: 100px;
   }
 
   .xl\:min-h-full {

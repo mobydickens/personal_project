@@ -193,7 +193,6 @@ module.exports = {
     const db = req.app.get('db');
     let task = await db.update_lane_order([ id, index ]);
     let tasks = await db.all_lane_tasks([ task[0].project_id ]);
-    console.log(task, tasks);
     res.status(200).send(tasks);
   },
 

@@ -55,8 +55,9 @@ class Project extends Component {
 
   //upon task being added will update lanes to reflect new tasks
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.needsUpdate !== this.props.needsUpdate) {
-      this.fetchTasks();
+    if(prevState.needsUpdate !== this.state.needsUpdate) {
+      console.log('did update run??', this.props.match.params.id)
+      this.fetchTasks(this.props.match.params.id);
     }
   }
 
@@ -90,7 +91,7 @@ class Project extends Component {
       columns: columns
     })
   }
-
+  // This function was written to be used in my OnDragEnd function below when reordering my lane orders
   async updateLaneOrders(id, index) {
     let res = await axios.put(`/task/${id}`, {index: index} );
     this.props.getTasks(res.data);
@@ -118,7 +119,7 @@ class Project extends Component {
       taskIds: newTaskIds
     }
 
-
+    // need to hold all the promises in a variable until I am ready to call them all at once
     let taskUpdatePromises = newColumn.taskIds.map((taskId, index) => {
       return this.updateLaneOrders(taskId, index);
     })
@@ -145,16 +146,14 @@ class Project extends Component {
     await Promise.all(taskUpdatePromises);
     
   }
-  //draggable id = id of the TASK user was dragging
-  //source = location info about where it started. DroppableId = which status started and index, the index
-  //destination droppable id, where status ends and index
+
 
   render() {
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
     let lanes = this.state.laneNames.map((name, i) => {
       return (
         <div
-          className='m-2 lg:w-full bg-white shadow-md pb-4'
+          className='m-2 lg:w-full bg-white shadow-md pb-4 min-h-100'
           key={i}>
           <div className='flex justify-between'>
             <div className='m-6'>{name}</div>
