@@ -25,9 +25,11 @@ class Project extends Component {
       columns: {}
     }
     this.fetchTasks = this.fetchTasks.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
   
   async componentDidMount() {
+    console.log('any remounting going on?')
     await this.props.getProjectId(this.props.match.params.id);
     await this.fetchTasks(this.props.match.params.id);
     await this.sortColumns();
@@ -73,7 +75,7 @@ class Project extends Component {
       'Testing': { id: 'Testing', taskIds: [] }, 
       'Done': { id: 'Done', taskIds: [] }
     }
-    this.props.tasks.map(task => {
+    this.props.tasks.forEach(task => {
       if(task.status === columns['To Do'].id) {
         columns['To Do'].taskIds.push(task.id);
       } else if(task.status === columns['In Progress'].id) {
@@ -89,8 +91,13 @@ class Project extends Component {
     })
   }
 
+  async updateLaneOrders(id, index) {
+    let res = await axios.put(`/task/${id}`, {index: index} );
+    this.props.getTasks(res.data);
+  }
+
   //react-beautiful-dnd
-  onDragEnd = result => {
+  async onDragEnd(result) {
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -101,23 +108,30 @@ class Project extends Component {
       ) {
         return;
     }
-    const column = this.state.columns[source.droppableId];
-    console.log("column?" , column)
+    const column = this.state.columns[source.droppableId]; //lane 
     const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(source.index, 1); //
     newTaskIds.splice(destination.index, 0, draggableId);
 
     const newColumn = {
       ...column,
       taskIds: newTaskIds
     }
-    console.log('new column', newColumn)
-    
-    newColumn.taskIds.map((taskId, index) => {
-      axios.put(`/task/${taskId}`, {index: index} ).then(res => {
-        console.log("Reordered data: ", res.data);
-      })
+
+
+    let taskUpdatePromises = newColumn.taskIds.map((taskId, index) => {
+      return this.updateLaneOrders(taskId, index);
     })
+
+    // SET columns in state while I am waiting for my axios calls to finish (otherwise I have jumping tasks in my lanes)
+    let copyOfTasks = this.props.tasks.map(task => {
+      let index = newTaskIds.indexOf(task.id);
+      if(index !== -1) {
+        task.lane_order = index; 
+      }
+      return task;
+    });
+    this.props.getTasks(copyOfTasks);
 
     const newState = {
       ...this.state,
@@ -127,6 +141,9 @@ class Project extends Component {
       }
     }
     this.setState(newState);
+    
+    await Promise.all(taskUpdatePromises);
+    
   }
   //draggable id = id of the TASK user was dragging
   //source = location info about where it started. DroppableId = which status started and index, the index

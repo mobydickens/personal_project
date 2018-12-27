@@ -192,7 +192,9 @@ module.exports = {
     const { index } = req.body;
     const db = req.app.get('db');
     let task = await db.update_lane_order([ id, index ]);
-    res.status(200).send(task);
+    let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+    console.log(task, tasks);
+    res.status(200).send(tasks);
   },
 
   // DELETE
