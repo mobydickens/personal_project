@@ -20,7 +20,7 @@ class Lane extends Component {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className='flex flex-col'>
+            className='flex flex-col min-h-100'>
             {tasks}
             {provided.placeholder}
           </div>

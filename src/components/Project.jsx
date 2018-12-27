@@ -161,6 +161,7 @@ class Project extends Component {
       return;
     }
     // MOVING FROM ONE LANE TO ANOTHER
+    debugger;
     //this startTaskIds contains same ids as the old array named newTaskIds above
     const startTaskIds = Array.from(start.taskIds);
     //remove the dragged task id from this array. 
