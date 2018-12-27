@@ -41,7 +41,9 @@ module.exports = {
       let id = team[i].id;
       await db.new_connection([ Number(id), newTeam[0].id ]);
     }
-    res.status(200).send('complete!')
+    let userTeams = await db.get_user_teams([req.session.user.id])
+    console.log(userTeams);
+    res.status(200).send(userTeams)
   },
   newProject: async (req, res) => {
     const { title, devHours, description, team_id, start_date } = req.body;

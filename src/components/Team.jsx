@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addNewTeam } from '../ducks/reducer';
+import { addNewTeam, getMyTeams } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
 import { Link } from 'react-router-dom';
 
@@ -40,11 +40,12 @@ class Team extends Component {
   async addTeam() {
     const { teamName, teammates } = this.state;
     this.props.addNewTeam(this.state.teammates);
-    await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
+    let res = await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
     this.setState({
       teammates: [],
       done: true
     })
+    this.props.getMyTeams(res.data);
     this.props.history.push('/editproject');
   }
 
@@ -105,7 +106,7 @@ class Team extends Component {
                   <button 
                     className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24' 
                     onClick={ () => this.addTeam() }>
-                    Add Team!
+                    Start Team
                   </button>
                   <div className='flex justify-center m-2'>
                     <Link to='/home'><button className='text-grey'>Cancel</button></Link>
@@ -136,4 +137,4 @@ function mapState(state) {
     email: state.email
   }
 }
-export default connect(mapState, { addNewTeam })(Team);
+export default connect(mapState, { addNewTeam, getMyTeams })(Team);

@@ -39,26 +39,46 @@ class Home extends Component {
         </div>
       )
     })
+  
     return (
       <div>
         <LoggedInHeader />
-        <div className='flex justify-center w-screen bg-grey-light pt-4 lg:h-screen'>
+        <div className='flex justify-center w-screen bg-grey-light pt-4 h-screen lg:h-screen'>
           <div className='lg:w-3/4'>
             <div className='lg:mt-6'>
             {/* if not logged in, will be redirected to login main page */}
             { !userId ? <Redirect to='/'></Redirect> : 
               <div>
-                <div className='flex justify-between'>
-                  <div className='font-josefin m-4'>Welcome back, {username}</div>
+                <div>
                   {/* this link will direct to create project page */}
-                  <Link className='no-underline' to='/editproject'><div 
-                    className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
-                    <i className="fas fa-plus m-4 px-8"></i>
-                  </div></Link>
+                  { projectList[0] ?
+                  <div className='flex justify-between'>
+                    <div className='font-josefin m-4'>Welcome back, {username}</div>
+                    <Link className='no-underline' to='/editproject'>
+                      <div 
+                        className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
+                        <i className="fas fa-plus m-4 px-8"></i>
+                      </div>
+                    </Link>
+                  </div>
+                  : "" }
                 </div>
+                { projectList[0] ? 
                 <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
                   {projectList.reverse()}
-                </div> 
+                </div>
+                : <div className='font-josefin text-2xl m-4'>
+                    <div className='m-4'>Welcome, {username}</div>
+                    <div className='flex justify-center lg:w-1/2 bg-white rounded shadow-md text-xl p-8'>
+                      <div className='mt-4'>Start a new project!</div>
+                      <Link className='no-underline items-center' to='/team'>
+                        <div 
+                          className='text-2xl bg-green rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-green-dark cursor-pointer'>
+                          <i className="fas fa-plus m-4 px-8"></i>
+                        </div>
+                      </Link>
+                    </div>
+                  </div> } 
               </div>
             }
             </div>
