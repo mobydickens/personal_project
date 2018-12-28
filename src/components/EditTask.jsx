@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { getTasks } from '../ducks/reducer';
 
 class EditTask extends Component {
 
@@ -35,7 +37,8 @@ class EditTask extends Component {
   }
 
   async updateStatus() {
-    await axios.put(`/api/updatestatus/${this.props.task.id}`, { status: this.state.status })
+    let res = await axios.put(`/api/updatestatus/${this.props.task.id}`, { status: this.state.status })
+    this.props.getTasks(res.data);
     this.props.getTasksAndLogs();
     this.props.needsUpdate();
     this.setState({
@@ -105,4 +108,4 @@ class EditTask extends Component {
   }
 }
 
-export default EditTask;
+export default connect(null, { getTasks } )(EditTask);

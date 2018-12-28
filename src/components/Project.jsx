@@ -228,6 +228,7 @@ class Project extends Component {
       this.props.userProjects(res.data);
     });
     this.props.history.push('/home');
+    this.props.resetProject();
   }
 
   render() {

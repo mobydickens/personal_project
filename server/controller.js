@@ -55,7 +55,7 @@ module.exports = {
     const { title, description, estimate, status, projectId } = req.body;
     let project_id = Number(projectId);
     const db = req.app.get('db');
-    let taskArray = await db.all_lane_tasks([ project_id, status ]);
+    let taskArray = await db.all_lane_tasks([ Number(project_id), status ]);
     let laneOrder = taskArray.length + 1;
     let newTask = await db.new_task([ projectId, laneOrder, title, description, status, estimate ]);
     res.status(200).send(newTask);
@@ -63,7 +63,7 @@ module.exports = {
   newTimelog: async (req, res) => {
     const { spent_time, estimate_change, comment, taskId, userId } = req.body;
     const db = req.app.get('db');
-    await db.new_timelog([ taskId, userId, spent_time, estimate_change, comment ]);
+    await db.new_timelog([ Number(taskId), Number(userId), Number(spent_time), Number(estimate_change), comment ]);
     res.status(200).send('New log has been added. Good job everybody!');
   },
 
@@ -157,14 +157,15 @@ module.exports = {
     const db = req.app.get('db');
     const { status } = req.body;
     const { id } = req.params;
-    let updatedStatus = await db.update_status([ status, Number(id) ]);
-    res.status(200).send(updatedStatus[0]);
+    await db.update_status([ status, Number(id) ]);
+    let tasks = await db.all_lane_tasks([ id  ]);
+    res.status(200).send(tasks);
   },
   editTimelog: async (req, res) => {
     const db = req.app.get('db');
     const { spent_time, estimate_change, comment } = req.body;
     const { id } = req.params;
-    let updatedLog = await db.update_timelog([ id, spent_time, estimate_change, comment ]);
+    let updatedLog = await db.update_timelog([ Number(id), Number(spent_time), Number(estimate_change), comment ]);
     res.status(200).send(updatedLog[0]);
   },
   editProjectName: async (req, res) => {

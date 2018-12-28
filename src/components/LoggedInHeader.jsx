@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { resetState } from '../ducks/reducer';
+import { resetState, resetProject } from '../ducks/reducer';
 import Sidebar from './Sidebar.jsx';
 
 class LoggedInHeader extends Component {
@@ -50,8 +50,8 @@ class LoggedInHeader extends Component {
 
         {/* The header navigation below is hidden when in phone view, and bar icon will appear */}
         <div className='flex absolute pin-t pin-r invisible lg:visible m-8 font-josefin text-xs'>
-          <Link to='/home'><button className='mx-4 hover:text-green'>PROJECTS</button></Link>
-          <Link to='/team'><button className='mx-4 hover:text-green'>TEAMS</button></Link>
+          <Link to='/home'><button onClick={ this.props.resetProject } className='mx-4 hover:text-green'>PROJECTS</button></Link>
+          <Link to='/team'><button onClick={ this.props.resetProject } className='mx-4 hover:text-green'>TEAMS</button></Link>
           <button onClick={ () => this.logout() }className='mx-4 hover:text-green'>LOGOUT</button>
         </div>
 
@@ -67,5 +67,5 @@ function mapPropsToState(state) {
     username: state.username
   }
 }
-export default withRouter(connect(mapPropsToState, {resetState})(LoggedInHeader));
+export default withRouter(connect(mapPropsToState, {resetState, resetProject })(LoggedInHeader));
 
