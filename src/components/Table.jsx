@@ -24,6 +24,7 @@ class Table extends Component {
   componentDidMount() {
     this.getTableInfo();
   }
+  
 
   //getting all of the required information for the table and chart in one request and setting state. 
   async getTableInfo() {

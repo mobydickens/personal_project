@@ -66,7 +66,7 @@ class TeamList extends Component {
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>
               {this.state.showDetails && this.state.currentTeamId === team.id ?
               <div>
-                <div onClick={ () => this.leaveTeam(team.id) } className='cursor-pointer text-sm text-white rounded-full py-1 px-2 border bg-red border-red'>Leave</div>
+              <div onClick={ () => this.leaveTeam(team.id) } className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mr-4 border bg-red border-red'>Leave</div>
               </div> : "" }
             </div>
         {/* //gets team members on click */}

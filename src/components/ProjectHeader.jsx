@@ -26,6 +26,7 @@ class ProjectHeader extends Component {
   }
 
    deleteProject = (id) => {
+    
     axios.delete(`/api/deleteproject/${id}`).then(res => {
       this.props.userProjects(res.data);
     });
