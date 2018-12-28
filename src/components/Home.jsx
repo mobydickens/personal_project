@@ -27,6 +27,7 @@ class Home extends Component {
 
   render() {
     const { userId, username, projects } = this.props;
+    console.log(projects);
     let projectList = projects.map((project, i) => {
       return (
         <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>

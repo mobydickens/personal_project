@@ -26,7 +26,7 @@ class ProjectHeader extends Component {
   }
 
    deleteProject = (id) => {
-    
+
     axios.delete(`/api/deleteproject/${id}`).then(res => {
       this.props.userProjects(res.data);
     });
@@ -50,6 +50,7 @@ class ProjectHeader extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.id)
     return (
       <div>
         <div className='flex flex-col lg:flex-row justify-between'>

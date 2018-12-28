@@ -210,7 +210,9 @@ module.exports = {
   deleteProject: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
+    console.log(id)
     let numId = Number(id);
+    console.log(numId)
     await db.delete_all_tasks([ numId ]);
     await db.delete_project([ numId ]);
     let projects = await db.get_user_projects([ req.session.user.id ])
@@ -219,9 +221,10 @@ module.exports = {
   deleteTask: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
+    await db.delete_timelogs([ Number[ id ]]);
     await db.delete_task([ Number(id) ]);
     res.status(200).send('success!');
-  },
+},
   leaveTeam: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;

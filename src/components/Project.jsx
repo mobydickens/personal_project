@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import { connect } from 'react-redux';
-import { getProjectId, getTasks } from '../ducks/reducer';
+import { getProjectId, getTasks, resetProject, userProjects } from '../ducks/reducer';
 import Lane from './Lane.jsx';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
@@ -177,7 +177,7 @@ class Project extends Component {
       ...finish,
       taskIds: finishTaskIds
     }
-    //EVERY THING ABOVE THIS LINE IS WORKING AT 10:26AM//
+    //copy to send to reducer while waiting for promises
     let copyOfTasks = this.props.tasks.map(task => {
       let index = startTaskIds.indexOf(task.id);
       if(index !== -1) {
@@ -185,7 +185,8 @@ class Project extends Component {
       }
       let otherIndex = finishTaskIds.indexOf(task.id);
       if(otherIndex !== -1) {
-        task.lane_order = otherIndex
+        task.lane_order = otherIndex;
+        task.status = destination.droppableId;
       }
       return task;
     });
@@ -213,14 +214,21 @@ class Project extends Component {
     try {
       await Promise.all(startPromises);
       await Promise.all(finishPromises);
-  } catch (e) {
-     console.error("Failed to save tasks", e)
-  }
-  console.log("Finished")
-  this.fetchTasks(this.props.match.params.id)
-  return;
+    } catch (e) {
+      console.error("Failed to save tasks", e)
+    }
+    console.log("Finished")
+    this.fetchTasks(this.props.match.params.id)
+    return;
   }
 
+  deleteProject = (id) => {
+    
+    axios.delete(`/api/deleteproject/${id}`).then(res => {
+      this.props.userProjects(res.data);
+    });
+    this.props.history.push('/home');
+  }
 
   render() {
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
@@ -290,4 +298,4 @@ function mapState(state) {
   }
 }
 
-export default connect(mapState, { getProjectId, getTasks })(Project);
+export default connect(mapState, { getProjectId, getTasks, resetProject, userProjects })(Project);

@@ -15,6 +15,7 @@ const USER_SIGNUP = 'USER_SIGNUP';
 const USER_LOGIN = 'USER_LOGIN';
 const USER_PROJECTS = 'USER_PROJECTS'; 
 const RESET_STATE = 'RESET_STATE';
+const RESET_PROJECT = 'RESET_PROJECT';
 const ADD_NEW_TEAM = 'ADD_NEW_TEAM';
 const GET_MY_TEAMS = 'GET_MY_TEAMS';
 const GET_PROJECT_ID = 'GET_PROJECT_ID'; 
@@ -52,6 +53,11 @@ export function userProjects(projects) {
 export function resetState() {
   return {
     type: RESET_STATE
+  }
+}
+export function resetProject() {
+  return {
+    type: RESET_PROJECT
   }
 }
 export function addNewTeam(members) {
@@ -96,7 +102,9 @@ export default function reducer(state=initialState, action) {
     case USER_PROJECTS:
       return { ...state, projects: action.payload };
     case RESET_STATE:
-      return { ...state,  userId: '', email: '', username: '', projects: [], team: [] };
+      return { ...state, userId: '', email: '', username: '', projects: [], team: [],  myTeams: [], currentProjectId: '', currentProjectTasks: [], tableArray: [] };
+    case RESET_PROJECT:
+      return { ...state, currentProjectId: '', currentProjectTasks: []}
     case ADD_NEW_TEAM:
       return { ...state, team: action.payload };
     case GET_MY_TEAMS:
