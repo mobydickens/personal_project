@@ -77,8 +77,10 @@ class Team extends Component {
     return (
       <div className='flex flex-col'>
         <LoggedInHeader />
-        <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
-          <TeamList />
+        <div className='flex flex-col items-center h-full lg:h-screen lg:w-screen bg-grey-light pt-4'>
+          <div>
+            <TeamList />
+          </div>
           <div className='mt-4'>Start a new team</div>
           <div className='bg-white shadow-md w-5/6 p-6 m-4 lg:w-2/5'>
             <form className='flex flex-col p-2 lg:p-16'>

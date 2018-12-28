@@ -59,10 +59,10 @@ class TeamList extends Component {
     let teamsList = this.props.teams.map((team, i) => {
       return (
         <div
-          className='shadow border border-grey bg-white m-2'
+          className='shadow border border-grey bg-white m-2 p-2'
           key={i}>
-          <div className='flex flex-col p-2'>
-            <div className={ !this.state.showDetails ? 'flex justify-between p-4' : 'flex justify-between p-2'}>
+          <div className='flex flex-col'>
+            <div className={ !this.state.showDetails ? 'flex p-4' : 'flex justify-between p-2'}>
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>
               {this.state.showDetails && this.state.currentTeamId === team.id ?
               <div>
@@ -70,7 +70,8 @@ class TeamList extends Component {
               </div> : "" }
             </div>
         {/* //gets team members on click */}
-            {this.state.showDetails && this.state.currentTeamId === team.id ? <div className='flex'>
+            {this.state.showDetails && this.state.currentTeamId === team.id ? 
+              <div className='flex flex-wrap'>
               {this.state.teamDetails.map((user, i) => {
                 return (
                   <div key={i}>
@@ -78,11 +79,12 @@ class TeamList extends Component {
                       <div className='text-white border border-blue bg-blue rounded-full py-1 px-2 m-1'>{ user.username }</div>
                     </div>
                   </div> 
-                )
-              })
-            }
+                  )
+                })
+              }
               <div onClick={ () => this.setState({ editing: !this.state.editing })} className='m-2 text-xl cursor-pointer'> + </div>
-            </div>: "" }
+            </div> 
+            : "" }
           
             { this.state.editing && this.state.currentTeamId === team.id ? 
               <div>
@@ -104,7 +106,7 @@ class TeamList extends Component {
     })
     
     return (
-      <div className='flex'>
+      <div className='flex flex-col lg:flex-row m-4'>
         {teamsList}
       </div>
     );
