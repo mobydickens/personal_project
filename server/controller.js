@@ -89,7 +89,6 @@ module.exports = {
     res.status(200).send(project[0]);
   },
   getTasks: async (req, res) => {
-    console.log('getTasks running?')
     const { id } = req.params;
     const db = req.app.get('db');
     let tasks = await db.all_lane_tasks([ id  ]);
@@ -155,7 +154,6 @@ module.exports = {
     res.status(200).send(updatedDescription[0]);
   },
   updateStatus: async (req, res) => {
-    console.log('updatestatus running?')
     const db = req.app.get('db');
     const { status } = req.body;
     const { id } = req.params;

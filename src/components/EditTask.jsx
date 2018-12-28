@@ -14,7 +14,6 @@ class EditTask extends Component {
       status: '',
       showTitleInput: false,
       showDescriptionInput: false,
-      showStatusSelector: false
     }
   }
   
@@ -33,16 +32,6 @@ class EditTask extends Component {
     this.setState({
       showDescriptionInput: false,
       description: ''
-    })
-  }
-
-  async updateOrderAndStatus(id, index) {
-    let res = await axios.put(`/taskstatus/${id}`, { index: index, status: this.state.status });
-    this.props.getTasks(res.data);
-    this.props.getTasksAndLogs();
-    this.setState({
-      showStatusSelector: false,
-      status: ''
     })
   }
 
@@ -66,24 +55,6 @@ class EditTask extends Component {
               </div> }
           </div>
           <div className='text-smoke'>{moment(this.props.task.created_at).startOf('day').fromNow()}</div>
-        </div>
-        <div 
-          onClick={ () => this.setState({showStatusSelector: true, status: this.props.task.status }) }
-          className='my-2'>
-          { !this.state.showStatusSelector ? 
-            <div className='text-smoke lg:border-b border-grey lg:py-2'>{this.props.task.status}</div>
-            : 
-            <div className='flex flex-col lg:flex-row lg:border-b border-grey lg:py-2'>
-              <select className='focus:outline-none' onChange={ (e) => this.setState( { status: e.target.value })}>
-                <option defaultValue="selected">To Do</option>
-                <option defaultValue="selected">In Progress</option>
-                <option defaultValue="selected">Testing</option>
-                <option defaultValue="selected">Done</option>
-              </select>
-              <button onClick={ () => this.updateOrderAndStatus(this.props.task.id, 0) } className='mx-2'>Save</button>
-              <button onClick={ (e) => e.stopPropagation() || this.setState({ showStatusSelector: false })} className='mx-2'>Cancel</button> 
-            </div> 
-          }
         </div>
         <div 
           onClick={ () => this.setState({ showDescriptionInput: true, description: this.props.task.description }) } 
