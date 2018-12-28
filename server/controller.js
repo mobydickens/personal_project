@@ -120,7 +120,7 @@ module.exports = {
   getTeams: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.session.user;
-    let teams = await db.get_user_teams([ id ]);
+    let teams = await db.get_user_teams([ Number(id) ]);
     res.status(200).send(teams);
   },
   teamDetails: async (req, res) => {
@@ -132,9 +132,9 @@ module.exports = {
   tableInformation: async (req, res) => {
     const { id } = req.params;
     const db = req.app.get('db');
-    let projectInfo = await db.get_project_for_table([ id ]);
-    let taskInfo = await db.get_tasks_for_table([ id ]);
-    let timelogs = await db.get_timelogs_for_table([ id ]);
+    let projectInfo = await db.get_project_for_table([ Number(id) ]);
+    let taskInfo = await db.get_tasks_for_table([ Number(id) ]);
+    let timelogs = await db.get_timelogs_for_table([ Number(id) ]);
     res.status(200).send({ projectInfo: projectInfo[0], taskInfo, timelogs })
   },
 
@@ -143,21 +143,21 @@ module.exports = {
     const db = req.app.get('db');
     const { title } = req.body;
     const { id } = req.params;
-    let updatedTitle = await db.update_task_title([ title, id ]);
+    let updatedTitle = await db.update_task_title([ title, Number(id) ]);
     res.status(200).send(updatedTitle[0]);
   },
   updateDescription: async (req, res) => {
     const db = req.app.get('db');
     const { description } = req.body;
     const { id } = req.params;
-    let updatedDescription = await db.update_task_description([ description, id ]);
+    let updatedDescription = await db.update_task_description([ description, Number(id) ]);
     res.status(200).send(updatedDescription[0]);
   },
   updateStatus: async (req, res) => {
     const db = req.app.get('db');
     const { status } = req.body;
     const { id } = req.params;
-    let updatedStatus = await db.update_status([ status, id ]);
+    let updatedStatus = await db.update_status([ status, Number(id) ]);
     res.status(200).send(updatedStatus[0]);
   },
   editTimelog: async (req, res) => {
@@ -210,9 +210,8 @@ module.exports = {
   deleteProject: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    console.log(id)
     let numId = Number(id);
-    console.log(numId)
+    await db.delete_projectwide_timelogs([ numId ]);
     await db.delete_all_tasks([ numId ]);
     await db.delete_project([ numId ]);
     let projects = await db.get_user_projects([ req.session.user.id ])
