@@ -36,11 +36,10 @@ class EditTask extends Component {
     })
   }
 
-  async updateStatus() {
-    let res = await axios.put(`/api/updatestatus/${this.props.task.id}`, { status: this.state.status })
+  async updateOrderAndStatus(id, index) {
+    let res = await axios.put(`/taskstatus/${id}`, { index: index, status: this.state.status });
     this.props.getTasks(res.data);
     this.props.getTasksAndLogs();
-    this.props.needsUpdate();
     this.setState({
       showStatusSelector: false,
       status: ''
@@ -81,7 +80,7 @@ class EditTask extends Component {
                 <option defaultValue="selected">Testing</option>
                 <option defaultValue="selected">Done</option>
               </select>
-              <button onClick={ () => this.updateStatus() } className='mx-2'>Save</button>
+              <button onClick={ () => this.updateOrderAndStatus(this.props.task.id, 0) } className='mx-2'>Save</button>
               <button onClick={ (e) => e.stopPropagation() || this.setState({ showStatusSelector: false })} className='mx-2'>Cancel</button> 
             </div> 
           }

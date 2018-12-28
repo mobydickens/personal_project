@@ -99,12 +99,12 @@ class Project extends Component {
   }
 
   async updateOrderAndStatus(id, index, status) {
+    console.log('update order and status running again?', id, index, status)
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
 
   //react-beautiful-dnd
   async onDragEnd(result) {
-    // debugger;
     //if there is no destination for the task, return
     const { destination, source, draggableId } = result;
     if (!destination) {
