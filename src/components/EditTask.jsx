@@ -54,7 +54,7 @@ class EditTask extends Component {
                 <button onClick={ (e) => e.stopPropagation() || this.setState({showTitleInput: false }) } className='mx-2'>Cancel</button> 
               </div> }
           </div>
-          <div className='text-smoke'>{moment(this.props.task.created_at).startOf('day').fromNow()}</div>
+          <div className='text-smoke'>{moment(this.props.task.created_at).startOf('hour').fromNow()}</div>
         </div>
         <div 
           onClick={ () => this.setState({ showDescriptionInput: true, description: this.props.task.description }) } 
