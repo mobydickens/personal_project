@@ -59,10 +59,11 @@ class TeamList extends Component {
     let teamsList = this.props.teams.map((team, i) => {
       return (
         <div
-          className='shadow border border-grey bg-white m-2 p-2'
+          className='flex m-4'
           key={i}>
+          <div className='w-4 h-4 mr-2 bg-palette-grey rounded-full'></div>
           <div className='flex flex-col'>
-            <div className={ !this.state.showDetails ? 'flex p-4' : 'flex justify-between p-2'}>
+            <div className={ !this.state.showDetails ? 'flex' : 'flex justify-between'}>
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>
               {this.state.showDetails && this.state.currentTeamId === team.id ?
               <div>
@@ -106,7 +107,7 @@ class TeamList extends Component {
     })
     
     return (
-      <div className='flex flex-col lg:flex-row m-4'>
+      <div className='flex flex-col m-4'>
         {teamsList}
       </div>
     );

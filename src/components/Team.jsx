@@ -75,66 +75,76 @@ class Team extends Component {
     })
 
     return (
-      <div className='flex flex-col'>
+      <div>
         <LoggedInHeader />
-        <div className='flex flex-col items-center h-full lg:h-screen lg:w-screen bg-palette-white pt-4'>
-          <div>
+        <div className='flex flex-col lg:flex-row justify-center p-2 w-full'>
+        {/* middle box */}
+
+          <div className='flex flex-col w-full lg:w-3/5'>
+            {/* form box */}
+            <div className='flex justify-center'>
+              <div className='mt-4'>Start a new team</div>
+            </div>
+            <div className='bg-white shadow-lg p-6 m-4'>
+              <form className='flex flex-col p-2 lg:p-16'>
+                <label>Choose team name: </label>
+                <input
+                  onChange={ (e) => this.setState({ teamName: e.target.value })} 
+                  className='input-underlined focus:outline-none' 
+                  type="text" 
+                  value={ this.state.teamName }
+                />
+                <label className='my-4'>Enter new teammate's email: </label>
+                <div className='flex items-center w-full border-b border-palette-blue'>
+                  <input
+                    onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
+                    className='input focus:outline-none' 
+                    type="text"
+                    value={ this.state.memberEmail }/>
+                  <button className='text-grey' onClick={ () => this.add() }>Add</button>
+                </div>
+                
+                { !this.state.done ?
+                  <div className='flex flex-col'>
+                    <p className='my-4'>Team members:</p>
+                    <div>{team}</div>
+                    <div className='flex justify-center'>
+                      <div> 
+                        <button 
+                          className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
+                          onClick={ () => this.addTeam() }>
+                          Start Team
+                        </button>
+                      </div>
+                    </div>
+                    <div className='flex justify-center m-2'>
+                      <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                    </div>
+                  </div> 
+                  :
+                  <div className='flex flex-col justify-center m-6'>
+                    <div>Your team has been created!</div>
+                    <div className='flex justify-center'>
+                      <div>
+                        <button 
+                          onClick={ () => this.props.history.push('/editproject') } 
+                          className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Start a Project!
+                        </button>
+                      </div>
+                    </div>
+                    <div className='flex justify-center m-2'>
+                      <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                    </div>
+                  </div> }
+              </form>
+            </div>
+          </div>
+
+          {/* Individual user team list */}
+          <div className='mt-8'>
             <TeamList />
           </div>
-          <div className='mt-4'>Start a new team</div>
-          <div className='bg-white shadow-lg w-5/6 p-6 m-4 lg:w-2/5'>
-            <form className='flex flex-col p-2 lg:p-16'>
-              <label>Choose team name: </label>
-              <input
-                onChange={ (e) => this.setState({ teamName: e.target.value })} 
-                className='input-underlined focus:outline-none' 
-                type="text" 
-                value={ this.state.teamName }
-              />
-              <label className='my-4'>Enter new teammate's email: </label>
-              <div className='flex items-center w-full border-b border-palette-blue'>
-                <input
-                  onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
-                  className='input focus:outline-none' 
-                  type="text"
-                  value={ this.state.memberEmail }/>
-                <button className='text-grey' onClick={ () => this.add() }>Add</button>
-              </div>
-              
-              { !this.state.done ?
-                <div className='flex flex-col'>
-                  <p className='my-4'>Team members:</p>
-                  <div>{team}</div>
-                  <div className='flex justify-center'>
-                    <div> 
-                      <button 
-                        className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
-                        onClick={ () => this.addTeam() }>
-                        Start Team
-                      </button>
-                    </div>
-                  </div>
-                  <div className='flex justify-center m-2'>
-                    <Link to='/home'><button className='text-grey'>Cancel</button></Link>
-                  </div>
-                </div> 
-                :
-                <div className='flex flex-col justify-center m-6'>
-                  <div>Your team has been created!</div>
-                  <div className='flex justify-center'>
-                    <div>
-                      <button 
-                        onClick={ () => this.props.history.push('/editproject') } 
-                        className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Start a Project!
-                      </button>
-                    </div>
-                  </div>
-                  <div className='flex justify-center m-2'>
-                    <Link to='/home'><button className='text-grey'>Cancel</button></Link>
-                  </div>
-                </div> }
-            </form>
-          </div>
+
         </div>
       </div>
     );
