@@ -39,17 +39,35 @@
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
-  background-image: url("https://365psd.com/images/previews/562/grey-corporate-business-technology-background-free-34160.jpg");
+  background-image: url("https://images.wallpaperscraft.com/image/water_splash_abstract_white_background_76323_3840x2400.jpg");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-  filter: blur(2px);
+  /* filter: blur(2px); */
+  overflow: hidden;
+}
+
+.bg-image-main {
+  background-image: url("https://cdn.allwallpaper.in/wallpapers/2048x1152/12089/abstract-blue-digital-art-waves-2048x1152-wallpaper.jpg");
+  position: absolute;
+  top: 20;
+  left: 0;
+  width: 100%;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  /* filter: blur(2px); */
   overflow: hidden;
 }
 
  .input {
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
+
+.login-input {
+  @apply appearance-none bg-palette-grey w-full text-white
+}
+
  .input-underlined {
    @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-palette-blue;
  }

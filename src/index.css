@@ -567,12 +567,22 @@ table {
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
-  background-image: url("https://365psd.com/images/previews/562/grey-corporate-business-technology-background-free-34160.jpg");
+  background-image: url("https://images.wallpaperscraft.com/image/water_splash_abstract_white_background_76323_3840x2400.jpg");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-  -webkit-filter: blur(2px);
-          filter: blur(2px);
+  background-size: cover; /* Resize the background image to cover the entire container *//* filter: blur(2px); */
+  overflow: hidden;
+}
+
+.bg-image-main {
+  background-image: url("https://cdn.allwallpaper.in/wallpapers/2048x1152/12089/abstract-blue-digital-art-waves-2048x1152-wallpaper.jpg");
+  position: absolute;
+  top: 20;
+  left: 0;
+  width: 100%;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container *//* filter: blur(2px); */
   overflow: hidden;
 }
 
@@ -590,6 +600,15 @@ table {
   padding-left: .5rem;
   padding-right: .5rem;
   line-height: 1.25;
+}
+
+.login-input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #2c2f33;
+  width: 100%;
+  color: #fff;
 }
 
 .input-underlined {
