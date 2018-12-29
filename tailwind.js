@@ -54,6 +54,12 @@ let colors = {
   'smoke-lighter': 'rgba(0, 0, 0, 0.25)',
   'smoke-lightest': 'rgba(0, 0, 0, 0.1)',
 
+  'palette-grey': '#2c2f33',
+  'palette-white': '#ffffff',
+  'palette-blue': '#7289da',
+  'palette-light': '#99aab5',
+  'palette-dark': '#4F5F98',
+
   'black': '#22292f',
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',

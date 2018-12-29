@@ -1,7 +1,7 @@
 let initialState = {
-  userId: '',
-  email: '',
-  username: '',
+  userId: 6,
+  email: 'joff@email.com',
+  username: 'KingJoff',
   projects: [],
   team: [],
   myTeams: [],

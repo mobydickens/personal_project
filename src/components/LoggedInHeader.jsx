@@ -39,20 +39,20 @@ class LoggedInHeader extends Component {
 
   render() {
     return (
-      <div className='p-4 border-b border-grey'>
+      <div className='p-1 bg-palette-grey'>
       {/* sidebar will only show when bars in header are clicked on in phone view */}
         <Sidebar 
           showSidebar={ this.state.showSidebar } 
           username={ this.props.username }
           hideSidebarFn={ this.hideSidebar }
           hideAndLogout={ this.hideSidebarLogout } />
-        <div className='jello lg:text-3xl mx-4'><span className='text-green'>J</span>ello</div>
+        <div className='jello lg:text-2xl m-2 mx-6 text-white'><span className='text-palette-blue'>J</span>ello</div>
 
         {/* The header navigation below is hidden when in phone view, and bar icon will appear */}
-        <div className='flex absolute pin-t pin-r invisible lg:visible m-8 font-josefin text-xs'>
-          <Link to='/home'><button onClick={ this.props.resetProject } className='mx-4 hover:text-green'>PROJECTS</button></Link>
-          <Link to='/team'><button onClick={ this.props.resetProject } className='mx-4 hover:text-green'>TEAMS</button></Link>
-          <button onClick={ () => this.logout() }className='mx-4 hover:text-green'>LOGOUT</button>
+        <div className='flex absolute pin-t pin-r invisible lg:visible mx-8 mt-6 font-josefin text-xs'>
+          <Link to='/home'><button onClick={ this.props.resetProject } className='mx-4 text-white hover:text-palette-blue'>PROJECTS</button></Link>
+          <Link to='/team'><button onClick={ this.props.resetProject } className='mx-4 text-white hover:text-palette-blue'>TEAMS</button></Link>
+          <button onClick={ () => this.logout() }className='mx-4 text-white hover:text-palette-blue'>LOGOUT</button>
         </div>
 
         {/* the icon below only shows in phone view - on click will open sidebar for navigation */}

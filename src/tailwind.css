@@ -20,6 +20,20 @@
   */
  @tailwind components;
  
+.bg-image {
+  position: absolute;
+  top: 20;
+  left: 0;
+  width: 100%;
+  background-color: #e5e9ef;
+  background-image: url("https://365psd.com/images/previews/562/grey-corporate-business-technology-background-free-34160.jpg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  filter: blur(2px);
+  overflow: hidden;
+}
+
  .input {
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
