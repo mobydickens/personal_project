@@ -50,7 +50,7 @@ class EditTask extends Component {
                   className='input focus:outline-none bg-grey-lighter rounded'
                   value={this.state.title}
                   type="text"/>
-                <button onClick={ () => this.updateTitle() } className='mx-2'>Save</button>
+                <button onClick={ () => this.updateTitle() } className='btn-reg hover:bg-palette-dark hover:border-palette-dark mx-2'>Save</button>
                 <button onClick={ (e) => e.stopPropagation() || this.setState({showTitleInput: false }) } className='mx-2'>Cancel</button> 
               </div> }
           </div>
@@ -68,7 +68,7 @@ class EditTask extends Component {
                 className='input focus:outline-none bg-grey-lighter rounded'
                 value={this.state.description}
                 type="text"/>
-              <button onClick={ () => this.updateDescription() } className='mx-2'>Save</button>
+              <button onClick={ () => this.updateDescription() } className='btn-reg hover:bg-palette-dark hover:border-palette-dark mx-2'>Save</button>
               <button onClick={ (e) => e.stopPropagation() || this.setState({ showDescriptionInput: false })} className='mx-2'>Cancel</button> 
             </div> 
           }

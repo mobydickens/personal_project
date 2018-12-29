@@ -66,11 +66,6 @@ class ProjectHeader extends Component {
           }
           <div className={this.state.editName || this.state.editDesc ? 'hidden' : 'my-2 mx-6 flex flex-row'}>
             <Link className='no-underline' to='/reports'><button className='lg:m-4'>See reports for this project</button></Link>
-            <button 
-              onClick={ () => this.deleteProject(this.props.match.params.id) } 
-              className='mx-4 text-sm hidden lg:block'>
-              <i className="fas fa-trash-alt"></i>
-            </button>
           </div>
         </div>
         <div className='mx-6 hidden lg:block'>

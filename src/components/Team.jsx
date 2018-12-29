@@ -77,12 +77,12 @@ class Team extends Component {
     return (
       <div className='flex flex-col'>
         <LoggedInHeader />
-        <div className='flex flex-col items-center h-full lg:h-screen lg:w-screen bg-grey-light pt-4'>
+        <div className='flex flex-col items-center h-full lg:h-screen lg:w-screen bg-palette-white pt-4'>
           <div>
             <TeamList />
           </div>
           <div className='mt-4'>Start a new team</div>
-          <div className='bg-white shadow-md w-5/6 p-6 m-4 lg:w-2/5'>
+          <div className='bg-white shadow-lg w-5/6 p-6 m-4 lg:w-2/5'>
             <form className='flex flex-col p-2 lg:p-16'>
               <label>Choose team name: </label>
               <input
@@ -92,7 +92,7 @@ class Team extends Component {
                 value={ this.state.teamName }
               />
               <label className='my-4'>Enter new teammate's email: </label>
-              <div className='flex items-center w-full border-b border-green'>
+              <div className='flex items-center w-full border-b border-palette-blue'>
                 <input
                   onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
                   className='input focus:outline-none' 
@@ -104,12 +104,16 @@ class Team extends Component {
               { !this.state.done ?
                 <div className='flex flex-col'>
                   <p className='my-4'>Team members:</p>
-                  <div>{team}</div> 
-                  <button 
-                    className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24' 
-                    onClick={ () => this.addTeam() }>
-                    Start Team
-                  </button>
+                  <div>{team}</div>
+                  <div className='flex justify-center'>
+                    <div> 
+                      <button 
+                        className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
+                        onClick={ () => this.addTeam() }>
+                        Start Team
+                      </button>
+                    </div>
+                  </div>
                   <div className='flex justify-center m-2'>
                     <Link to='/home'><button className='text-grey'>Cancel</button></Link>
                   </div>
@@ -117,10 +121,14 @@ class Team extends Component {
                 :
                 <div className='flex flex-col justify-center m-6'>
                   <div>Your team has been created!</div>
-                  <button 
-                    onClick={ () => this.props.history.push('/editproject') } 
-                    className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24'>Start a Project!
-                  </button>
+                  <div className='flex justify-center'>
+                    <div>
+                      <button 
+                        onClick={ () => this.props.history.push('/editproject') } 
+                        className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Start a Project!
+                      </button>
+                    </div>
+                  </div>
                   <div className='flex justify-center m-2'>
                     <Link to='/home'><button className='text-grey'>Cancel</button></Link>
                   </div>

@@ -58,10 +58,10 @@ class NewTaskModal extends Component {
           <div className='flex justify-end'>
             { !this.state.editing ? 
               <button
-                className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6' 
+                className='btn-reg hover:bg-palette-dark hover:border-palette-dark'
                 onClick={ () => this.addTask() }>Add</button> 
               : <button
-                  className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full px-4 py-2 m-4'  
+                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark'  
                   onClick={ () => this.editTask() }>Save</button>
             }
           </div>

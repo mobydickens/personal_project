@@ -30,25 +30,25 @@ class LogTime extends Component {
         <label>Time spent: </label>
         <input
           onChange={ (e) => this.setState({ spent_time: e.target.value})}
-          className='input focus:outline-none bg-grey-lighter rounded' 
+          className='input-underlined focus:outline-none my-2 border-grey' 
           type="number"
           value={ this.state.spent_time } />
         <label>Estimate change: </label>
         <input
           onChange={ (e) => this.setState({ estimate_change: e.target.value})} 
-          className='input focus:outline-none bg-grey-lighter rounded'
+          className='input-underlined focus:outline-none my-2 border-grey'
           type="number"
           value={ this.state.estimate_change } /><br/>
         <label>Comment: </label>
         <input
           onChange={ (e) => this.setState({ comment: e.target.value})} 
-          className='input focus:outline-none bg-grey-lighter rounded'
+          className='input-underlined focus:outline-none my-2 border-grey'
           type="text"
           value={ this.state.comment } />
         <div className='flex justify-end'>
           <button
             onClick={ () => this.newTimelog() } 
-            className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-1 mt-2 focus:outline-none'>Save
+            className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Save
           </button>
         </div>
       </div>

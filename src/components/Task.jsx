@@ -13,7 +13,7 @@ class Task extends Component {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-            className='border-l-4 border-green mx-4 my-2 rounded'
+            className='border-l-4 border-palette-blue mx-4 my-2 rounded'
             key={this.props.task.id}>
             <div 
               className='border border-grey shadow bg-white rounded-r p-2'

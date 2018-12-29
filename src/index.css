@@ -605,7 +605,7 @@ table {
   padding-right: 1rem;
   line-height: 1.25;
   border-bottom-width: 1px;
-  border-color: #11de30;
+  border-color: #7289da;
 }
 
 .jello {
@@ -618,14 +618,26 @@ table {
   cursor: pointer;
   font-size: .875rem;
   font-family: Josefin Sans, sans-serif;
-  color: #11de30;
+  color: #7289da;
   padding-left: .5rem;
   padding-right: .5rem;
 }
 
+.btn-reg {
+  background-color: #7289da;
+  border-width: 1px;
+  border-color: #7289da;
+  color: #fff;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: .25rem;
+}
+
 .loader {
   border-top-width: 1px;
-  border-color: #11de30;
+  border-color: #7289da;
   border-right: solid 4px transparent;
   -webkit-animation: spin 1s linear infinite;
           animation: spin 1s linear infinite;

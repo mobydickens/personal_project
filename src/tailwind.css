@@ -51,17 +51,21 @@
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
  .input-underlined {
-   @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-green;
+   @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-palette-blue;
  }
  .jello {
    @apply tracking-wide font-josefin text-2xl;
  }
  .btn-white {
-   @apply cursor-pointer text-sm font-josefin text-green px-2;
+   @apply cursor-pointer text-sm font-josefin text-palette-blue px-2;
+ }
+
+ .btn-reg {
+   @apply bg-palette-blue border border-palette-blue text-white py-2 px-4 rounded;
  }
 
 .loader {
-  @apply border-t border-green;
+  @apply border-t border-palette-blue;
   border-right: solid 4px transparent;
   animation: spin 1s linear infinite;
 }

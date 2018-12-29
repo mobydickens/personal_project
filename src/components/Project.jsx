@@ -99,7 +99,6 @@ class Project extends Component {
   }
 
   async updateOrderAndStatus(id, index, status) {
-    console.log('update order and status running again?', id, index, status)
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
 
@@ -236,7 +235,7 @@ class Project extends Component {
     let lanes = this.state.laneNames.map((name, i) => {
       return (
         <div
-          className='m-2 lg:w-full bg-white shadow-md pb-4 min-h-100'
+          className='m-2 lg:w-full bg-grey-lighter shadow-md pb-4 min-h-100'
           key={i}>
           <div className='flex justify-between'>
             <div className='m-6'>{name}</div>
@@ -257,7 +256,7 @@ class Project extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='w-screen h-full lg:h-screen bg-grey-light pt-4'>
+        <div className='w-screen h-full lg:h-screen bg-palette-white pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>
             <div className='flex flex-col lg:flex-row p-4'>
@@ -283,8 +282,8 @@ class Project extends Component {
           <div className='flex justify-center'>
           <button 
             onClick={ () => this.deleteProject(this.props.match.params.id) } 
-            className='m-4 text-sm lg:hidden'>
-            <i className="fas fa-trash-alt"></i>
+            className='m-4 text-sm'>
+            <div className="text-red-lighter">Delete project</div>
           </button>
           </div>
         </div>

@@ -102,16 +102,15 @@ class DetailModal extends Component {
                 <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
               </div>
               <button 
-                className='m-2 bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-1 mt-2 focus:outline-none' 
+                className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
                 onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
               <button className='m-2' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
             : 
             <div className='border-b border-grey-lighter'>
               {/* regular history mode - not editing */}
-              <div><span className='text-green-dark'>{timelog.username}</span> logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
-              <div>Time spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}</div>
-              <div>Estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
+              <div><span className='text-palette-blue'>{timelog.username}</span> logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              <div>Spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}, estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
               <div>Comment: {timelog.comment}</div>
               {/* this ternary controls hiding and showing the edit button - only the person who created the timelog can edit it */}
               {  +this.props.userId === timelog.user_id ?
@@ -154,19 +153,18 @@ class DetailModal extends Component {
               <div>
                 <div className='flex'>
                   <div 
-                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
                   </div>
                 </div>
-                
               </div>
             </div>
             <div className='w-full p-2'>

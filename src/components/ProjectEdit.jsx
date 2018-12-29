@@ -47,7 +47,7 @@ class ProjectEdit extends Component {
 
       <div>
         <LoggedInHeader />
-        <div className='flex flex-col items-center h-screen w-screen bg-grey-light pt-4'>
+        <div className='flex flex-col items-center h-screen w-screen bg-smoke pt-4'>
           <div className='mb-2'>Start a new project</div>
           <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4 lg:w-2/5 lg:py-16 lg:px-24'>
             <label htmlFor="title">Project Name:</label>
@@ -78,10 +78,14 @@ class ProjectEdit extends Component {
               onChange={ (e) => this.setState({ start_date: e.target.value })} 
               className='input-underlined focus:outline-none'  
               type="date"/>
-            <button 
-              onClick={ () => this.newProject() } 
-              className='bg-green border border-green hover:bg-green-dark hover:border-green-dark text-white rounded-full p-2 mt-6 lg:mx-24'>Submit
-            </button>
+            <div className='flex justify-center'>
+              <div>
+                <button 
+                  onClick={ () => this.newProject() } 
+                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Submit
+                </button>
+              </div>
+            </div>
             <div className='flex justify-center m-2'>
               <Link to='/home'><button className='text-grey'>Cancel</button></Link>
             </div>
