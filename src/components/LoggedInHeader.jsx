@@ -56,7 +56,7 @@ class LoggedInHeader extends Component {
         </div>
 
         {/* the icon below only shows in phone view - on click will open sidebar for navigation */}
-        <div onClick={ () => this.setState({ showSidebar: !this.state.showSidebar }) }><i className="cursor-pointer absolute mx-6 my-4 pin-t pin-r fas fa-bars lg:invisible text-lg"></i></div>
+        <div onClick={ () => this.setState({ showSidebar: !this.state.showSidebar }) }><i className="cursor-pointer absolute mx-6 my-4 pin-t pin-r fas fa-bars lg:invisible text-lg text-white"></i></div>
       </div>
     );
   }

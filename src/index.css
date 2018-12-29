@@ -544,6 +544,23 @@ table {
   }
 }
 
+/* .smooth { */
+
+.gone {
+  position: absolute;
+  top: -400px;
+}
+
+.slider {
+  -webkit-transition: .3s;
+  transition: .3s;
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
+  /* }
+  opacity: 1;
+  transition: .74s ease; */
+}
+
 .bg-image {
   position: absolute;
   top: 20;

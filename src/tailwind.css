@@ -19,7 +19,20 @@
   * @import "tailwindcss/components";
   */
  @tailwind components;
- 
+/* .smooth { */
+
+.gone {
+  position: absolute;
+  top: -400px;
+}
+.slider {
+	transition: .3s;
+  transition-timing-function: linear;
+/* }
+  opacity: 1;
+  transition: .74s ease; */
+}
+
 .bg-image {
   position: absolute;
   top: 20;
