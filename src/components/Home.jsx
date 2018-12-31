@@ -55,11 +55,10 @@ class Home extends Component {
                 <div>
                   {/* this link will direct to create project page */}
                   { projectList[0] ?
-                  <div className='flex justify-between'>
-                    <div className='font-josefin m-4'>Welcome back, {username}!</div>
+                  <div className='flex justify-end'>
                     <Link className='no-underline' to='/editproject'>
                       <div 
-                        className='text-2xl bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
+                        className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
                         <i className="fas fa-plus m-4 px-8"></i>
                       </div>
                     </Link>
