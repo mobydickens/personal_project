@@ -52,25 +52,25 @@ class MainHeader extends Component {
                   <input
                     value={ this.state.email }
                     placeholder='Email'
-                    className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline'
+                    className='shadow appearance-none rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline lg:bg-palette-grey lg:border-b lg:border-grey-lightest lg:py-0 lg:mx-2 lg:text-grey-lighter'
                     onChange={ (e) => this.setState({ email: e.target.value, incorrectPass: false, emailError: false }) } 
                     type="text"/> 
                   <input
                     value={ this.state.password }
                     placeholder='Password'
-                    className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline mt-2'
+                    className='shadow appearance-none rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline mt-2 lg:mt-0 lg:bg-palette-grey lg:border-b lg:border-grey-lightest lg:py-0 lg:text-grey-lighter'
                     onChange={ (e) => this.setState({ password: e.target.value, incorrectPass: false, emailError: false }) } 
                     type="password"/>
                   <div className='flex'>
                   <div>
                     <button
-                      className='btn-reg mt-2 hover:bg-palette-dark hover:border-palette-dark ml-2 text-sm' 
+                      className='btn-reg mt-2 hover:bg-palette-dark hover:border-palette-dark ml-2 text-sm lg:mt-0' 
                       onClick={ () => this.login() }>LOGIN</button>
                   </div>
                   <div>
                     <button 
-                      className='btn-white mt-6'
-                      onClick={ () => this.setState({ inputShowing: !this.state.inputShowing }) }>CANCEL
+                      className='btn-white mt-6 lg:mt-2'
+                      onClick={ () => this.setState({ inputShowing: !this.state.inputShowing, email: '', password: '' }) }>CANCEL
                     </button>
                   </div>
                   </div>
