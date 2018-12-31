@@ -6,9 +6,17 @@ import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { userProjects } from '../ducks/reducer';
 import { getMyTeams } from '../ducks/reducer';
+import ProjectEdit from './ProjectEdit.jsx';
 
 class Home extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      newProjectModal: false
+    }
+  }
+  
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
     this.props.userProjects(res.data);
@@ -25,8 +33,14 @@ class Home extends Component {
     this.props.history.push(`/project/${id}`)
   }
 
+  projectModal = () => {
+    this.setState({
+      newProjectModal: !this.state.newProjectModal
+    })
+  }
+
   render() {
-    const { userId, username, projects } = this.props;
+    const { userId, projects } = this.props;
     console.log(projects);
   
     let projectList = projects.map((project, i) => {
@@ -45,7 +59,7 @@ class Home extends Component {
     return (
       <div>
         <LoggedInHeader />
-        <div className='bg-image h-screen'></div>
+        <div className='bg-image h-screen z-0'></div>
         <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen z-10'>
           <div className='lg:w-3/4'>
             <div className='lg:mt-6'>
@@ -56,12 +70,11 @@ class Home extends Component {
                   {/* this link will direct to create project page */}
                   { projectList[0] ?
                   <div className='flex justify-end'>
-                    <Link className='no-underline' to='/editproject'>
-                      <div 
-                        className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
-                        <i className="fas fa-plus m-4 px-8"></i>
-                      </div>
-                    </Link>
+                    <div
+                      onClick={ () => this.setState({newProjectModal: true}) } 
+                      className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
+                      <i className="fas fa-plus m-4 px-8"></i>
+                    </div>
                   </div>
                   : "" }
                 </div>
@@ -70,7 +83,6 @@ class Home extends Component {
                   {projectList.reverse()}
                 </div>
                 : <div className='font-josefin text-2xl m-4'>
-                    <div className='m-4'>Welcome, {username}</div>
                     <div className='flex justify-center lg:w-1/2 bg-white rounded shadow-md text-xl p-8'>
                       <div className='mt-4'>Start a new project!</div>
                       <Link className='no-underline items-center' to='/team'>
@@ -86,6 +98,9 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        {this.state.newProjectModal ?
+          <ProjectEdit projectModalFn={this.projectModal} />
+        : "" }
       </div>
     );
   }

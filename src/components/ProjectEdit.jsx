@@ -44,12 +44,9 @@ class ProjectEdit extends Component {
       )
     })
     return (
-
-      <div>
-        <LoggedInHeader />
-        <div className='flex flex-col items-center h-screen w-screen bg-smoke pt-4'>
-          <div className='mb-2'>Start a new project</div>
-          <form className='shadow-md bg-white flex flex-col w-5/6 p-6 m-4 lg:w-2/5 lg:py-16 lg:px-24'>
+        <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
+          <form className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+            <div className='mb-2'>Start a new project</div>
             <label htmlFor="title">Project Name:</label>
             <input
               onChange={ (e) => this.setState({ title: e.target.value })} 
@@ -87,11 +84,10 @@ class ProjectEdit extends Component {
               </div>
             </div>
             <div className='flex justify-center m-2'>
-              <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+              <button onClick={() => this.props.projectModalFn() }className='text-grey'>Cancel</button>
             </div>
           </form>
         </div>
-      </div>
     );
   }
 }

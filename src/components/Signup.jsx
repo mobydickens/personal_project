@@ -44,10 +44,8 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <MainHeader />
-        <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-          <div className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+      <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
+        <div className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
           <div className='flex justify-center'>
             <div className='font-josefin text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-palette-blue m-4'>J</div>
           </div>
@@ -55,34 +53,33 @@ class Signup extends Component {
             {this.state.fieldsRequired ? <div className='text-red-lighter'>All fields required</div> : ""}
             {this.state.emailUnavailable ? <div className='text-red-lighter'>Email already in use</div> : ""}
           </div>
-            <input
-              onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false, emailUnavailable: false }) }
-              className='input-underlined focus:outline-none m-2 border-grey'
-              value={ this.state.email }
-              placeholder='Enter an email' 
-              type="text"/>
-            <input
-              onChange={ (e) => this.setState({ username: e.target.value, fieldsRequired: false }) }
-              className='input-underlined focus:outline-none m-2 border-grey' 
-              value={ this.state.username }
-              placeholder='Enter a username' 
-              type="text"/>
-            <input
-              onChange={ (e) => this.setState({ password: e.target.value, fieldsRequired: false }) }
-              className='input-underlined focus:outline-none m-2 border-grey' 
-              value={ this.state.password }
-              placeholder='Enter a password' 
-              type="text"/>
-            <button
-              onClick={ this.signup }
-              className=' self-center btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>
-              Sign Up
-            </button>
-            <div
-              onClick={() => this.props.signupFn()} 
-              className='flex justify-center cursor-pointer'>
-              Cancel
-            </div>
+          <input
+            onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false, emailUnavailable: false }) }
+            className='input-underlined focus:outline-none m-2 border-grey'
+            value={ this.state.email }
+            placeholder='Enter an email' 
+            type="text"/>
+          <input
+            onChange={ (e) => this.setState({ username: e.target.value, fieldsRequired: false }) }
+            className='input-underlined focus:outline-none m-2 border-grey' 
+            value={ this.state.username }
+            placeholder='Enter a username' 
+            type="text"/>
+          <input
+            onChange={ (e) => this.setState({ password: e.target.value, fieldsRequired: false }) }
+            className='input-underlined focus:outline-none m-2 border-grey' 
+            value={ this.state.password }
+            placeholder='Enter a password' 
+            type="text"/>
+          <button
+            onClick={ this.signup }
+            className=' self-center btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>
+            Sign Up
+          </button>
+          <div
+            onClick={() => this.props.signupFn()} 
+            className='flex justify-center cursor-pointer'>
+            Cancel
           </div>
         </div>
       </div>
