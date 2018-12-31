@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainHeader from './MainHeader.jsx';
+import Header from './Header.jsx';
 import Signup from './Signup.jsx';
 
 class Main extends Component {
@@ -20,9 +20,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <div>
-          <MainHeader />
-        </div>
+        <Header />
         <div className='bg-image-main h-screen'></div>
         {this.state.showSignup ?
         <Signup signupFn={this.signup}/>

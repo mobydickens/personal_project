@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoggedInHeader from './LoggedInHeader.jsx';
+import Header from './Header.jsx';
 import { connect } from 'react-redux';
 import { getProjectId, getTasks, resetProject, userProjects } from '../ducks/reducer';
 import Lane from './Lane.jsx';
@@ -255,7 +255,7 @@ class Project extends Component {
 
     return (
       <div>
-        <LoggedInHeader />
+        <Header />
         <div className='w-screen h-full lg:h-screen bg-palette-white pt-4'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>

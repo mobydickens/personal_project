@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoggedInHeader from './LoggedInHeader.jsx';
+import Header from './Header.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { addNewTeam, getMyTeams } from '../ducks/reducer';
@@ -76,7 +76,7 @@ class Team extends Component {
 
     return (
       <div>
-        <LoggedInHeader />
+        <Header />
         <div className='flex flex-col lg:flex-row justify-center p-2 w-full'>
         {/* middle box */}
 

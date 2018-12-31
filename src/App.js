@@ -8,7 +8,9 @@ import Team from './components/Team.jsx';
 import ProjectEdit from './components/ProjectEdit.jsx';
 import Reports from './components/Reports.jsx';
 
+
 class App extends Component {
+  
   render() {
     return (
       <div>
@@ -27,4 +29,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default (App);

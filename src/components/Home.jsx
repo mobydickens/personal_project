@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import LoggedInHeader from './LoggedInHeader.jsx';
+import Header from './Header.jsx';
 import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { userProjects } from '../ducks/reducer';
@@ -58,7 +58,7 @@ class Home extends Component {
   
     return (
       <div>
-        <LoggedInHeader />
+        <Header />
         <div className='bg-image h-screen z-0'></div>
         <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen z-10'>
           <div className='lg:w-3/4'>
