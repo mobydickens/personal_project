@@ -11,7 +11,9 @@ class MainHeader extends Component {
     this.state = {
       email: '',
       password: '',
-      inputShowing: false
+      inputShowing: false,
+      incorrectPass: false,
+      emailError: false
     }
   }
 
@@ -32,33 +34,42 @@ class MainHeader extends Component {
     if(res.data.loggedIn) {
       this.props.history.push('/home')
     } else {
-      alert(res.data.message);
+      if(res.data.message === 'Email not found!') {
+        this.setState({
+          emailError: true
+        })
+      } else if(res.data.message === 'Incorrect password')
+      this.setState({
+        incorrectPass: true
+      })
     }
   }
 
   render() {
     let login = <div className='flex flex-col lg:flex-row'>
+                  {this.state.incorrectPass ? <div className='text-red-lighter text-sm'>Incorrect password</div> : ""}
+                  {this.state.emailError ? <div className='text-red-lighter text-sm'>Email not found</div> : ""}
                   <input
                     value={ this.state.email }
                     placeholder='Email'
-                    className='login-input border-b lg:border-white focus:outline-none mr-4'
-                    onChange={ (e) => this.setState({ email: e.target.value }) } 
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline'
+                    onChange={ (e) => this.setState({ email: e.target.value, incorrectPass: false, emailError: false }) } 
                     type="text"/> 
                   <input
                     value={ this.state.password }
                     placeholder='Password'
-                    className='login-input border-b lg:border-white focus:outline-none mr-4'
-                    onChange={ (e) => this.setState({ password: e.target.value }) } 
+                    className='shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline mt-2'
+                    onChange={ (e) => this.setState({ password: e.target.value, incorrectPass: false, emailError: false }) } 
                     type="password"/>
                   <div className='flex'>
                   <div>
                     <button
-                      className='btn-reg mt-4 hover:bg-palette-dark hover:border-palette-dark mt-0 ml-2' 
+                      className='btn-reg mt-2 hover:bg-palette-dark hover:border-palette-dark ml-2 text-sm' 
                       onClick={ () => this.login() }>LOGIN</button>
                   </div>
                   <div>
                     <button 
-                      className='btn-white mt-8'
+                      className='btn-white mt-6'
                       onClick={ () => this.setState({ inputShowing: !this.state.inputShowing }) }>CANCEL
                     </button>
                   </div>

@@ -12,7 +12,6 @@ class Main extends Component {
   }
   
   signup = () => {
-    // this.props.history.push('/signup');
     this.setState({
       showSignup: !this.state.showSignup
     })
