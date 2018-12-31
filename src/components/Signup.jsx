@@ -13,7 +13,8 @@ class Signup extends Component {
       email: '',
       username: '',
       password: '',
-      fieldsRequired: false
+      fieldsRequired: false,
+      emailUnavailable: false
     }
     this.signup = this.signup.bind(this);
   }
@@ -34,7 +35,9 @@ class Signup extends Component {
       if(res.data.loggedIn) {
         this.props.history.push('/home')
       } else {
-        alert(res.data.message);
+        this.setState({
+          emailUnavailable: true
+        })
       }
     }
   }
@@ -50,9 +53,10 @@ class Signup extends Component {
           </div>
           <div className='flex justify-center'>
             {this.state.fieldsRequired ? <div className='text-red-lighter'>All fields required</div> : ""}
+            {this.state.emailUnavailable ? <div className='text-red-lighter'>Email already in use</div> : ""}
           </div>
             <input
-              onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false }) }
+              onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false, emailUnavailable: false }) }
               className='input-underlined focus:outline-none m-2 border-grey'
               value={ this.state.email }
               placeholder='Enter an email' 
