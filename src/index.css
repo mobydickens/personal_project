@@ -567,7 +567,7 @@ table {
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
-  background-image: url("https://images.wallpaperscraft.com/image/water_splash_abstract_white_background_76323_3840x2400.jpg");
+  background-image: url("./images/cityblock.jpg");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container *//* filter: blur(2px); */
@@ -575,7 +575,7 @@ table {
 }
 
 .bg-image-main {
-  background-image: url("https://cdn.allwallpaper.in/wallpapers/2048x1152/12089/abstract-blue-digital-art-waves-2048x1152-wallpaper.jpg");
+  background-image: url("./images/cityblock.jpg");
   position: absolute;
   top: 20;
   left: 0;

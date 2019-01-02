@@ -53,7 +53,6 @@ class TeamList extends Component {
     })
   }
 
-
   render() {
 
     let teamsList = this.props.teams.map((team, i) => {

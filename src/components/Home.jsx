@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { userProjects } from '../ducks/reducer';
 import { getMyTeams } from '../ducks/reducer';
 import ProjectEdit from './ProjectEdit.jsx';
+import Backgrounds from './Backgrounds.jsx';
 
 class Home extends Component {
 
@@ -78,10 +79,13 @@ class Home extends Component {
                   </div>
                   : "" }
                 </div>
-                { projectList[0] ? 
-                <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
-                  {projectList.reverse()}
-                </div>
+                { projectList[0] ?
+                <div>
+                  <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
+                    {projectList.reverse()}
+                  </div>
+                  <Backgrounds />
+                 </div> 
                 : <div className='font-josefin text-2xl m-4'>
                     <div className='flex justify-center lg:w-1/2 bg-white rounded shadow-md text-xl p-8'>
                       <div className='mt-4'>Start a new project!</div>

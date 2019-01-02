@@ -28,7 +28,7 @@ class Main extends Component {
         <div>
           <div className='flex m-2 p-2 flex-col lg:m-6 lg:flex-row lg:justify-center'>
             <div className='flex flex-col w-full lg:w-1/2'>
-              <div className='font-josefin p-6 text-3xl lg:text-4xl z-10'>Your place for organizing and staying on track.</div>
+              <div className='font-josefin p-6 text-3xl lg:text-4xl z-10 text-white'>Your place for organizing and staying on track.</div>
               <div className='z-10'>
                 <button
                   onClick={ () => this.signup() } 
