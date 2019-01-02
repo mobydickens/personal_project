@@ -1,7 +1,7 @@
 // import { calculateEstimate } from './DetailModal';
 
-describe ('calculate estimate function in the detail modal', () => {
-  it ('should calculate the total estimate of time for a task from the initial estimate and timelogs', () => {
+describe ('calculate estimates in the detail modal', () => {
+  it ('should calculate the total estimate from just the timelogs', () => {
     const logs = [3, 4, 1.5, -2];
     const reduced = logs.reduce((accumulator, logValue) => {
       return accumulator + logValue;
@@ -9,17 +9,14 @@ describe ('calculate estimate function in the detail modal', () => {
     expect(reduced).toEqual(6.5);
     expect(reduced).toBeDefined();
   })
-})
-
-describe ('calculate current estimate for a task', () => {
-  it ('should equal current estimate for a task', () => {
+  it ('should equal current estimate for a task from both the timelogs and the initial estimate', () => {
     const initial_estimate = 10;
     const currentEstimate = 6.5 + initial_estimate;
     expect(currentEstimate).toEqual(16.5);
   })
 })
 
-describe ('function returns the time spent executing a task', () => {
+describe ('will calculate time spent and hours remaining', () => {
   it ('should return a number adding all of the timelogs for one task', () => {
     const logs = [2, 2, 0.5, 1];
     let timeSpent = logs.reduce((accumulator, logValue) => {
@@ -27,7 +24,12 @@ describe ('function returns the time spent executing a task', () => {
       }, 0);
     expect(timeSpent).toEqual(5.5);
   })
+  it ('should return a number that tells how many hours are left to spend', () => {
+    let remaining = 16.5 - 5.5;
+    expect(remaining).toEqual(11);
+  })
 })
+
 
 // THE FUNCTIONS I'M TRYING TO TEST ARE BELOW _ THEY COME FROM DETAIL_MODAL
 
@@ -44,3 +46,5 @@ describe ('function returns the time spent executing a task', () => {
 //     return Number((acc + +logValue.spent_time).toFixed(2));
 //   }, 0)
 // }();
+
+// let remaining = Number((currentEstimate - timeSpent).toFixed(2));
