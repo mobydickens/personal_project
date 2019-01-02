@@ -59,9 +59,9 @@ class TeamList extends Component {
     let teamsList = this.props.teams.map((team, i) => {
       return (
         <div
-          className='flex m-4'
+          className='flex mt-2 p-4 hover:bg-grey-lighter rounded'
           key={i}>
-          <div className='w-4 h-4 mr-2 bg-palette-grey rounded-full'></div>
+          <div className='w-4 h-4 mr-2 bg-palette-blue rounded'></div>
           <div className='flex flex-col'>
             <div className={ !this.state.showDetails ? 'flex' : 'flex justify-between'}>
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>
@@ -108,6 +108,7 @@ class TeamList extends Component {
     
     return (
       <div className='flex flex-col m-4'>
+        <div className='text-smoke'>Your Teams</div>
         {teamsList}
       </div>
     );

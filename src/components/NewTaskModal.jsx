@@ -43,7 +43,7 @@ class NewTaskModal extends Component {
             onChange={ (e) => this.setState({ title: e.target.value })} 
             type="text"
             value={ this.state.title }/><br/>
-          <label>Description</label><br/>
+          <label>Description:</label><br/>
           <input 
             className='input-underlined focus:outline-none m-2 border-grey' 
             onChange={ (e) => this.setState({ description: e.target.value })} 
