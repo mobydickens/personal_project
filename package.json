@@ -8,6 +8,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "jest": "^23.6.0",
     "massive": "^5.7.1",
     "moment": "^2.23.0",
     "plotly.js": "^1.43.1",
@@ -22,6 +23,7 @@
     "redux-devtools-extension": "^2.13.7"
   },
   "scripts": {
+    "testing": "jest",
     "build:css": "postcss src/tailwind.css -o src/index.css",
     "watch:css": "postcss src/tailwind.css -o src/index.css -w",
     "start": "npm run watch:css & react-scripts start",

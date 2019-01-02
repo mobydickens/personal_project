@@ -63,9 +63,10 @@ class DetailModal extends Component {
 
   render() {
     const { task, logs } = this.state;
+    console.log('task: ', task, 'logs: ', logs)
     //CALCULATIONS//
     //this function calculates what the ALL logs say the estimate change adds up to be. 
-    function calculateEstimate() {
+    export function calculateEstimate() {
       return logs.reduce((accumulator, logValue) => {
         return accumulator + +logValue.estimate_change;
       }, 0)
