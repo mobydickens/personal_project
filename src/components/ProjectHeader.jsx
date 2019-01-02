@@ -44,7 +44,7 @@ class ProjectHeader extends Component {
   async editDescription() {
     let res = await axios.put(`/api/editdesc/${ this.props.projectId }`, { description: this.state.projectDescription });
     this.setState({
-      projectName: res.data.description,
+      projectDescription: res.data.description,
       editDesc: false
     })
   }
@@ -52,11 +52,11 @@ class ProjectHeader extends Component {
   render() {
     return (
       <div>
-        <div className='flex flex-col lg:flex-row justify-between'>
-          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin m-4'>{this.state.projectName}</h3>
-            : <div className='mx-6 flex flex-col lg:flex-row items-center'>Project Name:
+        <div className={this.state.editName ? 'flex flex-col lg:flex-row w-full':'flex flex-col lg:flex-row justify-between'}>
+          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin mt-4 ml-6'>{this.state.projectName}</h3>
+            : <div className='mx-6 flex flex-col lg:flex-row items-center w-full'>
                 <input
-                  className='input focus:outline-none bg-smoke-lighter rounded' 
+                  className='input-underlined focus:outline-none mb-2' 
                   onChange={ (e) => this.setState({ projectName: e.target.value }) }
                   type="text"
                   value={ this.state.projectName }/>
@@ -64,15 +64,16 @@ class ProjectHeader extends Component {
                 <button className='mx-2' onClick={ () => this.setState({ editName: false })}>Cancel</button>
               </div>
           }
-          <div className={this.state.editName || this.state.editDesc ? 'hidden' : 'my-2 mx-6 flex flex-row'}>
+          <div className={this.state.editName || this.state.editDesc ? 'hidden' : 'mx-6 flex flex-row'}>
             <Link className='no-underline' to='/reports'><button className='lg:m-4'>See reports for this project</button></Link>
           </div>
         </div>
         <div className='mx-6 hidden lg:block'>
-        { !this.state.editDesc ? <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 
-          : <div className='flex items-center'>Project description:
+        { !this.state.editDesc ? 
+          <div onClick={ () => this.setState({ editDesc: true }) }>{ this.state.projectDescription }</div> 
+          : <div className='flex items-center'>
               <input
-                className='input focus:outline-none bg-smoke-lighter rounded'  
+                className='input-underlined focus:outline-none'  
                 onChange={ (e) => this.setState({ projectDescription: e.target.value }) }
                 value={ this.state.projectDescription } 
                 type="text"/>
