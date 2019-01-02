@@ -33,18 +33,41 @@
   transition: .74s ease; */
 }
 
-.bg-image {
+.image-position {
   position: absolute;
   top: 20;
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
-  background-image: url("./images/cityblock.jpg");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-  /* filter: blur(2px); */
   overflow: hidden;
+}
+
+.bg-cityblock {
+   background-image: url("./images/cityblock.jpg");
+}
+.bg-puppers {
+  background-image: url("./images/puppers.jpg");
+}
+.bg-whitebrick {
+  background-image: url("./images/whitewall.jpg");
+}
+.bg-bluewall {
+  background-image: url("./images/bluewall.jpg");
+}
+.bg-coffee {
+  background-image: url("./images/coffeemash.jpg");
+}
+.bg-flight {
+  background-image: url("./images/plane.jpg");
+}
+.bg-misty {
+  background-image: url("./images/fogtree.jpg");
+}
+.bg-decay {
+  background-image: url("./images/messedupplane.jpg");
 }
 
 .bg-image-main {

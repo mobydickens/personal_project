@@ -8,7 +8,7 @@ let initialState = {
   currentProjectId: '',
   currentProjectTasks: [],
   tableArray: [],
-  background: './images/cityblock.jpg'
+  background: 'City Block'
 }
 
 // ACTION CONSTANTS

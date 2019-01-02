@@ -41,8 +41,8 @@ class Home extends Component {
   }
 
   render() {
-    const { userId, projects } = this.props;
-    console.log(projects);
+    const { userId, projects, background } = this.props;
+    console.log(background);
   
     let projectList = projects.map((project, i) => {
       return (
@@ -60,7 +60,28 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <div className='bg-image h-screen z-0'></div>
+        {/* start of background ternary */}
+        {background === 'City Block' 
+          ? <div className='bg-cityblock image-position h-screen z-0'></div> 
+          : background === 'Puppers' 
+          ? <div className='bg-puppers image-position h-screen z-0'></div>
+          : background === 'White Brick'
+          ? <div className='bg-whitebrick image-position h-screen z-0'></div> 
+          : background === 'Blue Wall'
+          ? <div className='bg-bluewall image-position h-screen z-0'></div>
+          : background === 'Coffee'
+          ? <div className='bg-coffee image-position h-screen z-0'></div>
+          : background === 'Misty Forest'
+          ? <div className='bg-misty image-position h-screen z-0'></div> 
+          : background === 'Flight'
+          ? <div className='bg-flight image-position h-screen z-0'></div>
+          : background === 'Decay'
+          ? <div className='bg-decay image-position h-screen z-0'></div>
+          : background === 'None'
+          ? <div className='bg-palette-white'></div>
+          : <div className='bg-cityblock image-position h-screen z-0'></div> }
+        {/* end of background ternary */}
+
         <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen z-10'>
           <div className='lg:w-3/4'>
             <div className='lg:mt-6'>
@@ -115,7 +136,8 @@ function mapStateToProps(state) {
     userId: state.userId,
     email: state.email,
     username: state.username,
-    projects: state.projects
+    projects: state.projects,
+    background: state.background
   }
 }
 
