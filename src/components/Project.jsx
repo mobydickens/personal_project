@@ -9,6 +9,7 @@ import ProjectHeader from './ProjectHeader.jsx';
 import axios from 'axios';
 
 import { DragDropContext } from 'react-beautiful-dnd';
+import BackgroundTernary from './BackgroundTernary.jsx';
 
 class Project extends Component {
 
@@ -256,7 +257,8 @@ class Project extends Component {
     return (
       <div>
         <Header />
-        <div className='w-screen h-full lg:h-screen bg-palette-white pt-4'>
+        <BackgroundTernary />
+        <div className='absolute z-10'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>
             <div className='flex flex-col lg:flex-row p-4'>
