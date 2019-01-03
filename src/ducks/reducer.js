@@ -1,7 +1,7 @@
 let initialState = {
-  userId: 6,
-  email: 'joff@email.com',
-  username: 'KingJoff',
+  userId: '',
+  email: '',
+  username: '',
   projects: [],
   team: [],
   myTeams: [],
@@ -111,6 +111,7 @@ export default function reducer(state=initialState, action) {
     case USER_PROJECTS:
       return { ...state, projects: action.payload };
     case RESET_STATE:
+    console.log("Is reset state running?")
       return { ...state, userId: '', email: '', username: '', projects: [], team: [],  myTeams: [], currentProjectId: '', currentProjectTasks: [], tableArray: [] };
     case RESET_PROJECT:
       return { ...state, currentProjectId: '', currentProjectTasks: []}

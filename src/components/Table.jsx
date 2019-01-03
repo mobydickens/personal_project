@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTableArray } from '../ducks/reducer';
 
-import { tableRowsNeeded, hours_today, rows } from '../helpers/table_helper';
+import { tableRowsNeeded, rows } from '../helpers/table_helper';
 
 class Table extends Component {
 
