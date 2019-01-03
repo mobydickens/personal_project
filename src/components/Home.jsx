@@ -42,8 +42,7 @@ class Home extends Component {
   }
 
   render() {
-    const { userId, projects, background } = this.props;
-    console.log(background);
+    const { userId, projects } = this.props;
   
     let projectList = projects.map((project, i) => {
       return (

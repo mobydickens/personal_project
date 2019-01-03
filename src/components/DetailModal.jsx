@@ -66,8 +66,9 @@ class DetailModal extends Component {
   render() {
     const { task, logs } = this.state;
     console.log('task: ', task, 'logs: ', logs)
-    //CALCULATIONS// --> see also helper folder -> timelog-helper
     
+    //CALCULATIONS// --> tested function are saved in HELPER FOLDER -> TIMELOG_HELPER
+  
     //calculating currentEstimate by subtracting initial estimate from the estimated change from function above. 
     let currentEstimate = +task.initial_estimate + calculateEstimate(logs);
     //calculating time spent from the all logs for this task
