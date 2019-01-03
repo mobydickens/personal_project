@@ -40,7 +40,6 @@ class Table extends Component {
     })
   }
 
-
   // table helper function
   createTableRows = () => {
     const { taskInfo, timelogs, daily_dev_hours, start_date } = this.state;
@@ -53,7 +52,6 @@ class Table extends Component {
     this.props.getTableArray(tableRows);
     return tableRows;
   }
-
 
   render() {
 

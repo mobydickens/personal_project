@@ -261,7 +261,7 @@ class Project extends Component {
         <div className='absolute z-10 w-full'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <div className='flex flex-col lg:flex-row p-4'>
+            <div className='flex flex-col lg:flex-row p-4 mb-8'>
               {lanes}
             </div>
           </DragDropContext>
@@ -284,8 +284,8 @@ class Project extends Component {
           <div className='flex justify-center'>
           <button 
             onClick={ () => this.deleteProject(this.props.match.params.id) } 
-            className='m-4 text-sm'>
-            <div className="text-red-lighter">Delete project</div>
+            className='absolute lg:fixed pin-b pin-l m-4 text-sm bg-black p-w rounded-full hover:bg-red'>
+            <div className="text-white p-2">Delete project</div>
           </button>
           </div>
         </div>
