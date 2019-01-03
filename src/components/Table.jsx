@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { getTableArray } from '../ducks/reducer';
 
+import { tableRowsNeeded } from '../helpers/table_helper';
+
 class Table extends Component {
 
   constructor(props) {
@@ -25,7 +27,6 @@ class Table extends Component {
     this.getTableInfo();
   }
   
-
   //getting all of the required information for the table and chart in one request and setting state. 
   async getTableInfo() {
     let res = await axios.get( `/api/table/${this.props.projectId}`);
@@ -40,30 +41,37 @@ class Table extends Component {
     })
   }
 
+
   //table helper function
   createTableRows = () => {
-    //setting needed variables
     const { taskInfo, timelogs, daily_dev_hours, start_date } = this.state;
+
+    let initialEstimate = tableRowsNeeded(taskInfo);
+    let rowsNeeded = Math.ceil(initialEstimate / daily_dev_hours);
+    //setting needed variables
     let rows = [];
-    let initialEstimate = 0;
     let devHours_expected = 0;
     let devHours_actual = 0
     let date = moment(start_date); 
     let today = new Date();
     let logDate = 0;
     today.setHours(0,0,0,0);
+// _________________________________________________ MOVED TO TABLE HELPER___________
+    // //getting initial estimate to find out how many rows I need in my table
+    // for (let i = 0; i < taskInfo.length; i++) {
+    //   initialEstimate += Number(taskInfo[i].initial_estimate);
+    // }
 
-    //getting initial estimate to find out how many rows I need in my table
-    for (let i = 0; i < taskInfo.length; i++) {
-      initialEstimate += Number(taskInfo[i].initial_estimate);
-    }
-    //get how many rows I need in table based on initial estimate
-    let rowsNeeded = Math.ceil(initialEstimate / daily_dev_hours);
+    // //get how many rows I need in table based on initial estimate
+    // let rowsNeeded = Math.ceil(initialEstimate / daily_dev_hours);
+// __________________________________________________MOVED TO TABLE HELPER__________________
+ 
     //configuring how many hours were spent EACH DAY
     for (let i = 1; i <= rowsNeeded; i++) {
       devHours_expected += daily_dev_hours;
       let actual_hours_today = 0;
       let currentEstimate = initialEstimate;
+      //_________________________________________________________________________________________INITAL ESTIMATE ONLY USED ABOVE
       
       for (let j = 0; j < timelogs.length; j++) {
         let logged_date = moment(timelogs[j].created_at).format('L'); 
@@ -103,7 +111,7 @@ class Table extends Component {
       // push all of the data to the array
       rows.push( { 
         date: date.clone(), 
-        expected_hours: daily_dev_hours, 
+        expected_hours: daily_dev_hours, //comes straight from state, as this number is the same for each row. 
         spent_today: ( date.toDate() <= today ? actual_hours_today : "" ), 
         currentEstimate: ( date.toDate() <= today ? currentEstimate : "" ),
         percent_expected: percent_expected,
@@ -119,7 +127,9 @@ class Table extends Component {
 
 
   render() {
+
     let tableArray = this.createTableRows();
+    console.log(tableArray);
     let table = tableArray.map((row, i) => {
       return (
         <tr className={ i % 2 !== 0 ? 'bg-white' : 'bg-grey-lightest' } key={i}>
