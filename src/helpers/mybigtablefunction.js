@@ -24,7 +24,6 @@
       devHours_expected += daily_dev_hours;
       let actual_hours_today = 0;
       let currentEstimate = initialEstimate;
-      //_________________________________________________________________________________________INITAL ESTIMATE ONLY USED ABOVE
       
       for (let j = 0; j < timelogs.length; j++) {
         let logged_date = moment(timelogs[j].created_at).format('L'); 
