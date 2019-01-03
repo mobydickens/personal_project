@@ -4,8 +4,7 @@ import axios from 'axios';
 import Header from './Header.jsx';
 import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
-import { userProjects } from '../ducks/reducer';
-import { getMyTeams } from '../ducks/reducer';
+import { userProjects, getMyTeams, userLogin } from '../ducks/reducer';
 import ProjectEdit from './ProjectEdit.jsx';
 import Backgrounds from './Backgrounds.jsx';
 import BackgroundTernary from './BackgroundTernary.jsx';
@@ -17,22 +16,37 @@ class Home extends Component {
     super(props);
     this.state = {
       newProjectModal: false,
-      loading: true
+      loading: true,
+      loggedIn: false
     }
   }
   
+  //check if logged in
+  async loggedIn() {
+    let res = await axios.get('/api/get-session');
+    if (res) {
+      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
+    } else {
+      this.props.history.push('/')
+    }
+  }
+
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
     this.props.userProjects(res.data);
     let res2 = await axios.get('/api/teams');
     this.props.getMyTeams(res2.data);
+    this.loggedIn();
     this.setState({
-      loading: false
+      loading: false,
+      loggedIn: true
     })
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.projects.length !== this.props.projects.length) {
+    }
+    if(prevProps.userId !== this.props.userId) {
     }
   }
 
@@ -81,7 +95,7 @@ class Home extends Component {
             <div className='lg:mt-6'>
             
             {/* if not logged in, will be redirected to login main page */}
-            { !userId ? <Redirect to='/'></Redirect> : 
+            { !this.state.loggedIn ? <Redirect to='/'></Redirect> : 
               <div>
                 <div>
                   {/* this PLUS BUTTON will open the create a new project modal */}
@@ -148,5 +162,5 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { userProjects, getMyTeams })(Home);
+export default connect(mapStateToProps, { userProjects, getMyTeams, userLogin })(Home);
 // md:flex-row md:flex-wrap md:justify-center lg:flex-row lg:flex-wrap lg:justify-start

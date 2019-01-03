@@ -11,8 +11,7 @@ app.use(express.json());
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
+  saveUninitialized: true
 }))
 
 // app.use(async function authBypass(req, res, next) {
@@ -40,6 +39,7 @@ app.post('/api/task', controller.newTask); //create a NEW task
 app.post('/api/timelog', controller.newTimelog); //creates a new timelog in timelogs table
 
 app.get('/auth/logout', controller.logout); //logs user out and destroys session
+app.get('/api/get-session', controller.getSession); //check if user is logged in
 app.get('/api/projects', controller.getProjects); //gets projects from component did mount in HOME component
 app.get('/api/project/:id', controller.getSingleProject); //gets project name for individual project view
 app.get('/api/tasks/:id', controller.getTasks); //gets tasks in lanes with a component did mount in LANE component
