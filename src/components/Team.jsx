@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header.jsx';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addNewTeam, getMyTeams } from '../ducks/reducer';
+import { addNewTeam, getMyTeams, userLogin } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
 import { Link } from 'react-router-dom';
 import BackgroundTernary from '../components/BackgroundTernary.jsx';
@@ -18,12 +18,32 @@ class Team extends Component {
         { id: this.props.userId, username: this.props.username }
       ],
       newTeammates: [],
-      done: false
+      done: false,
+      loggedIn: false
     }
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
   }
   
+  //check if logged in
+  async loggedIn() {
+    let res = await axios.get('/api/get-session');
+    if (res) {
+      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
+    } else {
+      this.props.history.push('/')
+    }
+  }
+
+  componentDidMount() {
+    console.log("component mounting in team?")
+    this.loggedIn();
+    this.setState({
+      loading: false,
+      loggedIn: true
+    })
+  }
+
   //this checks whether email is valid in db. If yes, it adds the user to the teammates array. 
   async add() {
     let res = await axios.get(`/api/member/?email=${this.state.memberEmail}`);
@@ -161,4 +181,4 @@ function mapState(state) {
     email: state.email
   }
 }
-export default connect(mapState, { addNewTeam, getMyTeams })(Team);
+export default connect(mapState, { addNewTeam, getMyTeams, userLogin })(Team);

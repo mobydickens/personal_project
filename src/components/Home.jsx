@@ -46,8 +46,6 @@ class Home extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.projects.length !== this.props.projects.length) {
     }
-    if(prevProps.userId !== this.props.userId) {
-    }
   }
 
   navigateToProject = (id) => {
