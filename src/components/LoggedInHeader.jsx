@@ -47,7 +47,7 @@ class LoggedInHeader extends Component {
   }
   
   render() {
-    console.log(this.props.history.location)
+    
     return (
       <div className='p-1 bg-palette-grey'>
       {/* sidebar will only show when bars in header are clicked on in phone view */}

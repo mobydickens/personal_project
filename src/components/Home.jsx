@@ -87,7 +87,9 @@ class Home extends Component {
                   <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
                     {projectList.reverse()}
                   </div>
-                  <Backgrounds />
+                  <div className='fixed pin-b pin-r m-4'>
+                    <Backgrounds />
+                  </div>
                  </div> 
                 : <div className='font-josefin text-2xl m-4'>
                     <div className='flex justify-center lg:w-1/2 bg-white rounded shadow-md text-xl p-8'>

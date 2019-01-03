@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getBackground } from '../ducks/reducer';
+import axios from 'axios';
 
 class Backgrounds extends Component {
+
+  saveBackground = (background) => {
+    axios.put(`/api/background/${this.props.userId}`, { background }).then(res => console.log(res.data));
+  }
 
   render() {
     return (
@@ -19,9 +24,18 @@ class Backgrounds extends Component {
           <option value="Decay">Decay</option>
           <option value="None">None</option>
         </select>
+        <button
+          onClick={ () => this.saveBackground(this.props.background) }
+          className='bg-palette-blue rounded mx-1 py-1 px-2 text-black'>Save
+        </button>
       </div>
     );
   }
 }
-
-export default connect(null, { getBackground })(Backgrounds);
+function mapState(state) {
+  return {
+    background: state.background,
+    userId: state.userId
+  }
+}
+export default connect(mapState, { getBackground })(Backgrounds);

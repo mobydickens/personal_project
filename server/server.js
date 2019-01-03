@@ -58,6 +58,8 @@ app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered fro
 app.put('/api/addteammate', controller.addTeammate); //triggered from TeamList component
 app.put('/task/:id', controller.editLaneOrder) //triggered from project component
 app.put('/taskstatus/:id', controller.updateOrderAndStatus); //triggered from project component with react beautiful dnd
+app.put('/api/background/:id', controller.updateBackground); //triggered from Backgrounds component with a save button
+
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
 app.delete('/api/leaveteam/:id', controller.leaveTeam); //leave team, triggered from TeamList component 

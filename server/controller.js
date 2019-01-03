@@ -27,7 +27,7 @@ module.exports = {
       let result = bcrypt.compareSync( password, user[0].hash_value);
       if(result) {
         req.session.user = { email: user[0].email, id: user[0].id };
-        return res.status(200).send({ loggedIn: true, message: 'Login successful!', email: user[0].email, id: user[0].id, username: user[0].username })
+        return res.status(200).send({ loggedIn: true, message: 'Login successful!', email: user[0].email, id: user[0].id, username: user[0].username, background: user[0].background })
       } else {
         return res.status(200).send({ loggedIn: false, message: 'Incorrect password'});
       }
@@ -139,6 +139,14 @@ module.exports = {
   },
 
   //PUT
+  updateBackground: async (req, res) => {
+    const db = req.app.get('db');
+    const { id } = req.params;
+    const { background } = req.body;
+    await db.update_background([ Number(id), background ]);
+    res.status(200).send('success in setting new background!')
+  },
+
   updateTitle: async (req, res) => {
     const db = req.app.get('db');
     const { title } = req.body;

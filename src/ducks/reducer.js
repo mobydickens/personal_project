@@ -36,13 +36,14 @@ export function userSignup({ userId, username, email }) {
     }
   }
 }
-export function userLogin({ userId, username, email }) {
+export function userLogin({ userId, username, email, background }) {
   return {
     type: USER_LOGIN,
     payload: {
       userId, 
       username, 
-      email
+      email,
+      background
     }
   }
 }
@@ -106,7 +107,7 @@ export default function reducer(state=initialState, action) {
     case USER_SIGNUP:
       return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username };
     case USER_LOGIN:
-      return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username };
+      return { ...state, userId: action.payload.userId, email: action.payload.email, username: action.payload.username, background: action.payload.background };
     case USER_PROJECTS:
       return { ...state, projects: action.payload };
     case RESET_STATE:

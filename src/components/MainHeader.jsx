@@ -30,7 +30,7 @@ class MainHeader extends Component {
       email: '',
       password: ''
     })
-    this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects })
+    this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
     if(res.data.loggedIn) {
       this.props.history.push('/home')
     } else {
