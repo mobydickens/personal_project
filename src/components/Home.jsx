@@ -59,10 +59,12 @@ class Home extends Component {
   
     return (
       <div>
-        <Header />
+        <div className='absolute pin-t z-10 w-full'>
+          <Header />
+        </div>
         <BackgroundTernary />
 
-        <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen z-10'>
+        <div className='absolute mt-10 flex justify-center w-screen pt-4 h-screen lg:h-screen'>
           <div className='lg:w-3/4'>
             <div className='lg:mt-6'>
             {/* if not logged in, will be redirected to login main page */}
@@ -74,7 +76,7 @@ class Home extends Component {
                   <div className='flex justify-end'>
                     <div
                       onClick={ () => this.setState({newProjectModal: true}) } 
-                      className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
+                      className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 my-4 hover:bg-palette-dark cursor-pointer'>
                       <i className="fas fa-plus m-4 px-8"></i>
                     </div>
                   </div>

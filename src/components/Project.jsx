@@ -256,9 +256,11 @@ class Project extends Component {
 
     return (
       <div>
-        <Header />
+        <div className='absolute pin-t z-10 w-full'>
+          <Header />
+        </div>
         <BackgroundTernary />
-        <div className='absolute z-10 w-full'>
+        <div className='absolute mt-20 w-full'>
           <ProjectHeader projectId={ this.props.match.params.id }/>
           <DragDropContext onDragEnd={this.onDragEnd}>
             <div className='flex flex-col lg:flex-row p-4 mb-8'>

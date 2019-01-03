@@ -567,13 +567,16 @@ table {
 }
 
 .image-position {
-  position: absolute;
+  position: fixed;
+  top: 0px;
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
   background-position: center;
+  background-attachment: scroll;
   background-size: cover;
   overflow: hidden;
+  z-index: 0;
 }
 
 .bg-cityblock {

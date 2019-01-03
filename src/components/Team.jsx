@@ -77,9 +77,11 @@ class Team extends Component {
 
     return (
       <div>
-        <Header />
+         <div className='absolute pin-t z-10 w-full'>
+          <Header />
+        </div>
         <BackgroundTernary />
-        <div className='absolute flex flex-col lg:flex-row justify-center p-2 w-full z-10'>
+        <div className='absolute mt-20 flex flex-col lg:flex-row justify-center p-2 w-full'>
         {/* middle box */}
 
           <div className='flex flex-col w-full lg:w-3/5'>
