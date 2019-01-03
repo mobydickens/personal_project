@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Sidebar extends Component {
   render() {
     return (
-      <div className={this.props.showSidebar ? 'slider visible font-josefin flex flex-col bg-palette-grey absolute pin-t pin-l pin-r h-64 z-20' : 'gone' } >
+      <div className={this.props.showSidebar ? 'slider visible font-josefin flex flex-col bg-palette-grey absolute pin-t pin-l pin-r h-64 z-20' : 'flex flex-col slider bg-palette-grey pin-l pin-r gone z-20' } >
         <div className='flex'>
           <div className='text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-palette-blue m-4'>J</div>
           <div className='text-xl mx-4 my-10 text-palette-white'>{this.props.username}</div><br/>

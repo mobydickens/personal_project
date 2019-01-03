@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Loading from './Loading.jsx';
 
+import { calculateSpent, calculateEstimate } from '../helpers/timelog_helper';
+
 class DetailModal extends Component {
 
   constructor(props) {
@@ -64,21 +66,12 @@ class DetailModal extends Component {
   render() {
     const { task, logs } = this.state;
     console.log('task: ', task, 'logs: ', logs)
-    //CALCULATIONS//
-    //this function calculates what the ALL logs say the estimate change adds up to be. 
-    function calculateEstimate() {
-      return logs.reduce((accumulator, logValue) => {
-        return accumulator + +logValue.estimate_change;
-      }, 0)
-    }
+    //CALCULATIONS// --> see also helper folder -> timelog-helper
+    
     //calculating currentEstimate by subtracting initial estimate from the estimated change from function above. 
-    let currentEstimate = +task.initial_estimate + calculateEstimate();
+    let currentEstimate = +task.initial_estimate + calculateEstimate(logs);
     //calculating time spent from the all logs for this task
-    let timeSpent = function() {
-      return logs.reduce((acc, logValue) => {
-        return Number((acc + +logValue.spent_time).toFixed(2));
-      }, 0)
-    }();
+    let timeSpent = calculateSpent(logs);
     // remaining calculates with current estimate, not original
     let remaining = Number((currentEstimate - timeSpent).toFixed(2));
     
@@ -160,7 +153,7 @@ class DetailModal extends Component {
                     className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent} { timeSpent > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent.toFixed(2)} { timeSpent > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
                     className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }

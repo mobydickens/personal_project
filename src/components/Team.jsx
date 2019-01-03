@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { addNewTeam, getMyTeams } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
 import { Link } from 'react-router-dom';
+import BackgroundTernary from '../components/BackgroundTernary.jsx';
 
 class Team extends Component {
 
@@ -77,15 +78,16 @@ class Team extends Component {
     return (
       <div>
         <Header />
-        <div className='flex flex-col lg:flex-row justify-center p-2 w-full'>
+        <BackgroundTernary />
+        <div className='absolute flex flex-col lg:flex-row justify-center p-2 w-full z-10'>
         {/* middle box */}
 
           <div className='flex flex-col w-full lg:w-3/5'>
             {/* form box */}
-            <div className='flex justify-center'>
-              <div className='mt-4'>Start a new team</div>
-            </div>
-            <div className='bg-white shadow-lg p-6 m-4'>
+            <div className='bg-white shadow-lg p-6 m-4 rounded'>
+              <div className='flex justify-center'>
+                <div className='mt-4'>Start a new team</div>
+              </div>
               <form className='flex flex-col p-2 lg:p-16'>
                 <label>Choose team name: </label>
                 <input

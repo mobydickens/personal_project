@@ -58,18 +58,24 @@ class TeamList extends Component {
     let teamsList = this.props.teams.map((team, i) => {
       return (
         <div
-          className='flex mt-2 p-4 hover:bg-grey-lighter rounded'
+          className='flex mt-2 p-4 hover:bg-grey-lighter rounded team-viewer'
+          style={{ width: this.state.showDetails && this.state.currentTeamId === team.id ? '280px' : '200px'}}
           key={i}>
           <div className='w-4 h-4 mr-2 bg-palette-blue rounded'></div>
           <div className='flex flex-col'>
             <div className={ !this.state.showDetails ? 'flex' : 'flex justify-between'}>
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>
+              {/* This ternary controls whether team details are shown or not */}
               {this.state.showDetails && this.state.currentTeamId === team.id ?
-              <div>
-              <div onClick={ () => this.leaveTeam(team.id) } className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mr-4 border bg-red border-red'>Leave</div>
-              </div> : "" }
+                <div>
+                  <div 
+                    onClick={ () => this.leaveTeam(team.id) } 
+                    className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mr-4 border bg-red border-red'>Leave
+                  </div>
+                </div> 
+              : "" }
             </div>
-        {/* //gets team members on click */}
+        {/* //get request for team members on click */}
             {this.state.showDetails && this.state.currentTeamId === team.id ? 
               <div className='flex flex-wrap'>
               {this.state.teamDetails.map((user, i) => {
@@ -106,7 +112,7 @@ class TeamList extends Component {
     })
     
     return (
-      <div className='flex flex-col m-4'>
+      <div className='flex flex-col m-4 p-4 bg-palette-white rounded'>
         <div className='text-smoke'>Your Teams</div>
         {teamsList}
       </div>

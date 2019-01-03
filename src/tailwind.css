@@ -33,14 +33,17 @@
   transition: .74s ease; */
 }
 
+.team-viewer {
+  transition: width .2s ease-in-out;
+}
+
 .image-position {
   position: absolute;
   left: 0;
   width: 100%;
   background-color: #e5e9ef;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-position: center;
+  background-size: cover; 
   overflow: hidden;
 }
 
