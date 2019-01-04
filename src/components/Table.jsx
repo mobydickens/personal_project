@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTableArray } from '../ducks/reducer';
 
-import { tableRowsNeeded, rows } from '../helpers/table_helper';
+import { firstEstimate, rows } from '../helpers/table_helper';
 
 class Table extends Component {
 
@@ -44,10 +44,10 @@ class Table extends Component {
   createTableRows = () => {
     const { taskInfo, timelogs, daily_dev_hours, start_date } = this.state;
     //see table_helper.js for function
-    let initialEstimate = tableRowsNeeded(taskInfo);
+    let initialEstimate = firstEstimate(taskInfo);
     let rowsNeeded = Math.ceil(initialEstimate / daily_dev_hours);
     //see table_helper.js for function
-    let tableRows = rows(rowsNeeded, initialEstimate, start_date, timelogs, daily_dev_hours);
+    let tableRows = rows(new Date(), rowsNeeded, initialEstimate, start_date, timelogs, daily_dev_hours);
     //put the array in the reducer
     this.props.getTableArray(tableRows);
     return tableRows;

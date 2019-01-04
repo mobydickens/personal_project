@@ -37,8 +37,8 @@ class Team extends Component {
 
   async componentDidMount() {
     this.loggedIn();
-    // let res = await axios.get('/api/teams');
-    // this.props.getMyTeams(res.data);
+    let res = await axios.get('/api/teams');
+    this.props.getMyTeams(res.data);
     this.setState({
       loading: false,
       loggedIn: true
@@ -102,8 +102,6 @@ class Team extends Component {
           <Header />
         </div>
         <BackgroundTernary />
-
-      { !this.props.userId ? <Redirect to='/'></Redirect> : 
         <div className='absolute mt-20 flex flex-col lg:flex-row justify-center p-2 w-full'>
         {/* middle box */}
 
@@ -174,7 +172,6 @@ class Team extends Component {
           </div>
 
         </div>
-      }
       </div>
     );
   }

@@ -2,7 +2,7 @@ import moment from 'moment';
 
 //THIS FUNCTION IS FOR GETTING THE AMOUNT OF ROWS FOR THE TABLE
 //task info and daily dev hours are passed in from state in Table Component
-export let tableRowsNeeded = function(taskInfo) {
+export let firstEstimate= function(taskInfo) {
   let initialEstimate = 0;
   //getting initial estimate for the entire project, calculated from the initial estimates on EACH task
   for (let i = 0; i < taskInfo.length; i++) {
@@ -11,12 +11,12 @@ export let tableRowsNeeded = function(taskInfo) {
   return initialEstimate;
 }
 
-export let rows = function(rowsNeeded, initialEstimate, start_date, timelogs, daily_dev_hours) {
+export let rows = function(today, rowsNeeded, initialEstimate, start_date, timelogs, daily_dev_hours) {
   let rows = [];
   let devHours_expected = 0;
   let devHours_actual = 0
   let date = moment(start_date); 
-  let today = new Date();
+ 
   let logDate = 0;
   today.setHours(0,0,0,0);
 //configuring how many hours were spent EACH DAY

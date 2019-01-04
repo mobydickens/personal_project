@@ -94,8 +94,6 @@ class Home extends Component {
 
         <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen'>
           <div className='flex justify-center w-full lg:w-2/3 mt-10'>
-          {/* if not logged in, will be redirected to login main page */}
-          { !userId ? <Redirect to='/'></Redirect> : 
             <div className='lg:w-full'>
               {/* if page is loading show loading icon */}
               { this.state.loading ? 
@@ -146,7 +144,6 @@ class Home extends Component {
               </div>
               }
             </div>
-            }
           </div>
         </div>
 

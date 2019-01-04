@@ -277,7 +277,7 @@ class Project extends Component {
           <Header />
         </div>
         { this.state.loading ? 
-        <div>
+        <div className='mt-20'>
           <Loading />
         </div> : 
           <div>

@@ -49,6 +49,7 @@ class ProjectEdit extends Component {
             </div>
             <label htmlFor="title">Project Name:</label>
             <input
+              autoFocus="autofocus"
               onChange={ (e) => this.setState({ title: e.target.value })} 
               className='input-underlined focus:outline-none mb-4'  
               type="text" 
