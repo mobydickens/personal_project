@@ -19,22 +19,34 @@
   * @import "tailwindcss/components";
   */
  @tailwind components;
-/* .smooth { */
+
+/* PROGRESS BAR */
 .progress {
-  margin: 5px 0 3px;
-  border: 6px solid #333;
-  background: #333;
-  overflow: hidden;
-  border-radius: 50px;
-  box-shadow: 1px 1px 1px #777;
+  @apply border-smoke-lighter bg-smoke-lightest shadow m-2 rounded-full;
+} 
+.span-progress {
+  @apply bg-palette-blue
+}
+.progress > .span-progress {
+  @apply block h-4 w-1/4 rounded-full
 }
 
-.progress > .span-progress {
-  display: block;
-  height: 20px;
-  width: 20%;
-  border-radius: 5px;
+.gradient > .span-progress {
+  @apply shadow-inner
 }
+.animate > .span-progress {
+  animation: progress 2s linear infinite;
+}
+
+@keyframes progress {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -60px -60px;
+  }
+}
+/* END OF PROGRESS BAR */
 
 .gone {
   position: absolute;
