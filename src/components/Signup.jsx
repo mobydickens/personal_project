@@ -53,6 +53,7 @@ class Signup extends Component {
             {this.state.emailUnavailable ? <div className='text-red-lighter'>Email already in use</div> : ""}
           </div>
           <input
+            autoFocus="autofocus"
             onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false, emailUnavailable: false }) }
             className='input-underlined focus:outline-none m-2 border-grey'
             value={ this.state.email }

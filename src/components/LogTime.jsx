@@ -29,6 +29,7 @@ class LogTime extends Component {
       <div>
         <label className='text-smoke'>Time spent: </label>
         <input
+          autoFocus="autofocus"
           onChange={ (e) => this.setState({ spent_time: e.target.value})}
           className='input-underlined focus:outline-none my-2 border-grey' 
           type="number"

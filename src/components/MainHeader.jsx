@@ -32,9 +32,7 @@ class MainHeader extends Component {
     })
     this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
     if(res.data.loggedIn) {
-      console.log("is user logged in?")
       this.props.history.push('/home')
-      console.log("did props get pushed?")
     } else {
       if(res.data.message === 'Email not found!') {
         this.setState({
@@ -53,6 +51,7 @@ class MainHeader extends Component {
                   {this.state.emailError ? <div className='text-red-lighter text-sm'>Email not found</div> : ""}
                   <input
                     value={ this.state.email }
+                    autoFocus="autofocus"
                     placeholder='Email'
                     className='shadow appearance-none rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline lg:bg-palette-grey lg:border-b lg:border-grey-lightest lg:py-0 lg:mx-2 lg:text-grey-lighter'
                     onChange={ (e) => this.setState({ email: e.target.value, incorrectPass: false, emailError: false }) } 

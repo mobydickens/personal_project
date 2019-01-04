@@ -35,9 +35,10 @@ class Team extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log("component mounting in team?")
+  async componentDidMount() {
     this.loggedIn();
+    // let res = await axios.get('/api/teams');
+    // this.props.getMyTeams(res.data);
     this.setState({
       loading: false,
       loggedIn: true
@@ -115,6 +116,7 @@ class Team extends Component {
               <form className='flex flex-col p-2 lg:p-16'>
                 <label>Choose team name: </label>
                 <input
+                  autoFocus="autofocus"
                   onChange={ (e) => this.setState({ teamName: e.target.value })} 
                   className='input-underlined focus:outline-none' 
                   type="text" 

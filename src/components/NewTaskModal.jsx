@@ -39,6 +39,7 @@ class NewTaskModal extends Component {
           </button>
           <label>Enter a title:</label><br/>
           <input 
+            autoFocus="autofocus"
             className='input-underlined focus:outline-none m-2 border-grey' 
             onChange={ (e) => this.setState({ title: e.target.value })} 
             type="text"
