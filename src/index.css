@@ -546,6 +546,22 @@ table {
 
 /* .smooth { */
 
+.progress {
+  margin: 5px 0 3px;
+  border: 6px solid #333;
+  background: #333;
+  overflow: hidden;
+  border-radius: 50px;
+  box-shadow: 1px 1px 1px #777;
+}
+
+.progress > .span-progress {
+  display: block;
+  height: 20px;
+  width: 20%;
+  border-radius: 5px;
+}
+
 .gone {
   position: absolute;
   top: -400px;

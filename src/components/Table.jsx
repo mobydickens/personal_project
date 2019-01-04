@@ -53,16 +53,14 @@ class Table extends Component {
 
     //send info to the reducer so that I can calculate whether the user is behind or ahead of schedule
     let info = tableRows.filter(row => {
-      // console.log(moment(row.date).format('L'), "row date");
       if(moment(row.date).format('L') === moment(new Date()).format('L')) {
         return true;
       } else {
         return false;
       };
-    })
+    });
    
-    this.props.onTrackInfo(info);
-    console.log("table rows", tableRows)
+  this.props.onTrackInfo(info);
     return tableRows;
   }
 

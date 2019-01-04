@@ -54,7 +54,7 @@ class Reports extends Component {
     let actualRemaining = this.props.tableArray.filter(obj => {
       if(obj.remaining_actual !== "") {
       return true;
-      }
+      } else {return false}
     }).map(obj => {
       return Number((obj.remaining_actual).toFixed(2));
     })

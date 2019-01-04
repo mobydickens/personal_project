@@ -5,6 +5,7 @@ import EditTask from './EditTask.jsx';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Loading from './Loading.jsx';
+import ProgressBar from './ProgressBar.jsx';
 
 import { calculateSpent, calculateEstimate } from '../helpers/timelog_helper';
 
@@ -159,6 +160,7 @@ class DetailModal extends Component {
                   </div>
                 </div>
               </div>
+              <ProgressBar />
             </div>
             <div className='w-full p-2'>
               <LogTime 
