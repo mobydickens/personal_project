@@ -16,8 +16,16 @@ class OnTrack extends Component {
               <span className="font-semibold mr-2 text-left flex-auto">Looks like you are a bit behind. Make sure to log those hours!</span>
             </div>
           </div>
-        : onTrack.remaining_expected >= onTrack.remaining_actual 
+        : onTrack.remaining_expected === onTrack.remaining_actual 
         ? 
+          <div className="text-center py-4 lg:px-4 mt-8">
+            <div className="p-2 bg-red-dark items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+              <span className="flex rounded-full bg-red-lighter uppercase px-4 py-2 text-xs font-bold mr-3">Nice job!</span>
+              <span className="font-semibold mr-2 text-left flex-auto">You are right on track!</span>
+            </div>
+          </div>
+        : onTrack.remaining_expected > onTrack.remaining_actual
+        ?
           <div className="text-center py-4 lg:px-4 mt-8">
             <div className="p-2 bg-palette-blue items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
               <span className="flex rounded-full bg-blue-darkest uppercase px-4 py-2 text-xs font-bold mr-3">Excellent!</span>

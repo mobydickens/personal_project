@@ -25,7 +25,6 @@ class Home extends Component {
   async loggedIn() {
     let res = await axios.get('/api/get-session');
     if (res) {
-      console.log("was user found?")
       this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
     } else {
       this.props.history.push('/')

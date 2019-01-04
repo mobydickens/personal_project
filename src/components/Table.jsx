@@ -62,7 +62,7 @@ class Table extends Component {
     })
    
     this.props.onTrackInfo(info);
-
+    console.log("table rows", tableRows)
     return tableRows;
   }
 
