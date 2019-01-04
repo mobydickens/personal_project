@@ -28,23 +28,15 @@
   @apply bg-palette-blue
 }
 .progress > .span-progress {
-  @apply block h-4 w-1/4 rounded-full
+  @apply block h-6 w-1/4 rounded-full
 }
 
 .gradient > .span-progress {
   @apply shadow-inner
 }
-.animate > .span-progress {
-  animation: progress 2s linear infinite;
-}
 
-@keyframes progress {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: -60px -60px;
-  }
+.progress, .span-progress{
+  transition: width 4s linear ease;
 }
 /* END OF PROGRESS BAR */
 

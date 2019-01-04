@@ -160,7 +160,7 @@ class DetailModal extends Component {
                   </div>
                 </div>
               </div>
-              <ProgressBar />
+              <ProgressBar timeSpent={timeSpent.toFixed(2)} remaining={remaining} currentEstimate={currentEstimate}/>
             </div>
             <div className='w-full p-2'>
               <LogTime 
