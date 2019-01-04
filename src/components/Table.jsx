@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTableArray } from '../ducks/reducer';
+import { getTableArray, onTrackInfo } from '../ducks/reducer';
 import { firstEstimate, rows } from '../helpers/table_helper';
+import moment from 'moment';
 
 class Table extends Component {
 
@@ -49,6 +50,19 @@ class Table extends Component {
     let tableRows = rows(new Date(), rowsNeeded, initialEstimate, start_date, timelogs, daily_dev_hours);
     //put the array in the reducer
     this.props.getTableArray(tableRows);
+
+    //send info to the reducer so that I can calculate whether the user is behind or ahead of schedule
+    let info = tableRows.filter(row => {
+      // console.log(moment(row.date).format('L'), "row date");
+      if(moment(row.date).format('L') === moment(new Date()).format('L')) {
+        return true;
+      } else {
+        return false;
+      };
+    })
+   
+    this.props.onTrackInfo(info);
+
     return tableRows;
   }
 
@@ -90,4 +104,4 @@ function mapState(state) {
     projectId: state.currentProjectId
   }
 }
-export default connect(mapState, { getTableArray })(Table);
+export default connect(mapState, { getTableArray, onTrackInfo })(Table);

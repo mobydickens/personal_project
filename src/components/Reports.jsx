@@ -7,6 +7,7 @@ import Plot from 'react-plotly.js';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ProjectHeader from './ProjectHeader';
+import OnTrack from './OnTrack.jsx';
 
 class Reports extends Component {
   
@@ -137,7 +138,8 @@ class Reports extends Component {
                 <div className='lg:block'>
                   <Table id={this.props.match.params.id}/>
                 </div>
-              </div>
+            </div>
+            <OnTrack />
         </div>
       </div>
     );

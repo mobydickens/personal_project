@@ -8,7 +8,8 @@ let initialState = {
   currentProjectId: '',
   currentProjectTasks: [],
   tableArray: [],
-  background: ''
+  background: '',
+  onTrackInfo: {}
 }
 
 // ACTION CONSTANTS
@@ -23,6 +24,7 @@ const GET_PROJECT_ID = 'GET_PROJECT_ID';
 const GET_TABLE_ARRAY = 'GET_TABLE_ARRAY';
 const GET_PROJECT_TASKS = 'GET_PROJECT_TASKS';
 const GET_BACKGROUND = 'GET_BACKGROUND'; 
+const ON_TRACK_INFO = 'ON_TRACK_INFO';
 
 
 // ACTION CREATORS
@@ -100,6 +102,12 @@ export function getBackground(backgroundImage) {
     payload: backgroundImage
   }
 }
+export function onTrackInfo(onTrackObj) {
+  return {
+    type: ON_TRACK_INFO,
+    payload: onTrackObj
+  }
+}
 
 // REDUCER
 export default function reducer(state=initialState, action) {
@@ -126,6 +134,8 @@ export default function reducer(state=initialState, action) {
       return { ...state, currentProjectTasks: action.payload };
     case GET_BACKGROUND: 
       return { ...state, background: action.payload }
+    case ON_TRACK_INFO: 
+      return { ...state, onTrackInfo: action.payload }
     default: 
       return state;
   }

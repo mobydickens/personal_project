@@ -140,9 +140,7 @@ module.exports = {
     res.status(200).send(details);
   },
   tableInformation: async (req, res) => {
-    console.log("table request running?")
     const { id } = req.params;
-    console.log("id for table info: ", id)
     const db = req.app.get('db');
     let projectInfo = await db.get_project_for_table([ Number(id) ]);
     let taskInfo = await db.get_tasks_for_table([ Number(id) ]);
