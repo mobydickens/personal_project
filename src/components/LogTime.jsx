@@ -27,19 +27,19 @@ class LogTime extends Component {
   render() {
     return (
       <div>
-        <label>Time spent: </label>
+        <label className='text-smoke'>Time spent: </label>
         <input
           onChange={ (e) => this.setState({ spent_time: e.target.value})}
           className='input-underlined focus:outline-none my-2 border-grey' 
           type="number"
           value={ this.state.spent_time } />
-        <label>Estimate change: </label>
+        <label className='text-smoke'>Estimate change: </label>
         <input
           onChange={ (e) => this.setState({ estimate_change: e.target.value})} 
           className='input-underlined focus:outline-none my-2 border-grey'
           type="number"
           value={ this.state.estimate_change } /><br/>
-        <label>Comment: </label>
+        <label className='text-smoke'>Comment: </label>
         <input
           onChange={ (e) => this.setState({ comment: e.target.value})} 
           className='input-underlined focus:outline-none my-2 border-grey'

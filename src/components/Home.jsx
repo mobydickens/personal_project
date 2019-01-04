@@ -92,11 +92,11 @@ class Home extends Component {
         {/* Decides which background to show based on what is in redux */}
         <BackgroundTernary />
 
-        <div className='absolute mt-10 flex justify-center w-screen pt-4 h-screen lg:h-screen'>
-          <div className='lg:mt-6'>
+        <div className='absolute flex justify-center w-screen pt-4 h-screen lg:h-screen'>
+          <div className='flex justify-center w-full lg:w-2/3 mt-10'>
           {/* if not logged in, will be redirected to login main page */}
           { !userId ? <Redirect to='/'></Redirect> : 
-            <div className='lg:w-3/4'>
+            <div className='lg:w-full'>
               {/* if page is loading show loading icon */}
               { this.state.loading ? 
                 <div className='mt-8'>
