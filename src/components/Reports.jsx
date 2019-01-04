@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import LoggedInHeader from './LoggedInHeader.jsx';
 import Table from './Table.jsx';
 import { connect } from 'react-redux';
-import { getTableArray } from '../ducks/reducer';
+import { getTableArray, userLogin } from '../ducks/reducer';
 import Plot from 'react-plotly.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Reports extends Component {
   
@@ -15,9 +16,19 @@ class Reports extends Component {
     }
   }
   
+  async loggedIn() {
+    let res = await axios.get('/api/get-session');
+    if (res) {
+      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
+    } else {
+      this.props.history.push('/')
+    }
+  }
+  
   //window was not rerendering chart and table upon resize. This contains an event listener to set state and trigger a new render upon resize. 
-  componentDidMount() {
+  async componentDidMount() {
     window.addEventListener('resize', this.resizeFunction);
+    await this.loggedIn();
   };
   //reusable resize function
   resizeFunction = () => {
@@ -137,4 +148,4 @@ function mapState(state) {
     currentProjectId: state.currentProjectId
   }
 }
-export default connect(mapState, { getTableArray })(Reports);
+export default connect(mapState, { getTableArray, userLogin })(Reports);

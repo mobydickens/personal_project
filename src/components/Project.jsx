@@ -249,6 +249,7 @@ class Project extends Component {
   }
 
   render() {
+   
     // this variable is for dynamically rendering all four lanes with the correct name and an add task icon
     let lanes = this.state.laneNames.map((name, i) => {
       return (

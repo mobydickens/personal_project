@@ -54,9 +54,9 @@ class Table extends Component {
   }
 
   render() {
-
     let tableArray = this.createTableRows();
     console.log(tableArray);
+   
     let table = tableArray.map((row, i) => {
       return (
         <tr className={ i % 2 !== 0 ? 'bg-white' : 'bg-grey-lightest' } key={i}>

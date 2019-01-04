@@ -27,7 +27,7 @@ class BackgroundTernary extends Component {
           ? <div className='bg-decay image-position h-screen z-0'></div>
           : background === 'None'
           ? <div className='bg-palette-white'></div>
-          : <div className='bg-palette-white image-position h-screen z-0'></div> }
+          : "" }
         {/* end of background ternary */}
       </div>
     );

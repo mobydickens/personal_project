@@ -18,7 +18,7 @@ export let rows = function(today, rowsNeeded, initialEstimate, start_date, timel
   let date = moment(start_date); 
  
   let logDate = 0;
-  today.setHours(0,0,0,0);
+  
 //configuring how many hours were spent EACH DAY
   for (let i = 1; i <= rowsNeeded; i++) {
     devHours_expected += daily_dev_hours;

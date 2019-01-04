@@ -27,7 +27,6 @@ module.exports = {
       let result = bcrypt.compareSync( password, user[0].hash_value);
       if(result) {
         req.session.user = { email: user[0].email, id: user[0].id };
-        console.log("Req.session", req.session);
         return res.status(200).send({ loggedIn: true, message: 'Login successful!', email: user[0].email, id: user[0].id, username: user[0].username, background: user[0].background })
       } else {
         return res.status(200).send({ loggedIn: false, message: 'Incorrect password'});
@@ -76,7 +75,6 @@ module.exports = {
   getSession: async (req, res) => {
     const db = req.app.get('db');
     if(req.session.user) {
-      console.log("user found?")
       let user = await db.find_user([ req.session.user.email ]);
       return res.status(200).send({ loggedIn: true, message: 'User is logged in!', email: user[0].email, id: user[0].id, username: user[0].username, background: user[0].background })
     } else {
