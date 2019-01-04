@@ -32,7 +32,9 @@ class MainHeader extends Component {
     })
     this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
     if(res.data.loggedIn) {
+      console.log("is user logged in?")
       this.props.history.push('/home')
+      console.log("did props get pushed?")
     } else {
       if(res.data.message === 'Email not found!') {
         this.setState({

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { addNewTeam, getMyTeams, userLogin } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import BackgroundTernary from '../components/BackgroundTernary.jsx';
 
 class Team extends Component {
@@ -101,6 +101,8 @@ class Team extends Component {
           <Header />
         </div>
         <BackgroundTernary />
+
+      { !this.props.userId ? <Redirect to='/'></Redirect> : 
         <div className='absolute mt-20 flex flex-col lg:flex-row justify-center p-2 w-full'>
         {/* middle box */}
 
@@ -170,6 +172,7 @@ class Team extends Component {
           </div>
 
         </div>
+      }
       </div>
     );
   }

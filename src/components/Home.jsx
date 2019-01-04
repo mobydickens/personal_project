@@ -17,7 +17,8 @@ class Home extends Component {
     this.state = {
       newProjectModal: false,
       loading: true,
-      loggedIn: false
+      loggedIn: false,
+      projectList: []
     }
   }
   
@@ -25,6 +26,7 @@ class Home extends Component {
   async loggedIn() {
     let res = await axios.get('/api/get-session');
     if (res) {
+      console.log("was user found?")
       this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
     } else {
       this.props.history.push('/')
@@ -34,13 +36,14 @@ class Home extends Component {
   async componentDidMount() {
     let res = await axios.get(`/api/projects`);
     this.props.userProjects(res.data);
-    let res2 = await axios.get('/api/teams');
-    this.props.getMyTeams(res2.data);
-    this.loggedIn();
     this.setState({
       loading: false,
-      loggedIn: true
+      loggedIn: true,
+      projectList: res.data
     })
+    let res2 = await axios.get('/api/teams');
+    this.props.getMyTeams(res2.data);
+    await this.loggedIn();
   }
 
   componentDidUpdate(prevProps) {
@@ -58,10 +61,16 @@ class Home extends Component {
     })
   }
 
+  componentWillUnmount() {
+    this.setState({
+      loggedIn: false
+    })
+  }
+
   render() {
-    const { userId, projects } = this.props;
+    const { userId } = this.props;
   
-    let projectList = projects.map((project, i) => {
+    let newProjectList = this.state.projectList.map((project, i) => {
       return (
         <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>
           <div className='shadow-lg border-l-4 border-palette-blue m-4 p-6 rounded-sm lg:my-4 lg:mr-2 bg-palette-white rounded lg:h-32'>
@@ -84,20 +93,20 @@ class Home extends Component {
         <BackgroundTernary />
 
         <div className='absolute mt-10 flex justify-center w-screen pt-4 h-screen lg:h-screen'>
-          <div className='lg:w-3/4'>
-            { this.state.loading ? 
-            <div className='mt-8'>
-              <Loading />
-            </div>
-            : 
-            <div className='lg:mt-6'>
-            
-            {/* if not logged in, will be redirected to login main page */}
-            { !this.state.loggedIn ? <Redirect to='/'></Redirect> : 
+          <div className='lg:mt-6'>
+          {/* if not logged in, will be redirected to login main page */}
+          { !userId ? <Redirect to='/'></Redirect> : 
+            <div className='lg:w-3/4'>
+              {/* if page is loading show loading icon */}
+              { this.state.loading ? 
+                <div className='mt-8'>
+                  <Loading />
+                </div>
+              : 
               <div>
                 <div>
                   {/* this PLUS BUTTON will open the create a new project modal */}
-                  { projectList[0] ?
+                  { newProjectList[0] ?
                   <div className='flex justify-end'>
                     <div
                       onClick={ () => this.setState({newProjectModal: true}) } 
@@ -110,10 +119,10 @@ class Home extends Component {
                 </div>
 
                 {/* if project list is not empty, show the projects on the page */}
-                { projectList[0] ?
+                { newProjectList[0] ?
                 <div>
                   <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
-                    {projectList.reverse()}
+                    {newProjectList.reverse()}
                   </div>
 
                   {/* background chooser at bottom of page */}
@@ -135,7 +144,7 @@ class Home extends Component {
                     </div>
                   </div> } 
               </div>
-            }
+              }
             </div>
             }
           </div>
