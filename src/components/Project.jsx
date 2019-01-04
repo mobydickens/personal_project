@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Header from './Header.jsx';
 import { connect } from 'react-redux';
-import { getProjectId, getTasks, resetProject, userProjects } from '../ducks/reducer';
+import { getProjectId, getTasks, resetProject, userProjects, userLogin } from '../ducks/reducer';
 import Lane from './Lane.jsx';
 import NewTaskModal from './NewTaskModal.jsx';
 import DetailModal from './DetailModal.jsx';
 import ProjectHeader from './ProjectHeader.jsx';
 import axios from 'axios';
+import Loading from './Loading.jsx';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
@@ -23,16 +24,33 @@ class Project extends Component {
       projectId: '',
       detailModal: false,
       detailTaskId: '',
-      columns: {}
+      columns: {},
+      loggedIn: false,
+      loading: true
     }
     this.fetchTasks = this.fetchTasks.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
   }
   
-  async componentDidMount() {
-    await this.props.getProjectId(this.props.match.params.id);
-    await this.fetchTasks(this.props.match.params.id);
-    await this.sortColumns();
+    //check if logged in
+    async loggedIn() {
+      let res = await axios.get('/api/get-session');
+      if (res) {
+        this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
+      } else {
+        this.props.history.push('/')
+      }
+    }
+    
+    async componentDidMount() {
+      this.loggedIn();
+      await this.props.getProjectId(this.props.match.params.id);
+      await this.fetchTasks(this.props.match.params.id);
+      await this.sortColumns();
+      this.setState({
+        loading: false,
+        loggedIn: true
+      })
   }
   
   // axios call to endpoint that will fetch ALL tasks for a project
@@ -216,8 +234,7 @@ class Project extends Component {
       await Promise.all(finishPromises);
     } catch (e) {
       console.error("Failed to save tasks", e)
-    }
-    console.log("Finished")
+    } 
     this.fetchTasks(this.props.match.params.id)
     return;
   }
@@ -259,38 +276,47 @@ class Project extends Component {
         <div className='absolute pin-t z-10 w-full'>
           <Header />
         </div>
-        <BackgroundTernary />
-        <div className='absolute mt-20 w-full'>
-          <ProjectHeader projectId={ this.props.match.params.id }/>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <div className='flex flex-col lg:flex-row p-4 mb-8'>
-              {lanes}
+        { this.state.loading ? 
+        <div>
+          <Loading />
+        </div> : 
+          <div>
+          <BackgroundTernary />
+          <div className='absolute mt-20 w-full'>
+            <ProjectHeader projectId={ this.props.match.params.id }/>
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <div className='flex flex-col lg:flex-row p-4 mb-8'>
+                {lanes}
+              </div>
+            </DragDropContext>
+            {/* Below are the modals which are not always visible */}
+            { this.state.modal ?
+              <NewTaskModal 
+                modal={ this.state.modal } 
+                status={ this.state.status }
+                projectId={ this.state.projectId }
+                updateStateFn={ this.setStateFromModal }
+                exitModal={ this.exitModal }
+                needsUpdateFn={ this.componentNeedsUpdate }
+                triggerEdit/>
+              : "" }
+            { !this.state.detailModal ? ""
+              : <DetailModal 
+                detailTaskId={ this.state.detailTaskId }
+                detailModal={ this.openDetailModal }
+                needsUpdate={ this.componentNeedsUpdate } /> }
+            <div className='flex justify-center'>
+
+            {/* delete project button at bottom of page */}
+            <button 
+              onClick={ () => this.deleteProject(this.props.match.params.id) } 
+              className='absolute lg:fixed pin-b pin-l m-4 text-sm bg-black p-w rounded-full hover:bg-red'>
+              <div className="text-white p-2">Delete project</div>
+            </button>
             </div>
-          </DragDropContext>
-          {/* Below is the modal which is not always visible */}
-          { this.state.modal ?
-            <NewTaskModal 
-              modal={ this.state.modal } 
-              status={ this.state.status }
-              projectId={ this.state.projectId }
-              updateStateFn={ this.setStateFromModal }
-              exitModal={ this.exitModal }
-              needsUpdateFn={ this.componentNeedsUpdate }
-              triggerEdit/>
-            : "" }
-          { !this.state.detailModal ? ""
-            : <DetailModal 
-              detailTaskId={ this.state.detailTaskId }
-              detailModal={ this.openDetailModal }
-              needsUpdate={ this.componentNeedsUpdate } /> }
-          <div className='flex justify-center'>
-          <button 
-            onClick={ () => this.deleteProject(this.props.match.params.id) } 
-            className='absolute lg:fixed pin-b pin-l m-4 text-sm bg-black p-w rounded-full hover:bg-red'>
-            <div className="text-white p-2">Delete project</div>
-          </button>
           </div>
         </div>
+        }
       </div>
     );
   }
@@ -302,4 +328,4 @@ function mapState(state) {
   }
 }
 
-export default connect(mapState, { getProjectId, getTasks, resetProject, userProjects })(Project);
+export default connect(mapState, { getProjectId, getTasks, resetProject, userProjects, userLogin })(Project);
