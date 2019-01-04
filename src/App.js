@@ -21,7 +21,7 @@ class App extends Component {
             <Route path='/project/:id' component={ Project } />
             <Route path='/team' component={ Team } />
             <Route path='/editproject' component={ ProjectEdit }/>
-            <Route path='/reports' component={ Reports }/>
+            <Route path='/reports/:id' component={ Reports }/>
           </Switch>
         </HashRouter>
       </div>

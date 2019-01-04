@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { addNewTeam, getMyTeams, userLogin } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import BackgroundTernary from '../components/BackgroundTernary.jsx';
 
 class Team extends Component {

@@ -6,6 +6,7 @@ import { getTableArray, userLogin } from '../ducks/reducer';
 import Plot from 'react-plotly.js';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ProjectHeader from './ProjectHeader';
 
 class Reports extends Component {
   
@@ -24,12 +25,12 @@ class Reports extends Component {
       this.props.history.push('/')
     }
   }
-  
   //window was not rerendering chart and table upon resize. This contains an event listener to set state and trigger a new render upon resize. 
   async componentDidMount() {
-    window.addEventListener('resize', this.resizeFunction);
     await this.loggedIn();
+    window.addEventListener('resize', this.resizeFunction);
   };
+  
   //reusable resize function
   resizeFunction = () => {
     this.setState({
@@ -60,7 +61,8 @@ class Reports extends Component {
       <div>
         <LoggedInHeader />
           <div className='bg-grey-light h-full lg:h-screen'>
-            <Link to={`/project/${this.props.currentProjectId}`}><i className="fas fa-arrow-left text-black m-4"></i></Link>
+            <ProjectHeader />
+            <Link to={`/project/${this.props.match.params.id}`}><i className="fas fa-arrow-left text-black m-4"></i></Link>
             {/* for large screen */}
             <div className='flex flex-col lg:flex-row justify-center'>
               <div className='w-1/2'>
@@ -133,7 +135,7 @@ class Reports extends Component {
                 </div>
 
                 <div className='lg:block'>
-                  <Table />
+                  <Table id={this.props.match.params.id}/>
                 </div>
               </div>
         </div>

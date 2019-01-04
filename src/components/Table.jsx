@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { getTableArray } from '../ducks/reducer';
-
 import { firstEstimate, rows } from '../helpers/table_helper';
 
 class Table extends Component {
@@ -28,7 +27,7 @@ class Table extends Component {
   
   //getting all of the required information for the table and chart in one request and setting state. 
   async getTableInfo() {
-    let res = await axios.get( `/api/table/${this.props.projectId}`);
+    let res = await axios.get( `/api/table/${this.props.id}`);
     const { projectInfo, taskInfo, timelogs } = res.data;
     this.setState({
       daily_dev_hours: projectInfo.daily_hours,
@@ -54,8 +53,8 @@ class Table extends Component {
   }
 
   render() {
+
     let tableArray = this.createTableRows();
-    console.log(tableArray);
    
     let table = tableArray.map((row, i) => {
       return (

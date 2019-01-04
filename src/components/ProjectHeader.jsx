@@ -50,6 +50,7 @@ class ProjectHeader extends Component {
   }
 
   render() {
+   
     return (
       <div className='bg-white opacity-75 pb-4'>
         <div className={this.state.editName ? 'flex flex-col lg:flex-row w-full':'flex flex-col lg:flex-row justify-between'}>
@@ -64,8 +65,8 @@ class ProjectHeader extends Component {
                 <button className='mx-2' onClick={ () => this.setState({ editName: false })}>Cancel</button>
               </div>
           }
-          <div className={this.state.editName || this.state.editDesc ? 'hidden' : 'mx-6 flex flex-row'}>
-            <Link className='no-underline' to='/reports'><button className='lg:m-4'>See reports for this project</button></Link>
+          <div className={this.state.editName || this.state.editDesc || this.props.history.location.pathname === `/reports/${this.props.match.params.id}` ? 'hidden' : 'mx-6 flex flex-row'}>
+            <Link className='no-underline' to={`/reports/${this.props.match.params.id}`}><button className='lg:m-4'>See reports for this project</button></Link>
           </div>
         </div>
         <div className='mx-6 hidden lg:block'>

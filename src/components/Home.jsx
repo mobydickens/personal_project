@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Header from './Header.jsx';
-import { Redirect } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { userProjects, getMyTeams, userLogin } from '../ducks/reducer';
 import ProjectEdit from './ProjectEdit.jsx';
@@ -68,8 +67,6 @@ class Home extends Component {
   }
 
   render() {
-    const { userId } = this.props;
-  
     let newProjectList = this.state.projectList.map((project, i) => {
       return (
         <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>
