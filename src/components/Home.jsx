@@ -32,16 +32,21 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    let res = await axios.get(`/api/projects`);
-    this.props.userProjects(res.data);
-    this.setState({
-      loading: false,
-      loggedIn: true,
-      projectList: res.data
-    })
-    let res2 = await axios.get('/api/teams');
-    this.props.getMyTeams(res2.data);
-    await this.loggedIn();
+    try {
+      let res = await axios.get(`/api/projects`);
+        this.props.userProjects(res.data);
+        this.setState({
+          loading: false,
+          loggedIn: true,
+          projectList: res.data
+        })
+        let res2 = await axios.get('/api/teams');
+        this.props.getMyTeams(res2.data);
+        await this.loggedIn();
+    } catch (error) {
+      console.error("Error in Home, failed to load projects in mount", error)
+      this.props.history.push('/')
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +71,7 @@ class Home extends Component {
   }
 
   render() {
+    
     let newProjectList = this.state.projectList.map((project, i) => {
       return (
         <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>
@@ -100,7 +106,7 @@ class Home extends Component {
               <div>
                 <div>
                   {/* this PLUS BUTTON will open the create a new project modal */}
-                  { newProjectList[0] ?
+                  { newProjectList.length && this.state.loading===false?
                   <div className='flex justify-end'>
                     <div
                       onClick={ () => this.setState({newProjectModal: true}) } 
@@ -113,7 +119,7 @@ class Home extends Component {
                 </div>
 
                 {/* if project list is not empty, show the projects on the page */}
-                { newProjectList[0] ?
+                { newProjectList.length && this.state.loading===false ?
                 <div>
                   <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
                     {newProjectList.reverse()}

@@ -87,9 +87,10 @@ module.exports = {
     if(req.session.user) {
       const { id } = req.session.user;  
       let projects = await db.get_user_projects([ id ]);
+      console.log(projects)
       return res.status(200).send(projects);
     } else {
-      return res.status(200).send({ loggedIn: false, message: 'Please log in.'})
+      return res.status(401).send({ loggedIn: false, message: 'Please log in.'})
     }
   },
   getSingleProject: async (req, res) => {
