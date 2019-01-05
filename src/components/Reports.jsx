@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getTableArray, userLogin } from '../ducks/reducer';
 import Plot from 'react-plotly.js';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { requireLogin } from '../helpers/login_service';
 import ProjectHeader from './ProjectHeader';
 import OnTrack from './OnTrack.jsx';
 
@@ -17,18 +17,10 @@ class Reports extends Component {
       rerender: false
     }
   }
-  
-  async loggedIn() {
-    let res = await axios.get('/api/get-session');
-    if (res) {
-      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
-    } else {
-      this.props.history.push('/')
-    }
-  }
+
   //window was not rerendering chart and table upon resize. This contains an event listener to set state and trigger a new render upon resize. 
   async componentDidMount() {
-    await this.loggedIn();
+    await requireLogin(this.props.userLogin, this.props.history);
     window.addEventListener('resize', this.resizeFunction);
   };
   

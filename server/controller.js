@@ -78,7 +78,7 @@ module.exports = {
       let user = await db.find_user([ req.session.user.email ]);
       return res.status(200).send({ loggedIn: true, message: 'User is logged in!', email: user[0].email, id: user[0].id, username: user[0].username, background: user[0].background })
     } else {
-      return res.status(200).send({ loggedIn: false, message: "Please log in."})
+      return res.status(401).send({ loggedIn: false, message: "Please log in."})
     }
   },
 

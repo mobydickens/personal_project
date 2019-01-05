@@ -6,6 +6,7 @@ import { addNewTeam, getMyTeams, userLogin } from '../ducks/reducer';
 import TeamList from './TeamList.jsx';
 import { Link } from 'react-router-dom';
 import BackgroundTernary from '../components/BackgroundTernary.jsx';
+import { requireLogin } from '../helpers/login_service';
 
 class Team extends Component {
 
@@ -24,19 +25,9 @@ class Team extends Component {
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
   }
-  
-  //check if logged in
-  async loggedIn() {
-    let res = await axios.get('/api/get-session');
-    if (res) {
-      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
-    } else {
-      this.props.history.push('/')
-    }
-  }
 
   async componentDidMount() {
-    this.loggedIn();
+    await requireLogin(this.props.userLogin, this.props.history);
     let res = await axios.get('/api/teams');
     this.props.getMyTeams(res.data);
     this.setState({

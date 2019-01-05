@@ -8,6 +8,7 @@ import DetailModal from './DetailModal.jsx';
 import ProjectHeader from './ProjectHeader.jsx';
 import axios from 'axios';
 import Loading from './Loading.jsx';
+import { requireLogin } from '../helpers/login_service';
 
 import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
@@ -31,21 +32,13 @@ class Project extends Component {
     this.fetchTasks = this.fetchTasks.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
   }
-  
-    //check if logged in
-    async loggedIn() {
-      let res = await axios.get('/api/get-session');
-      if (res) {
-        this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
-      } else {
-        this.props.history.push('/')
-      }
-    }
     
     async componentDidMount() {
-      this.loggedIn();
-      await this.props.getProjectId(this.props.match.params.id);
-      await this.fetchTasks(this.props.match.params.id);
+      await requireLogin(this.props.userLogin, this.props.history);
+      await Promise.all([
+        this.props.getProjectId(this.props.match.params.id), 
+        this.fetchTasks(this.props.match.params.id)
+      ]);
       await this.sortColumns();
       this.setState({
         loading: false,

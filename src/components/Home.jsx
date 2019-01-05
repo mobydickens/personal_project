@@ -8,6 +8,7 @@ import ProjectEdit from './ProjectEdit.jsx';
 import Backgrounds from './Backgrounds.jsx';
 import BackgroundTernary from './BackgroundTernary.jsx';
 import Loading from './Loading.jsx';
+import { requireLogin } from '../helpers/login_service';
 
 class Home extends Component {
 
@@ -21,17 +22,8 @@ class Home extends Component {
     }
   }
   
-  //check if logged in
-  async loggedIn() {
-    let res = await axios.get('/api/get-session');
-    if (res) {
-      this.props.userLogin({ userId: res.data.id, username: res.data.username, email: res.data.email, projects: res.data.projects, background: res.data.background })
-    } else {
-      this.props.history.push('/')
-    }
-  }
-
   async componentDidMount() {
+    await requireLogin(this.props.userLogin, this.props.history);
     try {
       let res = await axios.get(`/api/projects`);
         this.props.userProjects(res.data);
@@ -42,7 +34,6 @@ class Home extends Component {
         })
         let res2 = await axios.get('/api/teams');
         this.props.getMyTeams(res2.data);
-        await this.loggedIn();
     } catch (error) {
       console.error("Error in Home, failed to load projects in mount", error)
       this.props.history.push('/')
