@@ -53,10 +53,8 @@ class Table extends Component {
 
     //send info to the reducer so that I can calculate whether the user is behind or ahead of schedule
     //need to find date that is today, or the last day before today that is not a weekend
-    console.log("Table Rows - all: ", tableRows)
     let info = tableRows.reverse().findIndex(row => {
-      console.log("Formatted dates: ", row.date.format('MMM Do'), moment(row.date).toDate() <= new Date())
-      if(moment(row.date).toDate() <= new Date()) {
+      if(moment(row.date) <= new Date()) {
         return true;
       } else {
         return false;
@@ -74,7 +72,7 @@ class Table extends Component {
     let table = tableArray.map((row, i) => {
       return (
         <tr className={ i % 2 !== 0 ? 'bg-white' : 'bg-grey-lightest' } key={i}>
-          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.date.format('MMM Do')}</td>
+          <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{moment(row.date).format('MMM Do')}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.spent_today}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.currentEstimate ? row.currentEstimate.toFixed(2) : ""}</td>
           <td className='border px-1 lg:px-4 py-2 text-sm lg:text-base'>{row.remaining_expected.toFixed(2)}</td>

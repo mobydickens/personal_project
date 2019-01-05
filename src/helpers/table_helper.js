@@ -62,7 +62,7 @@ export let rows = function(today, rowsNeeded, initialEstimate, start_date, timel
 
     // push all of the data to the array
     rows.push( { 
-      date: date.clone(), 
+      date: date.toDate(), 
       expected_hours: daily_dev_hours, 
       spent_today: ( date.toDate() <= today ? actual_hours_today : "" ), 
       currentEstimate: ( date.toDate() <= today ? currentEstimate : "" ),

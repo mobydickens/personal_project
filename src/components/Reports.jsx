@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { requireLogin } from '../helpers/login_service';
 import ProjectHeader from './ProjectHeader';
 import OnTrack from './OnTrack.jsx';
+import moment from 'moment';
 
 class Reports extends Component {
   
@@ -38,7 +39,7 @@ class Reports extends Component {
 
   render() {
     let dateArray = this.props.tableArray.map(obj => {
-      return obj.date.format();
+      return moment(obj.date).format();
     })
     let expectedRemaining = this.props.tableArray.map(obj => {
       return Number((obj.remaining_expected).toFixed(2));
