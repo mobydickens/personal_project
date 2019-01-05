@@ -52,15 +52,18 @@ class Table extends Component {
     this.props.getTableArray(tableRows);
 
     //send info to the reducer so that I can calculate whether the user is behind or ahead of schedule
-    let info = tableRows.filter(row => {
-      if(moment(row.date).format('L') === moment(new Date()).format('L')) {
+    //need to find date that is today, or the last day before today that is not a weekend
+    console.log("Table Rows - all: ", tableRows)
+    let info = tableRows.reverse().findIndex(row => {
+      console.log("Formatted dates: ", row.date.format('MMM Do'), moment(row.date).toDate() <= new Date())
+      if(moment(row.date).toDate() <= new Date()) {
         return true;
       } else {
         return false;
-      };
+      }
     });
-   
-  this.props.onTrackInfo(info);
+    this.props.onTrackInfo(tableRows[info]);
+    tableRows.reverse();
     return tableRows;
   }
 
