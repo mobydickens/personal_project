@@ -21,6 +21,7 @@ class Reports extends Component {
 
   //window was not rerendering chart and table upon resize. This contains an event listener to set state and trigger a new render upon resize. 
   async componentDidMount() {
+    console.log("History: ", this.props.history);
     await requireLogin(this.props.userLogin, this.props.history);
     window.addEventListener('resize', this.resizeFunction);
   };
