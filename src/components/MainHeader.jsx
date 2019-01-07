@@ -17,14 +17,6 @@ class MainHeader extends Component {
     }
   }
 
-  handlePassInput = (e) => {
-    this.setState({ 
-      password: e.target.value, 
-      incorrectPass: false, 
-      emailError: false 
-    })
-  }
-
   showLogin = () => {
     this.setState({
       inputShowing: !this.state.inputShowing
@@ -68,7 +60,7 @@ class MainHeader extends Component {
                     value={ this.state.password }
                     placeholder='Password'
                     className='shadow appearance-none rounded w-full py-2 px-3 text-grey-darker leading-tight bg-grey-lightest focus:outline-none focus:shadow-outline mt-2 lg:mt-0 lg:bg-palette-grey lg:border-b lg:border-grey-lightest lg:py-0 lg:text-grey-lighter'
-                    onChange={ (e) => this.handlePassInput(e) }
+                    onChange={ (e) => this.setState({password: e.target.value, incorrectPass: false, emailError: false }) }
                     onKeyUp={event => {
                       if (event.key === 'Enter') {
                         this.login()

@@ -67,6 +67,11 @@ class Signup extends Component {
             type="text"/>
           <input
             onChange={ (e) => this.setState({ password: e.target.value, fieldsRequired: false }) }
+            onKeyUp={event => {
+              if (event.key === 'Enter') {
+                this.signup()
+              }
+            }}
             className='input-underlined focus:outline-none m-2 border-grey' 
             value={ this.state.password }
             placeholder='Enter a password' 
