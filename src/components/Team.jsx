@@ -110,64 +110,64 @@ class Team extends Component {
               <div className='flex justify-center'>
                 <div className='mt-4'>Start a new team</div>
               </div>
-              <div className='flex justify-center'>
-                {this.state.fieldsRequired ? <div className='text-red-lighter mt-4'>Team name required</div> : ""}
-              </div>
-              <form className='flex flex-col p-2 lg:p-16'>
-                <label>Choose team name: </label>
-                <input
-                  autoFocus="autofocus"
-                  onChange={ (e) => this.setState({ teamName: e.target.value, fieldsRequired: false })} 
-                  className='input-underlined focus:outline-none' 
-                  type="text" 
-                  value={ this.state.teamName }
-                />
-                <label className='my-4'>Enter new teammate's email: </label>
-                <div className='flex items-center w-full border-b border-palette-blue'>
-                  <input
-                    onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
-                    className='input focus:outline-none' 
-                    type="text"
-                    value={ this.state.memberEmail }/>
-                  <button className='text-grey' onClick={ () => this.add() }>Add</button>
-                </div>
-                
-                { !this.state.done ?
-                  <div className='flex flex-col'>
-                    <p className='my-4'>Team members:</p>
-                    <div>{team}</div>
-                    <div className='flex justify-center'>
-                      <div> 
-                        <button 
-                          className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
-                          onClick={ () => this.addTeam() }>
-                          Start Team
-                        </button>
-                      </div>
-                    </div>
-                    <div className='flex justify-center m-2'>
-                      <Link to='/home'><button className='text-grey'>Cancel</button></Link>
-                    </div>
-                  </div> 
-                  :
-                  <div className='flex flex-col justify-center m-6'>
-                    <div>Your team has been created!</div>
-                    <div className='flex justify-center'>
-                      <div>
-                        <button 
-                          onClick={ () => this.props.history.push('/home') } 
-                          className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Start a Project!
-                        </button>
-                      </div>
-                    </div>
-                    <div className='flex justify-center m-2'>
-                      <Link to='/home'><button className='text-grey'>Cancel</button></Link>
-                    </div>
-                  </div> }
-              </form>
-            </div>
-          </div>
 
+
+              { !this.state.done ?
+                <div>
+                  <div className='flex justify-center'>
+                    {this.state.fieldsRequired ? <div className='text-red-lighter mt-4'>Team name required</div> : ""}
+                  </div>
+                  <form className='flex flex-col p-2 lg:p-16'>
+                    <label>Choose team name: </label>
+                    <input
+                      autoFocus="autofocus"
+                      onChange={ (e) => this.setState({ teamName: e.target.value, fieldsRequired: false })} 
+                      className='input-underlined focus:outline-none' 
+                      type="text" 
+                      value={ this.state.teamName }
+                    />
+                    <label className='my-4'>Enter new teammate's email: </label>
+                    <div className='flex items-center w-full border-b border-palette-blue'>
+                      <input
+                        onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
+                        className='input focus:outline-none' 
+                        type="text"
+                        value={ this.state.memberEmail }/>
+                      <button className='text-grey' onClick={ () => this.add() }>Add</button>
+                    </div>
+                    
+                    <div className='flex flex-col'>
+                      <p className='my-4'>Team members:</p>
+                      <div>{team}</div>
+                      <div className='flex justify-center'>
+                        <div> 
+                          <button 
+                            className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
+                            onClick={ () => this.addTeam() }>
+                            Start Team
+                          </button>
+                        </div>
+                      </div>
+                      <div className='flex justify-center m-2'>
+                        <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              :
+                <div className='flex flex-col justify-center m-6'>
+                  <div>Your team has been created!</div>
+                  <div className='flex justify-center'>
+                    <button className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' onClick={() => this.setState({done: false})}>Start Another team?</button>
+                  </div>
+                  <div className='flex justify-center m-2'>
+                    <Link to='/home'><button className='text-grey'>Cancel</button></Link>
+                  </div>
+                </div> 
+              }
+            </div> 
+          </div>
+        
           {/* Individual user team list */}
           <div className='mt-8'>
             <TeamList />
