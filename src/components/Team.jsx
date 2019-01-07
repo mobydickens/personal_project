@@ -55,17 +55,18 @@ class Team extends Component {
     const { teamName, teammates } = this.state;
     if(!teamName) {
       this.setState({
-        fieldsRequired: true
+        fieldsRequired: true,
       })
     } else {
       this.props.addNewTeam(this.state.teammates);
       let res = await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
       this.setState({
-        teammates: [],
-        done: true
+        teammates: [{ id: this.props.userId, username: this.props.username }],
+        done: true,
+        teamName: ''
       })
+      
       this.props.getMyTeams(res.data);
-      this.props.history.push('/editproject');
     }
   }
 
@@ -154,7 +155,7 @@ class Team extends Component {
                     <div className='flex justify-center'>
                       <div>
                         <button 
-                          onClick={ () => this.props.history.push('/editproject') } 
+                          onClick={ () => this.props.history.push('/home') } 
                           className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Start a Project!
                         </button>
                       </div>
