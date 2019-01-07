@@ -4,6 +4,7 @@ const session = require('express-session');
 const massive = require('massive');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const controller = require('./controller');
+const io = require('socket.io');
 
 const app = express();
 app.use(express.json());
