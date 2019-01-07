@@ -20,7 +20,8 @@ class Team extends Component {
       ],
       newTeammates: [],
       done: false,
-      loggedIn: false
+      loggedIn: false,
+      fieldsRequired: false
     }
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
@@ -52,14 +53,20 @@ class Team extends Component {
   //sends information we gathered in both inputs to back end to add team to db
   async addTeam() {
     const { teamName, teammates } = this.state;
-    this.props.addNewTeam(this.state.teammates);
-    let res = await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
-    this.setState({
-      teammates: [],
-      done: true
-    })
-    this.props.getMyTeams(res.data);
-    this.props.history.push('/editproject');
+    if(!teamName) {
+      this.setState({
+        fieldsRequired: true
+      })
+    } else {
+      this.props.addNewTeam(this.state.teammates);
+      let res = await axios.post('/api/newteam', { name: teamName, team: [...teammates] } );
+      this.setState({
+        teammates: [],
+        done: true
+      })
+      this.props.getMyTeams(res.data);
+      this.props.history.push('/editproject');
+    }
   }
 
   //if you add someone by mistake to your team, this allows you to delete them
@@ -98,15 +105,18 @@ class Team extends Component {
 
           <div className='flex flex-col w-full lg:w-3/5'>
             {/* form box */}
-            <div className='bg-white shadow-lg p-6 m-4 rounded'>
+            <div className='bg-white shadow-lg p-6 rounded'>
               <div className='flex justify-center'>
                 <div className='mt-4'>Start a new team</div>
+              </div>
+              <div className='flex justify-center'>
+                {this.state.fieldsRequired ? <div className='text-red-lighter mt-4'>Team name required</div> : ""}
               </div>
               <form className='flex flex-col p-2 lg:p-16'>
                 <label>Choose team name: </label>
                 <input
                   autoFocus="autofocus"
-                  onChange={ (e) => this.setState({ teamName: e.target.value })} 
+                  onChange={ (e) => this.setState({ teamName: e.target.value, fieldsRequired: false })} 
                   className='input-underlined focus:outline-none' 
                   type="text" 
                   value={ this.state.teamName }
