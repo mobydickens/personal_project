@@ -47,7 +47,7 @@ class LoggedInHeader extends Component {
   }
   
   render() {
-    
+    console.log(this.props.userProjects);
     return (
       <div className='p-1 bg-palette-grey'>
       {/* sidebar will only show when bars in header are clicked on in phone view */}
@@ -58,7 +58,7 @@ class LoggedInHeader extends Component {
           hideAndLogout={ this.hideSidebarLogout } />
         <div className='flex'>
           <div className='jello lg:text-2xl m-2 mx-6 text-white'><span className='text-palette-blue'>J</span>ello</div>
-          <div className='font-josefin m-4 text-grey-lighter text-xs'>Welcome back, {this.props.username}!</div>
+          <div className='font-josefin m-4 text-grey-lighter text-xs'>Hello, {this.props.username}!</div>
         </div>
 
         {/* The header navigation below is hidden when in phone view, and bar icon will appear */}
@@ -88,7 +88,8 @@ class LoggedInHeader extends Component {
 
 function mapPropsToState(state) {
   return {
-    username: state.username
+    username: state.username,
+    userProjects: state.userProjects
   }
 }
 export default withRouter(connect(mapPropsToState, {resetState, resetProject })(LoggedInHeader));

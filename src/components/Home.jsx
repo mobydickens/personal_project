@@ -123,13 +123,13 @@ class Home extends Component {
                  </div>
                  
                 // else if project list IS empty, show the start a new project promt
-                : <div className='font-josefin text-2xl m-4'>
-                    <div className='flex justify-center lg:w-1/2 bg-white rounded shadow-md text-xl p-8'>
-                      <div className='mt-4'>Start a new project!</div>
+                : <div className='font-josefin text-2xl m-6'>
+                    <div className='flex justify-center lg:w-2/5 bg-palette-white rounded shadow-md text-xl p-4'>
+                      <div className='py-4'>Start a team for your first project!</div>
                       <Link className='no-underline items-center' to='/team'>
                         <div 
-                          className='text-2xl bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 hover:bg-palette-dark cursor-pointer'>
-                          <i className="fas fa-plus m-4 px-8"></i>
+                          className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-4 mt-4 hover:bg-palette-dark cursor-pointer'>
+                          <i className="fas fa-plus m-4 px-4"></i>
                         </div>
                       </Link>
                     </div>
