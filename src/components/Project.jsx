@@ -13,6 +13,8 @@ import { requireLogin } from '../helpers/login_service';
 import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
 
+import io from 'socket.io-client';
+
 class Project extends Component {
 
   constructor(props) {
@@ -34,6 +36,12 @@ class Project extends Component {
   }
     
     async componentDidMount() {
+      this.socket = io('/');
+      this.socket.on('message', message => {
+        //message is coming back as of 4:41pm!
+        console.log("Message: ", message);
+      })
+
       await requireLogin(this.props.userLogin, this.props.history);
       await Promise.all([
         this.props.getProjectId(this.props.match.params.id), 

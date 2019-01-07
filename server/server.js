@@ -1,12 +1,14 @@
 require('dotenv').config();
-const express = require('express');
+const express = require('express')
 const session = require('express-session');
 const massive = require('massive');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const controller = require('./controller');
-const io = require('socket.io');
+const socket = require('socket.io');
 
 const app = express();
+const io = socket(app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`)));
+
 app.use(express.json());
 
 app.use(session({
@@ -15,21 +17,33 @@ app.use(session({
   saveUninitialized: true
 }))
 
+//DEV BYPASS _________________________________________
 // app.use(async function authBypass(req, res, next) {
-//   if(DEV === 'true') {
-//     let db = req.app.get('db');
-//     let user = await db.session_user();
-//     req.session.user = user[0];
-//     next();
-//   } else {
-//     next();
-//   }
-// })
-
+  //   if(DEV === 'true') {
+    //     let db = req.app.get('db');
+    //     let user = await db.session_user();
+    //     req.session.user = user[0];
+    //     next();
+    //   } else {
+      //     next();
+      //   }
+      // })
+//END OF DEV BYPASS ___________________________________
+      
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);
-  app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`));
 });
+
+//here I will listen for events and emit to connected sockets
+//anything inside this cb function that is not nested in an event will happen immediately upon connection. 
+io.on('connection', socket => {
+  console.log('User Connected!')
+  let message = "This is an important message";
+  console.log(message);
+  socket.emit('message', { message: message})
+  
+})
+
 
 
 app.post('/auth/signup', controller.signup); //signup
