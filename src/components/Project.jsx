@@ -251,7 +251,7 @@ class Project extends Component {
           key={i}>
           <div className='flex justify-between'>
             <div className='m-6'>{name}</div>
-            <i onClick={ () => this.setState({ modal: !this.state.modal, status: name, projectId: this.props.match.params.id })} className="fas fa-plus m-6"></i>
+            <i onClick={ () => this.setState({ modal: !this.state.modal, status: name, projectId: this.props.match.params.id })} className="fas fa-plus m-6 cursor-pointer"></i>
           </div>
           <Lane
             projectId={this.props.match.params.id} 
@@ -273,7 +273,8 @@ class Project extends Component {
         { this.state.loading ? 
         <div className='mt-20'>
           <Loading />
-        </div> : 
+        </div> :
+         
           <div>
           <BackgroundTernary />
           <div className='absolute mt-20 w-full'>
@@ -283,6 +284,7 @@ class Project extends Component {
                 {lanes}
               </div>
             </DragDropContext>
+
             {/* Below are the modals which are not always visible */}
             { this.state.modal ?
               <NewTaskModal 

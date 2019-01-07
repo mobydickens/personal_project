@@ -53,7 +53,12 @@ class NewTaskModal extends Component {
           <label>Initial time estimate (in hours):</label><br/>
           <input 
             className='input-underlined focus:outline-none m-2 border-grey' 
-            onChange={ (e) => this.setState({ estimate: e.target.value })} 
+            onChange={ (e) => this.setState({ estimate: e.target.value })}
+            onKeyUp={event => {
+              if (event.key === 'Enter') {
+                this.addTask()
+              }
+            }} 
             type="number"
             value={ this.state.estimate } /><br/>
           <div className='flex justify-end'>
@@ -61,9 +66,11 @@ class NewTaskModal extends Component {
               <button
                 className='btn-reg hover:bg-palette-dark hover:border-palette-dark'
                 onClick={ () => this.addTask() }>Add</button> 
-              : <button
-                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark'  
-                  onClick={ () => this.editTask() }>Save</button>
+              : 
+              <button
+                className='btn-reg hover:bg-palette-dark hover:border-palette-dark'  
+                onClick={ () => this.editTask() }>Save
+              </button>
             }
           </div>
         </div>

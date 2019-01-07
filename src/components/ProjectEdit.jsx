@@ -85,7 +85,12 @@ class ProjectEdit extends Component {
             />
             <label className='my-4' htmlFor="start">Start Date:</label>
             <input
-              onChange={ (e) => this.setState({ start_date: e.target.value, fieldsRequired: false })} 
+              onChange={ (e) => this.setState({ start_date: e.target.value, fieldsRequired: false })}
+              onKeyUp={event => {
+                if (event.key === 'Enter') {
+                  this.newProject();
+                }
+              }}
               className='input-underlined focus:outline-none'  
               type="date"/>
             <div className='flex justify-center'>

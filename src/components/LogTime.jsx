@@ -42,7 +42,12 @@ class LogTime extends Component {
           value={ this.state.estimate_change } /><br/>
         <label className='text-smoke'>Comment: </label>
         <input
-          onChange={ (e) => this.setState({ comment: e.target.value})} 
+          onChange={ (e) => this.setState({ comment: e.target.value})}
+          onKeyUp={event => {
+            if (event.key === 'Enter') {
+              this.newTimelog()
+            }
+          }} 
           className='input-underlined focus:outline-none my-2 border-grey'
           type="text"
           value={ this.state.comment } />

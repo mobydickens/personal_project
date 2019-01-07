@@ -47,7 +47,6 @@ class LoggedInHeader extends Component {
   }
   
   render() {
-    console.log(this.props.userProjects);
     return (
       <div className='p-1 bg-palette-grey'>
       {/* sidebar will only show when bars in header are clicked on in phone view */}
@@ -88,8 +87,7 @@ class LoggedInHeader extends Component {
 
 function mapPropsToState(state) {
   return {
-    username: state.username,
-    userProjects: state.userProjects
+    username: state.username
   }
 }
 export default withRouter(connect(mapPropsToState, {resetState, resetProject })(LoggedInHeader));
