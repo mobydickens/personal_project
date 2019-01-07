@@ -32,6 +32,8 @@ it ('calls axios and returns user data if there is a session that matches user i
     }
   });
   expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  
 })
+
 
 
