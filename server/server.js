@@ -41,7 +41,9 @@ io.on('connection', socket => {
   let message = "This is an important message";
   console.log(message);
   socket.emit('message', { message: message})
-  
+
+  // socket.on('disconnect', () => {
+  //   console.log('user disconnected');
 })
 
 

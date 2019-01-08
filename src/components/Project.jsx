@@ -36,9 +36,10 @@ class Project extends Component {
   }
     
     async componentDidMount() {
+      //trying out the socket connection
       this.socket = io('/');
       this.socket.on('message', message => {
-        //message is coming back as of 4:41pm!
+        //message is coming back!!
         console.log("Message: ", message);
       })
 
