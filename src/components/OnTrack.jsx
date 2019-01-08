@@ -6,7 +6,7 @@ class OnTrack extends Component {
     // threshhold giving a little leeway 
     const threshholdHours = 3;
     let { onTrackInfo } = this.props;
-    console.log(onTrackInfo);
+   
     return (
       <div>
         { !onTrackInfo ? "" : onTrackInfo.remaining_expected < onTrackInfo.remaining_actual - threshholdHours

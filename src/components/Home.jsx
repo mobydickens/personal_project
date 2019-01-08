@@ -112,7 +112,7 @@ class Home extends Component {
                 {/* if project list is not empty, show the projects on the page */}
                 { newProjectList.length && this.state.loading===false ?
                 <div>
-                  <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap'>
+                  <div className='flex flex-col-reverse md:flex-row md:flex-start md:flex-wrap mb-12'>
                     {newProjectList.reverse()}
                   </div>
 
