@@ -85,7 +85,7 @@ module.exports = {
     const db = req.app.get('db');
     if(req.session.user) {
       const { id } = req.session.user;  
-      let projects = await db.get_user_projects([ id ]);
+      let projects = await db.get_user_projects([ Number(id) ]);
       return res.status(200).send(projects);
     } else {
       return res.status(401).send({ loggedIn: false, message: 'Please log in.'})
@@ -94,13 +94,13 @@ module.exports = {
   getSingleProject: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    let project = await db.get_single_project([ id ])
+    let project = await db.get_single_project([ Number(id) ])
     res.status(200).send(project[0]);
   },
   getTasks: async (req, res) => {
     const { id } = req.params;
     const db = req.app.get('db');
-    let tasks = await db.all_lane_tasks([ id  ]);
+    let tasks = await db.all_lane_tasks([ Number(id) ]);
     res.status(200).send(tasks);
   },
   getOneTask: async (req, res) => {

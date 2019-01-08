@@ -45,7 +45,7 @@ io.on('connection', socket => {
   //push a socket to the array so it can be used in my put below//
   sockets.push(socket);
 
-  //disconnecting and resetting the sockets array above//
+  //disconnecting and resetting the sockets array above
   socket.on('disconnect', () => {
     var indexToRemove = sockets.indexOf(socket)
     if (indexToRemove !== -1) {
@@ -58,14 +58,13 @@ io.on('connection', socket => {
 app.put('/task/:id', async function editLaneOrder (req, res) {
   const { id } = req.params;
   const { index } = req.body;
-  console.log('function to edit lane order running?')
   const db = req.app.get('db');
-  // socket.on('message sent', ({id, index}))
   let task = await db.update_lane_order([ Number(id), Number(index) ]);
   let tasks = await db.all_lane_tasks([ task[0].project_id ]);
   res.status(200).send(tasks);
+
   //notify socket client
-  sockets.forEach(socket => socket.emit('tasksUpdated', tasks));
+  sockets.forEach(socket => socket.broadcast.emit('tasksUpdated', tasks));
 
 }) //triggered from project component
 
@@ -77,7 +76,7 @@ app.put('/taskstatus/:id', async function updateOrderAndStatus(req, res) {
   let tasks = await db.all_lane_tasks([ task[0].project_id ]);
   res.status(200).send(tasks);
   //notify socket client in project component
-  sockets.forEach(socket => socket.emit('laneUpdated', tasks))
+  sockets.forEach(socket => socket.broadcast.emit('laneUpdated', tasks))
 }) //triggered from project component as well
 
 app.post('/auth/signup', controller.signup); //signup

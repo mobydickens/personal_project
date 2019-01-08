@@ -37,15 +37,15 @@ class Project extends Component {
   }
     
     async componentDidMount() {
-      //creates a new socket connection when component is created
+      //creates a new socket connection when component is created 
       this.socket = io('/');
 
-      // when a task is updated, tell redux
+      // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
       this.socket.on('tasksUpdated', data => {
         return this.props.getTasks(data)
       })
 
-      //when a lane is updated, tell redux
+      //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
       this.socket.on('laneUpdated', data => {
         return this.props.getTasks(data)
       })
@@ -63,7 +63,7 @@ class Project extends Component {
       })
   }
 
-  //clean up for sockets
+  //clean up for sockets (not sure if needed?)
   componentWillUnmount() {
     if(this.socket) {
       this.socket.disconnect();
@@ -105,7 +105,7 @@ class Project extends Component {
     })
   }
 
-  //sort tasks into columns for the on Drag End function below. 
+  //sort tasks into columns for the on Drag End function below.
   sortColumns = () => {
     let columns = {
       'To Do': { id: 'To Do', taskIds: [] }, 
@@ -129,12 +129,10 @@ class Project extends Component {
     })
   }
 
-  // This function was written to be used in my OnDragEnd function below when reordering my lane orders
-
+  // These functions were written to be used in my OnDragEnd function below when reordering my lanes/columns
   async updateLaneOrders(id, index) {
     await axios.put(`/task/${id}`, {index: index} );
   }
-  
   async updateOrderAndStatus(id, index, status) {
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
@@ -154,14 +152,16 @@ class Project extends Component {
         return;
     }
     
+    //starting and ending points for the draggable item (task)
     const start = this.state.columns[source.droppableId]; 
     const finish = this.state.columns[destination.droppableId]
-    //check whether start column is the same as the finish destination for the task. 
+
+    //check whether start column is the same as the finish column destination for the task. 
     if(start === finish) {
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1); 
       newTaskIds.splice(destination.index, 0, draggableId);
-
+      
       const newColumn = {
         ...start,
         taskIds: newTaskIds
@@ -213,6 +213,14 @@ class Project extends Component {
       ...finish,
       taskIds: finishTaskIds
     }
+    
+    let startPromises = newStart.taskIds.map((taskId, index) => {
+      return this.updateOrderAndStatus(taskId, index, source.droppableId);
+    })
+    
+    let finishPromises = newFinish.taskIds.map((taskId, index) => {
+      return this.updateOrderAndStatus(taskId, index, destination.droppableId);
+    })
     //copy to send to reducer while waiting for promises
     let copyOfTasks = this.props.tasks.map(task => {
       let index = startTaskIds.indexOf(task.id);
@@ -226,15 +234,7 @@ class Project extends Component {
       }
       return task;
     });
-
-    let startPromises = newStart.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, source.droppableId);
-    })
-
-    let finishPromises = newFinish.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, destination.droppableId);
-    })
-
+    
     this.props.getTasks(copyOfTasks);
     
     const newState = {
