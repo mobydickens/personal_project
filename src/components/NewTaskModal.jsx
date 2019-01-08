@@ -11,7 +11,9 @@ class NewTaskModal extends Component {
       editing: false,
       title: '',
       description: '',
-      estimate: ''
+      estimate: '',
+      titleRequired: false,
+      estimateRequired: false
     }
     this.addTask = this.addTask.bind(this);
   }
@@ -20,14 +22,24 @@ class NewTaskModal extends Component {
   async addTask() {
     const { title, description, estimate } = this.state;
     const { status, projectId } = this.props;
-    await axios.post('/api/task', { title, description, estimate, status, projectId });
-    this.setState({
-      title: '',
-      description: '',
-      estimate: ''
-    })
-    this.props.needsUpdateFn();
-    this.props.exitModal();
+    if(!title) {
+      this.setState({
+        titleRequired: true
+      })
+    } else if (!estimate) {
+      this.setState({
+        estimateRequired: true
+      })
+    } else {
+      await axios.post('/api/task', { title, description, estimate, status, projectId });
+      this.setState({
+        title: '',
+        description: '',
+        estimate: ''
+      })
+      this.props.needsUpdateFn();
+      this.props.exitModal();
+    }
   }
 
   render() {
@@ -37,23 +49,27 @@ class NewTaskModal extends Component {
           <button onClick={ () => this.props.exitModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
+          <div className='flex justify-center mb-4'>
+            {this.state.titleRequired ? <div className='text-red-lighter'>Title required</div> : ""}
+            {this.state.estimateRequired ? <div className='text-red-lighter'>Estimate required</div> : ""}
+          </div>
           <label>Enter a title:</label><br/>
           <input 
             autoFocus="autofocus"
             className='input-underlined focus:outline-none m-2 border-grey' 
-            onChange={ (e) => this.setState({ title: e.target.value })} 
+            onChange={ (e) => this.setState({ title: e.target.value, titleRequired: false, estimateRequired: false })} 
             type="text"
             value={ this.state.title }/><br/>
           <label>Description:</label><br/>
           <input 
             className='input-underlined focus:outline-none m-2 border-grey' 
-            onChange={ (e) => this.setState({ description: e.target.value })} 
+            onChange={ (e) => this.setState({ description: e.target.value, titleRequired: false, estimateRequired: false })} 
             type="text"
             value={ this.state.description }/><br/>
           <label>Initial time estimate (in hours):</label><br/>
           <input 
             className='input-underlined focus:outline-none m-2 border-grey' 
-            onChange={ (e) => this.setState({ estimate: e.target.value })}
+            onChange={ (e) => this.setState({ estimate: e.target.value, titleRequired: false, estimateRequired: false })}
             onKeyUp={event => {
               if (event.key === 'Enter') {
                 this.addTask()
