@@ -137,7 +137,7 @@ class Project extends Component {
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
 
-  //react-beautiful-dnd
+  //react-beautiful-dnd - BEGINNING OF ON DRAG END FUNCTION
   async onDragEnd(result) {
     //if there is no destination for the task, return
     const { destination, source, draggableId } = result;
@@ -192,7 +192,7 @@ class Project extends Component {
       await Promise.all(taskUpdatePromises); 
       return;
     }
-    // MOVING FROM ONE LANE TO ANOTHER
+    // MOVING FROM ONE LANE TO ANOTHER //
     //this startTaskIds contains same ids as the old array named newTaskIds above
     const startTaskIds = Array.from(start.taskIds);
     //remove the dragged task id from this array. 
@@ -234,7 +234,7 @@ class Project extends Component {
       }
       return task;
     });
-    
+    //send copy to the reducer
     this.props.getTasks(copyOfTasks);
     
     const newState = {
@@ -246,7 +246,7 @@ class Project extends Component {
       }
     };
     this.setState(newState);
-
+    
     try {
       await Promise.all(startPromises);
       await Promise.all(finishPromises);
@@ -256,6 +256,7 @@ class Project extends Component {
     this.fetchTasks(this.props.match.params.id)
     return;
   }
+  // END OF ON DRAG END FUNCTION //
 
   deleteProject = (id) => {
     
