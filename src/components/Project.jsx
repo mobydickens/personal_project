@@ -13,12 +13,20 @@ import { requireLogin } from '../helpers/login_service';
 import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
 
+//for testing my socket connection 
+import {subscribeToTimer} from './api'
+
 import io from 'socket.io-client';
 
 class Project extends Component {
 
   constructor(props) {
     super(props);
+
+    subscribeToTimer((timestamp) => {
+      this.setState({timestamp})
+    })
+
     this.state = {
       needsUpdate: false,
       laneNames: ['To Do', 'In Progress', 'Testing', 'Done'],
@@ -29,7 +37,9 @@ class Project extends Component {
       detailTaskId: '',
       columns: {},
       loggedIn: false,
-      loading: true
+      loading: true,
+      //just testing that my socket connection is working
+      timestamp: 'no timestamp yet'
     }
     this.fetchTasks = this.fetchTasks.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -39,7 +49,6 @@ class Project extends Component {
       //trying out the socket connection
       this.socket = io('/');
       this.socket.on('message', message => {
-        //message is coming back!!
         console.log("Message: ", message);
       })
 
@@ -53,6 +62,11 @@ class Project extends Component {
         loading: false,
         loggedIn: true
       })
+  }
+
+  //clean up for sockets
+  componentWillUnmount() {
+    this.socket.emit('disconnect', { message: 'disconnecting from component'})
   }
   
   // axios call to endpoint that will fetch ALL tasks for a project
@@ -115,10 +129,17 @@ class Project extends Component {
   }
 
   // This function was written to be used in my OnDragEnd function below when reordering my lane orders
+
+
+// ___________________________________________ code before changes below
   async updateLaneOrders(id, index) {
     await axios.put(`/task/${id}`, {index: index} );
   }
 
+  // updateLaneOrders(id, index, socket) {
+  //   this.socket.emit('message sent', {index: index, id: id} );
+  // }
+  
   async updateOrderAndStatus(id, index, status) {
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
@@ -288,6 +309,7 @@ class Project extends Component {
           <BackgroundTernary />
           <div className='absolute mt-20 w-full'>
             <ProjectHeader projectId={ this.props.match.params.id }/>
+            This is the value of the timer timestamp: {this.state.timestamp}
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className='flex flex-col lg:flex-row p-4 mb-8'>
                 {lanes}

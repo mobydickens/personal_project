@@ -207,14 +207,7 @@ module.exports = {
     let details = await db.get_team_details([ Number(team_id) ]);
     res.status(200).send(details);
   },
-  editLaneOrder: async (req, res) => {
-    const { id } = req.params;
-    const { index } = req.body;
-    const db = req.app.get('db');
-    let task = await db.update_lane_order([ Number(id), Number(index) ]);
-    let tasks = await db.all_lane_tasks([ task[0].project_id ]);
-    res.status(200).send(tasks);
-  },
+  
   updateOrderAndStatus: async (req, res) => {
     const { id } = req.params;
     const { index, status } = req.body;

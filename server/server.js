@@ -32,7 +32,7 @@ app.use(session({
       
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);
-});
+})
 
 //here I will listen for events and emit to connected sockets
 //anything inside this cb function that is not nested in an event will happen immediately upon connection. 
@@ -42,8 +42,23 @@ io.on('connection', socket => {
   console.log(message);
   socket.emit('message', { message: message})
 
-  // socket.on('disconnect', () => {
-  //   console.log('user disconnected');
+
+  socket.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval', interval);
+    setInterval(() => {
+      socket.emit('timer', new Date());
+    }, interval);
+  })
+
+    // console.log("New client connected"), setInterval(
+    //   () => updateLaneOrders(socket),
+    //   10000
+    // );
+
+  //do I need this? -----------------
+  socket.on('disconnect', (message) => {
+    console.log("Message to disconnect: ", message);
+  });
 })
 
 
@@ -74,7 +89,24 @@ app.put('/api/timelog/:id', controller.editTimelog); //triggered in detail modal
 app.put('/api/editname/:id', controller.editProjectName); //triggered from Project Header component
 app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered from Project Header component
 app.put('/api/addteammate', controller.addTeammate); //triggered from TeamList component
-app.put('/task/:id', controller.editLaneOrder) //triggered from project component
+
+
+// app.put('/task/:id', async function editLaneOrder (req, res) {
+app.put('/task/:id', async function editLaneOrder (req, res) {
+  const { id } = req.params;
+  const { index } = req.body;
+  console.log('function running?')
+  const db = req.app.get('db');
+  // socket.on('message sent', ({id, index}))
+  let task = await db.update_lane_order([ Number(id), Number(index) ]);
+  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+  console.log("tasks: ", tasks);
+  // io.emit('message sent', {tasks: tasks});
+  res.status(200).send(tasks);
+}) //triggered from project component
+
+
+
 app.put('/taskstatus/:id', controller.updateOrderAndStatus); //triggered from project component with react beautiful dnd
 app.put('/api/background/:id', controller.updateBackground); //triggered from Backgrounds component with a save button
 
