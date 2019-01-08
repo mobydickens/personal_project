@@ -13,19 +13,12 @@ import { requireLogin } from '../helpers/login_service';
 import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
 
-//for testing my socket connection 
-import {subscribeToTimer} from './api'
-
 import io from 'socket.io-client';
 
 class Project extends Component {
 
   constructor(props) {
     super(props);
-
-    subscribeToTimer((timestamp) => {
-      this.setState({timestamp})
-    })
 
     this.state = {
       needsUpdate: false,
@@ -38,20 +31,26 @@ class Project extends Component {
       columns: {},
       loggedIn: false,
       loading: true,
-      //just testing that my socket connection is working
-      timestamp: 'no timestamp yet'
     }
     this.fetchTasks = this.fetchTasks.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
   }
     
     async componentDidMount() {
-      //trying out the socket connection
+      //creates a new socket connection when component is created
       this.socket = io('/');
-      this.socket.on('message', message => {
-        console.log("Message: ", message);
+
+      // when a task is updated, tell redux
+      this.socket.on('tasksUpdated', data => {
+        return this.props.getTasks(data)
       })
 
+      //when a lane is updated, tell redux
+      this.socket.on('laneUpdated', data => {
+        return this.props.getTasks(data)
+      })
+
+      //stuff unrelated to socket.io below, don't delete it
       await requireLogin(this.props.userLogin, this.props.history);
       await Promise.all([
         this.props.getProjectId(this.props.match.params.id), 
@@ -66,7 +65,9 @@ class Project extends Component {
 
   //clean up for sockets
   componentWillUnmount() {
-    this.socket.emit('disconnect', { message: 'disconnecting from component'})
+    if(this.socket) {
+      this.socket.disconnect();
+    }
   }
   
   // axios call to endpoint that will fetch ALL tasks for a project
@@ -130,15 +131,9 @@ class Project extends Component {
 
   // This function was written to be used in my OnDragEnd function below when reordering my lane orders
 
-
-// ___________________________________________ code before changes below
   async updateLaneOrders(id, index) {
     await axios.put(`/task/${id}`, {index: index} );
   }
-
-  // updateLaneOrders(id, index, socket) {
-  //   this.socket.emit('message sent', {index: index, id: id} );
-  // }
   
   async updateOrderAndStatus(id, index, status) {
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
@@ -283,6 +278,8 @@ class Project extends Component {
             <div className='m-6'>{name}</div>
             <i onClick={ () => this.setState({ modal: !this.state.modal, status: name, projectId: this.props.match.params.id })} className="fas fa-plus m-6 cursor-pointer"></i>
           </div>
+
+          {/* //inside lane I map over the props for tasks inside the reducer */}
           <Lane
             projectId={this.props.match.params.id} 
             status={ name } 
@@ -309,7 +306,6 @@ class Project extends Component {
           <BackgroundTernary />
           <div className='absolute mt-20 w-full'>
             <ProjectHeader projectId={ this.props.match.params.id }/>
-            This is the value of the timer timestamp: {this.state.timestamp}
             <DragDropContext onDragEnd={this.onDragEnd}>
               <div className='flex flex-col lg:flex-row p-4 mb-8'>
                 {lanes}

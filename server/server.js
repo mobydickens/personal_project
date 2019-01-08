@@ -7,6 +7,8 @@ const controller = require('./controller');
 const socket = require('socket.io');
 
 const app = express();
+
+//setting a variable for io, setting it equal to socket. Socket is a function and we are passing in our SERVER. I didn't set server to a variable, but many tutorials do)
 const io = socket(app.listen(SERVER_PORT, () => console.log(`server listening at port ${SERVER_PORT}`)));
 
 app.use(express.json());
@@ -35,33 +37,48 @@ massive(CONNECTION_STRING).then(db => {
 })
 
 //here I will listen for events and emit to connected sockets
-//anything inside this cb function that is not nested in an event will happen immediately upon connection. 
+//anything inside this cb function that is not nested in an event will happen immediately upon connection. 'Socket' passed in as a parameter refers to this instance of the socket that is made (one particular socket). Each client will have their own socket between client and the server
+
+let sockets = [];
+
 io.on('connection', socket => {
-  console.log('User Connected!')
-  let message = "This is an important message";
-  console.log(message);
-  socket.emit('message', { message: message})
+  //push a socket to the array so it can be used in my put below//
+  sockets.push(socket);
 
-
-  socket.on('subscribeToTimer', (interval) => {
-    console.log('client is subscribing to timer with interval', interval);
-    setInterval(() => {
-      socket.emit('timer', new Date());
-    }, interval);
+  //disconnecting and resetting the sockets array above//
+  socket.on('disconnect', () => {
+    var indexToRemove = sockets.indexOf(socket)
+    if (indexToRemove !== -1) {
+      sockets.splice(indexToRemove, 1)
+    }
   })
-
-    // console.log("New client connected"), setInterval(
-    //   () => updateLaneOrders(socket),
-    //   10000
-    // );
-
-  //do I need this? -----------------
-  socket.on('disconnect', (message) => {
-    console.log("Message to disconnect: ", message);
-  });
 })
 
+//BOTH ENDPOINTS BELOW needed to notify socket in PROJECT that tasks changed
+app.put('/task/:id', async function editLaneOrder (req, res) {
+  const { id } = req.params;
+  const { index } = req.body;
+  console.log('function to edit lane order running?')
+  const db = req.app.get('db');
+  // socket.on('message sent', ({id, index}))
+  let task = await db.update_lane_order([ Number(id), Number(index) ]);
+  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+  res.status(200).send(tasks);
+  //notify socket client
+  sockets.forEach(socket => socket.emit('tasksUpdated', tasks));
 
+}) //triggered from project component
+
+app.put('/taskstatus/:id', async function updateOrderAndStatus(req, res) {
+  const { id } = req.params;
+  const { index, status } = req.body;
+  const db = req.app.get('db');
+  let task = await db.update_order_status([ Number(id), Number(index), status ]);
+  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+  res.status(200).send(tasks);
+  //notify socket client in project component
+  sockets.forEach(socket => socket.emit('laneUpdated', tasks))
+}) //triggered from project component as well
 
 app.post('/auth/signup', controller.signup); //signup
 app.post('/auth/login', controller.login); //login
@@ -89,25 +106,6 @@ app.put('/api/timelog/:id', controller.editTimelog); //triggered in detail modal
 app.put('/api/editname/:id', controller.editProjectName); //triggered from Project Header component
 app.put('/api/editdesc/:id', controller.editProjectDescription); //triggered from Project Header component
 app.put('/api/addteammate', controller.addTeammate); //triggered from TeamList component
-
-
-// app.put('/task/:id', async function editLaneOrder (req, res) {
-app.put('/task/:id', async function editLaneOrder (req, res) {
-  const { id } = req.params;
-  const { index } = req.body;
-  console.log('function running?')
-  const db = req.app.get('db');
-  // socket.on('message sent', ({id, index}))
-  let task = await db.update_lane_order([ Number(id), Number(index) ]);
-  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
-  console.log("tasks: ", tasks);
-  // io.emit('message sent', {tasks: tasks});
-  res.status(200).send(tasks);
-}) //triggered from project component
-
-
-
-app.put('/taskstatus/:id', controller.updateOrderAndStatus); //triggered from project component with react beautiful dnd
 app.put('/api/background/:id', controller.updateBackground); //triggered from Backgrounds component with a save button
 
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
