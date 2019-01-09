@@ -49,6 +49,9 @@ class NewTaskModal extends Component {
           <button onClick={ () => this.props.exitModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
+          <div className='flex justify-center'>
+            <div className='mt-4'>New task</div>
+          </div>
           <div className='flex justify-center mb-4'>
             {this.state.titleRequired ? <div className='text-red-lighter'>Title required</div> : ""}
             {this.state.estimateRequired ? <div className='text-red-lighter'>Estimate required</div> : ""}

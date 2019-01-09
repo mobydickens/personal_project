@@ -153,7 +153,7 @@ class DetailModal extends Component {
                     className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent.toFixed(2)} { timeSpent > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent.toFixed()} { timeSpent > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
                     className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }

@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 class OnTrack extends Component {
   render() {
-    // threshhold giving a little leeway 
+    // threshhold gives a little leeway before changing warnings/notifications
     const threshholdHours = 3;
     let { onTrackInfo } = this.props;
-    console.log(onTrackInfo)
     return (
       <div>
         { !onTrackInfo 
           ? 
+            //for the case when it is a new project, and no timelogs have yet been created
             <div className="text-center py-4 lg:px-4 mt-8">
               <div className="p-2 bg-red-dark items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
                 <span className="flex rounded-full bg-smoke uppercase px-4 py-2 text-xs font-bold mr-3">No data!</span>
