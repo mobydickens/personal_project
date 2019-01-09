@@ -132,6 +132,7 @@ module.exports = {
   getTeams: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.session.user;
+    console.log("user id", id)
     let teams = await db.get_user_teams([ Number(id) ]);
     res.status(200).send(teams);
   },
@@ -206,9 +207,13 @@ module.exports = {
     const db = req.app.get('db');
     const { email, team_id } = req.body;
     let user = await db.find_user([ email ]);
-    await db.new_connection([ user[0].id, Number(team_id) ]);
-    let details = await db.get_team_details([ Number(team_id) ]);
-    res.status(200).send(details);
+    if( !user[0] ) {
+      res.status(401).send({message: "No email found!"})
+    } else {
+      await db.new_connection([ user[0].id, Number(team_id) ]);
+      let details = await db.get_team_details([ Number(team_id) ]);
+      res.status(200).send(details);
+    }
   },
 
   // DELETE

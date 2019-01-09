@@ -12,7 +12,8 @@ class TeamList extends Component {
       showDetails: false,
       currentTeamId: '',
       editing: false,
-      newEmail: ''
+      newEmail: '',
+      emailNotFound: false
     }
     this.getTeamDetails = this.getTeamDetails.bind(this);
     this.leaveTeam = this.leaveTeam.bind(this);
@@ -45,12 +46,20 @@ class TeamList extends Component {
   }
   //edit by adding new member to team with email
   async add(id) {
-    let res = await axios.put('/api/addteammate', { email: this.state.newEmail, team_id: id} );
-    this.setState({
-      editing: false,
-      newEmail: '',
-      teamDetails: res.data
-    })
+    try {
+      let res = await axios.put('/api/addteammate', { email: this.state.newEmail, team_id: id} );
+      this.setState({
+        editing: false,
+        newEmail: '',
+        teamDetails: res.data
+      })
+    } catch (error) {
+      console.error("Error in team list, failed to find teammate by email", error)
+      this.setState({
+        emailNotFound: true,
+        newEmail: ''
+      })
+    }
   }
 
   render() {
@@ -70,7 +79,7 @@ class TeamList extends Component {
                 <div>
                   <div 
                     onClick={ () => this.leaveTeam(team.id) } 
-                    className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mx-4 border bg-red border-red'>Leave
+                    className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mx-4 mb-2 border bg-red border-red'>Leave
                   </div>
                 </div> 
               : "" }
@@ -96,13 +105,14 @@ class TeamList extends Component {
               <div>
                 <div className='flex items-center w-full border border-grey p-2'>
                   <input
-                    placeholder='Add new teammate...'
-                    onChange={ (e) => this.setState({ newEmail: e.target.value })} 
+                    placeholder='Add with email...'
+                    onChange={ (e) => this.setState({ newEmail: e.target.value, emailNotFound: false })} 
                     className='input focus:outline-none' 
                     type="text"
                     value={ this.state.newEmail }/>
                   <button className='p-2' onClick={ () => this.add(team.id) }>Add</button>
                 </div>
+                { this.state.emailNotFound ? <div className='text-red-lighter mt-2'>User not found</div> : "" }
               </div>
               : "" 
             }
