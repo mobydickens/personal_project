@@ -42,11 +42,11 @@ io.on('connection', socket => {
   })
 })
 
-//BOTH ENDPOINTS BELOW needed to notify socket in PROJECT that tasks changed - triggered from project component
+//BOTH ENDPOINTS BELOW needed to notify socket in PROJECT that tasks changed - both are triggered from project component
 app.put('/task', async function editLaneOrder (req, res) {
   const { taskIds } = req.body;
-  const db = req.app.get('db');
   const taskList = [];
+  const db = req.app.get('db');
   for (let i = 0; i < taskIds.length; i++) {
     let task = await db.update_lane_order([ taskIds[i], i ]);
     taskList.push(task);
@@ -59,15 +59,19 @@ app.put('/task', async function editLaneOrder (req, res) {
 
 }) 
 app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
-  const { id } = req.params;
-  const { index, status } = req.body;
+  const { arrayOfChanges } = req.body;
+  const taskList = [];
   const db = req.app.get('db');
-  let task = await db.update_order_status([ Number(id), Number(index), status ]);
-  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+  // console.log("Array of Changes", arrayOfChanges);
+  for (let i = 0; i < arrayOfChanges.length; i++) {
+    let task = await db.update_order_status([ arrayOfChanges[i].taskId, i, arrayOfChanges[i].status ]);
+    taskList.push(task);
+  }
+  let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
   res.status(200).send(tasks);
-  //notify socket client in project component
+  // //notify socket client in project component
   sockets.forEach(socket => socket.broadcast.emit('laneUpdated', tasks))
-}) //triggered from project component as well
+}) 
 
 app.post('/auth/signup', controller.signup); //signup
 app.post('/auth/login', controller.login); //login

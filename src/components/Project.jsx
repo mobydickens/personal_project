@@ -134,9 +134,9 @@ class Project extends Component {
     await axios.put(`/task`, {taskIds} );
   }
 
-  async updateOrderAndStatus(id, index, status) {
+  async updateOrderAndStatus(arrayOfChanges) {
     console.log('is the update order and lane status running?')
-    await axios.put(`/taskstatus/${id}`, { index: index, status: status });
+    await axios.put(`/taskstatus`, { arrayOfChanges });
   }
   // _________________________________________________________________________________________________________
 
@@ -169,10 +169,7 @@ class Project extends Component {
         ...start,
         taskIds: newTaskIds
       }
-
-      //run the axios call to the endpoint that will update the database and inform all other users of changes
-      this.updateLaneOrders(newColumn.taskIds);
-
+      
       // SET columns in state while I am waiting for my axios calls to finish (otherwise I have jumping tasks in my lanes)
       let copyOfTasks = this.props.tasks.map(task => {
         let index = newTaskIds.indexOf(task.id);
@@ -182,6 +179,10 @@ class Project extends Component {
         return task;
       });
       this.props.getTasks(copyOfTasks);
+
+      //run the axios call to the endpoint that will update the database and inform all other users of changes
+      this.updateLaneOrders(newColumn.taskIds);
+
   
       const newState = {
         ...this.state,
@@ -214,14 +215,20 @@ class Project extends Component {
       ...finish,
       taskIds: finishTaskIds
     }
-    
-    let startPromises = newStart.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, source.droppableId);
+    let starts = newStart.taskIds.map(taskId => {
+      return {
+        taskId: taskId, 
+        status: source.droppableId
+      };
     })
     
-    let finishPromises = newFinish.taskIds.map((taskId, index) => {
-      return this.updateOrderAndStatus(taskId, index, destination.droppableId);
+    let ends = newFinish.taskIds.map(taskId => {
+      return {
+        taskId: taskId, 
+        status: destination.droppableId
+      };
     })
+
     //copy to send to reducer while waiting for promises
     let copyOfTasks = this.props.tasks.map(task => {
       let index = startTaskIds.indexOf(task.id);
@@ -237,6 +244,11 @@ class Project extends Component {
     });
     //send copy to the reducer
     this.props.getTasks(copyOfTasks);
+
+    // combine start and finish ids so I can send to the server all at once
+    let arrayOfChanges = starts.concat(ends);
+    //trigger function to update db
+    this.updateOrderAndStatus(arrayOfChanges);
     
     const newState = {
       ...this.state,
@@ -247,16 +259,6 @@ class Project extends Component {
       }
     };
     this.setState(newState);
-    
-    // _________________________________________________ won't need these promises if what I'm about to do works
-    try {
-      await Promise.all(startPromises);
-      await Promise.all(finishPromises);
-    } catch (e) {
-      console.error("Failed to save tasks", e)
-    } 
-    // ________________________________________________________________
-
     this.fetchTasks(this.props.match.params.id)
     return;
   }
