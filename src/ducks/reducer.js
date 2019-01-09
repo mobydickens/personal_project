@@ -92,8 +92,7 @@ export function getTableArray(arr) {
 export function getTasks(taskArray) {
   return {
     type: GET_PROJECT_TASKS,
-    payload: taskArray.sort((a,b) => {
-      return a.lane_order - b.lane_order })
+    payload: taskArray
   }
 }
 export function getBackground(backgroundImage) {

@@ -12,7 +12,12 @@ class Lane extends Component {
     let tasks = this.props.tasks
       .filter(task => {
         return task.status === this.props.status})
-      .map((task, index) => <Task key={task.id} task={task} index={index} openDetailModal={this.props.openDetailModal} />)
+      .sort((a,b) => a.lane_order - b.lane_order)
+      .map((task, index) => {
+        return (
+          <Task key={task.id} task={task} index={index} openDetailModal={this.props.openDetailModal} />
+        )
+      })
 
     return (
       <Droppable droppableId={this.props.status}>

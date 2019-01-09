@@ -34,6 +34,8 @@ class Project extends Component {
     }
     this.fetchTasks = this.fetchTasks.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.updateLaneOrders = this.updateLaneOrders.bind(this);
+    this.updateOrderAndStatus = this.updateOrderAndStatus.bind(this);
   }
     
     async componentDidMount() {
@@ -73,6 +75,7 @@ class Project extends Component {
   // axios call to endpoint that will fetch ALL tasks for a project
   async fetchTasks(id) {
     let res = await axios.get(`/api/tasks/${id}`);
+    console.log("data from end of function response: ", res.data)
     this.props.getTasks(res.data);
   }
   
@@ -133,12 +136,26 @@ class Project extends Component {
   async updateLaneOrders(taskIds) {
     await axios.put(`/task`, {taskIds} );
   }
-
   async updateOrderAndStatus(arrayOfChanges) {
-    console.log('is the update order and lane status running?')
-    await axios.put(`/taskstatus`, { arrayOfChanges });
+    let res = await axios.put(`/taskstatus`, { arrayOfChanges });
+    this.props.getTasks(res.data);
   }
-  // _________________________________________________________________________________________________________
+//make copy of tasks for the reducer function
+  makeCopy(startTaskIds, finishTaskIds, destination) {
+    let copyOfTasks = this.props.tasks.map(task => {
+      let index = startTaskIds.indexOf(task.id);
+      if(index !== -1) {
+        task.lane_order = index;
+      }
+      let otherIndex = finishTaskIds.indexOf(task.id);
+      if(otherIndex !== -1) {
+        task.lane_order = otherIndex;
+        task.status = destination.droppableId;
+      }
+      return task;
+    });
+    return copyOfTasks
+  }
 
   //react-beautiful-dnd - BEGINNING OF ON DRAG END FUNCTION
   async onDragEnd(result) {
@@ -164,12 +181,7 @@ class Project extends Component {
       const newTaskIds = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1); 
       newTaskIds.splice(destination.index, 0, draggableId);
-      
-      const newColumn = {
-        ...start,
-        taskIds: newTaskIds
-      }
-      
+
       // SET columns in state while I am waiting for my axios calls to finish (otherwise I have jumping tasks in my lanes)
       let copyOfTasks = this.props.tasks.map(task => {
         let index = newTaskIds.indexOf(task.id);
@@ -179,11 +191,15 @@ class Project extends Component {
         return task;
       });
       this.props.getTasks(copyOfTasks);
+      
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds
+      }
 
       //run the axios call to the endpoint that will update the database and inform all other users of changes
       this.updateLaneOrders(newColumn.taskIds);
 
-  
       const newState = {
         ...this.state,
         columns: {
@@ -195,6 +211,7 @@ class Project extends Component {
       return;
     }
     // MOVING FROM ONE LANE TO ANOTHER //
+ 
     //this startTaskIds contains same ids as the old array named newTaskIds above
     const startTaskIds = Array.from(start.taskIds);
     //remove the dragged task id from this array. 
@@ -210,46 +227,37 @@ class Project extends Component {
     const finishTaskIds = Array.from(finish.taskIds);
     //inserting the draggable id from destination that we spliced out of the startTaskIds
     finishTaskIds.splice(destination.index, 0, draggableId);
-    //new column for the FINISH. Should have one index added
+
+    //new column for the FINISH destination. Should have one index added
     const newFinish = {
       ...finish,
       taskIds: finishTaskIds
     }
+    
+    // making new arrays to make each easier to combine together later
     let starts = newStart.taskIds.map(taskId => {
       return {
         taskId: taskId, 
         status: source.droppableId
       };
     })
-    
     let ends = newFinish.taskIds.map(taskId => {
       return {
         taskId: taskId, 
         status: destination.droppableId
       };
     })
-
-    //copy to send to reducer while waiting for promises
-    let copyOfTasks = this.props.tasks.map(task => {
-      let index = startTaskIds.indexOf(task.id);
-      if(index !== -1) {
-        task.lane_order = index; 
-      }
-      let otherIndex = finishTaskIds.indexOf(task.id);
-      if(otherIndex !== -1) {
-        task.lane_order = otherIndex;
-        task.status = destination.droppableId;
-      }
-      return task;
-    });
-    //send copy to the reducer
-    this.props.getTasks(copyOfTasks);
-
+    
     // combine start and finish ids so I can send to the server all at once
     let arrayOfChanges = starts.concat(ends);
     //trigger function to update db
     this.updateOrderAndStatus(arrayOfChanges);
     
+    //copy to send to reducer while waiting for function to finish (right now not working ideally)
+    let copyResult = this.makeCopy(startTaskIds, finishTaskIds, destination)
+    //send copy to the reducer
+    this.props.getTasks(copyResult);
+
     const newState = {
       ...this.state,
       columns: {
@@ -259,7 +267,6 @@ class Project extends Component {
       }
     };
     this.setState(newState);
-    this.fetchTasks(this.props.match.params.id)
     return;
   }
   // END OF ON DRAG END FUNCTION //
@@ -354,7 +361,8 @@ class Project extends Component {
 
 function mapState(state) {
   return {
-    tasks: state.currentProjectTasks
+    tasks: state.currentProjectTasks,
+    projectId: state.currentProjectId
   }
 }
 
