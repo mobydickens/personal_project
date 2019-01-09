@@ -47,6 +47,10 @@ class Project extends Component {
         return this.props.getTasks(data)
       })
 
+      this.socket.on('notifyOfUpdate', data => {
+        alert(data.message);
+      })
+
       //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
       this.socket.on('laneUpdated', data => {
         return this.props.getTasks(data)
@@ -75,7 +79,6 @@ class Project extends Component {
   // axios call to endpoint that will fetch ALL tasks for a project
   async fetchTasks(id) {
     let res = await axios.get(`/api/tasks/${id}`);
-    console.log("data from end of function response: ", res.data)
     this.props.getTasks(res.data);
   }
   
@@ -362,7 +365,8 @@ class Project extends Component {
 function mapState(state) {
   return {
     tasks: state.currentProjectTasks,
-    projectId: state.currentProjectId
+    projectId: state.currentProjectId,
+    userId: state.userId
   }
 }
 
