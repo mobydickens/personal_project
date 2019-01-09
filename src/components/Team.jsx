@@ -21,7 +21,8 @@ class Team extends Component {
       newTeammates: [],
       done: false,
       loggedIn: false,
-      fieldsRequired: false
+      fieldsRequired: false,
+      emailNotFound: false
     }
     this.add = this.add.bind(this);
     this.addTeam = this.addTeam.bind(this);
@@ -46,7 +47,7 @@ class Team extends Component {
         memberEmail: ''
       })
     } else {
-      alert(res.data.message)
+      this.setState({emailNotFound: true})
     }
   }
 
@@ -84,7 +85,7 @@ class Team extends Component {
     let team = this.state.teammates.map((user, i) => {
       return (
         <div className='flex' key={i}>
-          <p className='p-2'>{user.username}</p>
+          <p className='m-1'>{user.username}</p>
           { user.username !== this.props.username ? 
             <button 
               onClick={ () => this.deleteFromTeammates(i) }
@@ -127,9 +128,10 @@ class Team extends Component {
                       value={ this.state.teamName }
                     />
                     <label className='my-4'>Enter new teammate's email: </label>
+                    {this.state.emailNotFound ? <div className='text-red-lighter'>User not found!</div> : ""}
                     <div className='flex items-center w-full border-b border-palette-blue'>
                       <input
-                        onChange={ (e) => this.setState({ memberEmail: e.target.value })} 
+                        onChange={ (e) => this.setState({ memberEmail: e.target.value, emailNotFound: false })} 
                         className='input focus:outline-none' 
                         type="text"
                         value={ this.state.memberEmail }/>
