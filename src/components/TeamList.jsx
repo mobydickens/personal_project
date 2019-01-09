@@ -70,7 +70,7 @@ class TeamList extends Component {
                 <div>
                   <div 
                     onClick={ () => this.leaveTeam(team.id) } 
-                    className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mr-4 border bg-red border-red'>Leave
+                    className='cursor-pointer text-sm text-white rounded-full py-1 px-2 mx-4 border bg-red border-red'>Leave
                   </div>
                 </div> 
               : "" }
