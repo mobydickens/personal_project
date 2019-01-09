@@ -13,24 +13,13 @@ const io = socket(app.listen(SERVER_PORT, () => console.log(`server listening at
 
 app.use(express.json());
 
+// app.use(express.static(`${ __dirname }/../build`));
+
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
-
-//DEV BYPASS _________________________________________
-// app.use(async function authBypass(req, res, next) {
-  //   if(DEV === 'true') {
-    //     let db = req.app.get('db');
-    //     let user = await db.session_user();
-    //     req.session.user = user[0];
-    //     next();
-    //   } else {
-      //     next();
-      //   }
-      // })
-//END OF DEV BYPASS ___________________________________
       
 massive(CONNECTION_STRING).then(db => {
   app.set('db', db);
@@ -38,7 +27,6 @@ massive(CONNECTION_STRING).then(db => {
 
 //here I will listen for events and emit to connected sockets
 //anything inside this cb function that is not nested in an event will happen immediately upon connection. 'Socket' passed in as a parameter refers to this instance of the socket that is made (one particular socket). Each client will have their own socket between client and the server
-
 let sockets = [];
 
 io.on('connection', socket => {
@@ -54,21 +42,23 @@ io.on('connection', socket => {
   })
 })
 
-//BOTH ENDPOINTS BELOW needed to notify socket in PROJECT that tasks changed
-app.put('/task/:id', async function editLaneOrder (req, res) {
-  const { id } = req.params;
-  const { index } = req.body;
+//BOTH ENDPOINTS BELOW needed to notify socket in PROJECT that tasks changed - triggered from project component
+app.put('/task', async function editLaneOrder (req, res) {
+  const { taskIds } = req.body;
   const db = req.app.get('db');
-  let task = await db.update_lane_order([ Number(id), Number(index) ]);
-  let tasks = await db.all_lane_tasks([ task[0].project_id ]);
+  const taskList = [];
+  for (let i = 0; i < taskIds.length; i++) {
+    let task = await db.update_lane_order([ taskIds[i], i ]);
+    taskList.push(task);
+  }
+  let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
   res.status(200).send(tasks);
 
-  //notify socket client
+  // //notify socket client - FOR EACH SOCKET (so for each different computer connected)
   sockets.forEach(socket => socket.broadcast.emit('tasksUpdated', tasks));
 
-}) //triggered from project component
-
-app.put('/taskstatus/:id', async function updateOrderAndStatus(req, res) {
+}) 
+app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
   const { id } = req.params;
   const { index, status } = req.body;
   const db = req.app.get('db');
@@ -111,3 +101,15 @@ app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENT
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
 app.delete('/api/leaveteam/:id', controller.leaveTeam); //leave team, triggered from TeamList component 
 
+//DEV BYPASS _________________________________________
+// app.use(async function authBypass(req, res, next) {
+  //   if(DEV === 'true') {
+    //     let db = req.app.get('db');
+    //     let user = await db.session_user();
+    //     req.session.user = user[0];
+    //     next();
+    //   } else {
+      //     next();
+      //   }
+      // })
+//END OF DEV BYPASS ___________________________________

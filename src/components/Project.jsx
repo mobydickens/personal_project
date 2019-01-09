@@ -63,7 +63,7 @@ class Project extends Component {
       })
   }
 
-  //clean up for sockets (not sure if needed?)
+  //clean up for sockets
   componentWillUnmount() {
     if(this.socket) {
       this.socket.disconnect();
@@ -130,12 +130,15 @@ class Project extends Component {
   }
 
   // These functions were written to be used in my OnDragEnd function below when reordering my lanes/columns
-  async updateLaneOrders(id, index) {
-    await axios.put(`/task/${id}`, {index: index} );
+  async updateLaneOrders(taskIds) {
+    await axios.put(`/task`, {taskIds} );
   }
+
   async updateOrderAndStatus(id, index, status) {
+    console.log('is the update order and lane status running?')
     await axios.put(`/taskstatus/${id}`, { index: index, status: status });
   }
+  // _________________________________________________________________________________________________________
 
   //react-beautiful-dnd - BEGINNING OF ON DRAG END FUNCTION
   async onDragEnd(result) {
@@ -166,11 +169,10 @@ class Project extends Component {
         ...start,
         taskIds: newTaskIds
       }
-      // need to hold all the promises in a variable until I am ready to call them all at once
-      let taskUpdatePromises = newColumn.taskIds.map((taskId, index) => {
-        return this.updateLaneOrders(taskId, index);
-      })
-  
+
+      //run the axios call to the endpoint that will update the database and inform all other users of changes
+      this.updateLaneOrders(newColumn.taskIds);
+
       // SET columns in state while I am waiting for my axios calls to finish (otherwise I have jumping tasks in my lanes)
       let copyOfTasks = this.props.tasks.map(task => {
         let index = newTaskIds.indexOf(task.id);
@@ -189,7 +191,6 @@ class Project extends Component {
         }
       }
       this.setState(newState);
-      await Promise.all(taskUpdatePromises); 
       return;
     }
     // MOVING FROM ONE LANE TO ANOTHER //
@@ -247,12 +248,15 @@ class Project extends Component {
     };
     this.setState(newState);
     
+    // _________________________________________________ won't need these promises if what I'm about to do works
     try {
       await Promise.all(startPromises);
       await Promise.all(finishPromises);
     } catch (e) {
       console.error("Failed to save tasks", e)
     } 
+    // ________________________________________________________________
+
     this.fetchTasks(this.props.match.params.id)
     return;
   }
