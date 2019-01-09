@@ -32,7 +32,7 @@ let sockets = [];
 io.on('connection', socket => {
   //push a socket to the array so it can be used in my put below//
   sockets.push(socket);
-
+  
   //disconnecting and resetting the sockets array above
   socket.on('disconnect', () => {
     var indexToRemove = sockets.indexOf(socket)
@@ -52,11 +52,9 @@ app.put('/task', async function editLaneOrder (req, res) {
     taskList.push(task);
   }
   let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
-  let user = await db.find_user([ req.session.user.email ])
   res.status(200).send(tasks);
   // //notify socket client - FOR EACH SOCKET (so for each different computer connected)
   sockets.forEach(socket => socket.broadcast.emit('tasksUpdated', tasks));
-  sockets.forEach(socket => socket.broadcast.emit('notifyOfUpdate', {message: `${user[0].username} has updated a task!`}))
 }) 
 app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
   const { arrayOfChanges } = req.body;

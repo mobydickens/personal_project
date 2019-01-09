@@ -47,10 +47,6 @@ class Project extends Component {
         return this.props.getTasks(data)
       })
 
-      this.socket.on('notifyOfUpdate', data => {
-        alert(data.message);
-      })
-
       //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
       this.socket.on('laneUpdated', data => {
         return this.props.getTasks(data)
