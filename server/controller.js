@@ -222,7 +222,7 @@ module.exports = {
   deleteTask: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.params;
-    await db.delete_timelogs([ Number[ id ]]);
+    await db.delete_timelogs([ Number(id)]);
     await db.delete_task([ Number(id) ]);
     res.status(200).send('success!');
 },
