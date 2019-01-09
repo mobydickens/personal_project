@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Header from './Header.jsx';
-import { Link } from 'react-router-dom';
 import { userProjects, getMyTeams, userLogin } from '../ducks/reducer';
 import ProjectEdit from './ProjectEdit.jsx';
 import Backgrounds from './Backgrounds.jsx';
@@ -123,15 +122,19 @@ class Home extends Component {
                  </div>
                  
                 // else if project list IS empty, show the start a new project promt
-                : <div className='font-josefin text-2xl m-6'>
-                    <div className='flex justify-center lg:w-2/5 bg-palette-white rounded shadow-md text-xl p-4'>
-                      <div className='py-4'>Start a team for your first project!</div>
-                      <Link className='no-underline items-center' to='/team'>
-                        <div 
-                          className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-4 mt-4 hover:bg-palette-dark cursor-pointer'>
+                : <div className='m-8'>
+                    <div className='flex'>
+                      <div className='flex justify-center bg-palette-white rounded shadow-md text-xl p-4'>
+                        <div className='text-base mt-4'>Start your first project!</div>
+                        <div
+                          onClick={ () => this.setState({ newProjectModal: true }) } 
+                          className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white ml-4 mr-2 hover:bg-palette-dark cursor-pointer'>
                           <i className="fas fa-plus m-4 px-4"></i>
                         </div>
-                      </Link>
+                      </div>
+                    </div>
+                    <div className='fixed pin-b pin-r m-4'>
+                      <Backgrounds />
                     </div>
                   </div> } 
               </div>

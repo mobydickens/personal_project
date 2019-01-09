@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class ProjectEdit extends Component {
 
@@ -72,8 +72,9 @@ class ProjectEdit extends Component {
               onChange={ (e) => this.setState({ description: e.target.value, fieldsRequired: false }) }
               className='input-underlined focus:outline-none' 
             /><br/>
+            <div className='m-2 text-smoke'>Don't have a team for this project? <Link className='no-underline text-smoke hover:text-palette-blue' to='/team'>Click here to start one now!</Link></div>
             <select className='bg-grey-light border border-grey focus:outline-none' onChange={ (e) => this.setState( { team: e.target.value, fieldsRequired: false })}>
-              <option defaultValue="selected">Choose team</option>
+              <option defaultValue="selected">Choose a team</option>
               {dropdown}
             </select><br/>
             <label htmlFor="devhours">Team dev hours available per day:</label>
