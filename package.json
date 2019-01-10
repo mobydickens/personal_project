@@ -29,7 +29,11 @@
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "@fullhuman/postcss-purgecss": "^1.1.0",
+    "autoprefixer": "^9.4.3",
+    "postcss-cli": "^6.0.1",
+    "tailwindcss": "^0.7.3"
   },
   "scripts": {
     "testing": "jest",
@@ -50,12 +54,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^1.1.0",
-    "autoprefixer": "^9.4.3",
-    "postcss-cli": "^6.0.1",
-    "tailwindcss": "^0.7.3"
-  },
+  "devDependencies": {},
   "main": "server/server.js",
   "proxy": "http://localhost:4000"
 }
