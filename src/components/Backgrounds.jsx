@@ -5,13 +5,24 @@ import axios from 'axios';
 
 class Backgrounds extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundSaved: false
+    }
+  }
+  
   saveBackground = (background) => {
     axios.put(`/api/background/${this.props.userId}`, { background }).then(res => console.log(res.data));
+    this.setState({
+      backgroundSaved: true
+    })
   }
 
   render() {
     return (
       <div>
+        {this.state.backgroundSaved ? <div className='back'>Your background has been saved!</div> : ""}
         <select className='bg-palette-white border border-palette-white focus:outline-none ml-4' onChange={(e) => this.props.getBackground(e.target.value)}>
           <option defaultValue="selected">Choose background</option>
           <option value="City Block">City Block</option>

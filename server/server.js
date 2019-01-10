@@ -13,7 +13,7 @@ const io = socket(app.listen(SERVER_PORT, () => console.log(`server listening at
 
 app.use(express.json());
 
-// app.use(express.static(`${ __dirname }/../build`));
+app.use(express.static(`${ __dirname }/../build`));
 
 app.use(session({
   secret: SESSION_SECRET,
