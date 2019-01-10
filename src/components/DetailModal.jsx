@@ -85,7 +85,10 @@ class DetailModal extends Component {
           { this.state.editingLog && this.state.editingId === timelog.id ? 
             <div>
               {/* editing mode */}
-              <div>{timelog.username} logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              <div>
+                <span className='font-semibold'>{timelog.username} </span>
+                <span className='text-smoke'> - {moment(timelog.created_at).calendar()}</span>
+              </div>
               <div>Time spent: 
                 <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
               </div> 
@@ -103,7 +106,10 @@ class DetailModal extends Component {
             : 
             <div className='border-b border-grey-lighter'>
               {/* regular history mode - not editing */}
-              <div><span className='text-palette-blue'>{timelog.username}</span> logged time on {moment(timelog.created_at).format('MMMM Do YYYY, h:mm:ss a')}</div>
+              <div>
+                <span className='font-semibold'>{timelog.username} </span>
+                <span className='text-smoke'> - {moment(timelog.created_at).calendar()}</span>
+              </div>
               <div>Spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}, estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
               <div>Comment: {timelog.comment}</div>
               {/* this ternary controls hiding and showing the edit button - only the person who created the timelog can edit it */}
