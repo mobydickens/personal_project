@@ -132,7 +132,6 @@ module.exports = {
   getTeams: async (req, res) => {
     const db = req.app.get('db');
     const { id } = req.session.user;
-    console.log("user id", id)
     let teams = await db.get_user_teams([ Number(id) ]);
     res.status(200).send(teams);
   },

@@ -122,7 +122,7 @@ class TeamList extends Component {
     })
     
     return (
-      <div className='flex flex-col m-4 p-4 bg-palette-white rounded'>
+      <div className='flex flex-col m-4 p-4 bg-palette-white rounded shadow-md'>
         <div className='text-smoke'>Your Teams</div>
         {teamsList}
       </div>

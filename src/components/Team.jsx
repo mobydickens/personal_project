@@ -105,7 +105,7 @@ class Team extends Component {
         <div className='absolute mt-20 flex flex-col lg:flex-row justify-center p-2 w-full'>
         {/* middle box */}
 
-          <div className='flex flex-col w-full lg:w-3/5'>
+          <div className='flex flex-col w-full lg:w-2/5'>
             {/* form box */}
             <div className='bg-white shadow-lg p-6 rounded'>
               <div className='flex justify-center'>
