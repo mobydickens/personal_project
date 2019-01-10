@@ -1,3 +1,4 @@
+const path = require('path'); // Usually moved to the start of file
 require('dotenv').config();
 const express = require('express')
 const session = require('express-session');
@@ -102,6 +103,10 @@ app.put('/api/background/:id', controller.updateBackground); //triggered from Ba
 app.delete('/api/deleteproject/:id', controller.deleteProject); //deletes an ENTIRE project (including all of that project's tasks)
 app.delete('/api/task/:id', controller.deleteTask); //deletes a single task
 app.delete('/api/leaveteam/:id', controller.leaveTeam); //leave team, triggered from TeamList component 
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 //DEV BYPASS _________________________________________
 // app.use(async function authBypass(req, res, next) {

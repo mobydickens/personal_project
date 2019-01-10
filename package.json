@@ -18,6 +18,7 @@
     "jest-cli": "^23.6.0",
     "massive": "^5.7.1",
     "moment": "^2.23.0",
+    "path": "^0.12.7",
     "plotly.js": "^1.43.1",
     "react": "^16.6.3",
     "react-beautiful-dnd": "^10.0.3",
