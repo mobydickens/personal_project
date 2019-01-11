@@ -44,27 +44,31 @@ class Signup extends Component {
   render() {
     return (
       <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-        <div className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+        <div className='relative p-8 lg:p-8 w-full lg:w-1/4 m-auto flex-col flex lg:rounded bg-white'>
           <div className='flex justify-center'>
-            <div className='font-josefin text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-palette-blue m-4'>J</div>
+            <div 
+              className='font-josefin text-5xl bg-palette-blue rounded-full h-16 w-16 flex items-center justify-center text-palette-white m-4'>
+              J
+            </div>
           </div>
           <div className='flex justify-center'>
             {this.state.fieldsRequired ? <div className='text-red-lighter'>All fields required</div> : ""}
             {this.state.emailUnavailable ? <div className='text-red-lighter'>Email already in use</div> : ""}
           </div>
+          <label className='mx-2 mt-1'>Email</label>
           <input
             autoFocus="autofocus"
             onChange={ (e) => this.setState({ email: e.target.value, fieldsRequired: false, emailUnavailable: false }) }
-            className='input-underlined focus:outline-none m-2 border-grey'
+            className='appearance-none bg-transparent text-grey-darker border focus:outline-none py-2 px-4 leading-tight m-4 border-grey rounded'
             value={ this.state.email }
-            placeholder='Enter an email' 
             type="text"/>
+          <label className='mx-2 mt-1'>Username</label>
           <input
             onChange={ (e) => this.setState({ username: e.target.value, fieldsRequired: false }) }
-            className='input-underlined focus:outline-none m-2 border-grey' 
+            className='appearance-none bg-transparent text-grey-darker border focus:outline-none py-2 px-4 leading-tight m-4 border-grey rounded' 
             value={ this.state.username }
-            placeholder='Enter a username' 
             type="text"/>
+          <label className='mx-2 mt-1'>Password</label>
           <input
             onChange={ (e) => this.setState({ password: e.target.value, fieldsRequired: false }) }
             onKeyUp={event => {
@@ -72,18 +76,17 @@ class Signup extends Component {
                 this.signup()
               }
             }}
-            className='input-underlined focus:outline-none m-2 border-grey' 
+            className='appearance-none bg-transparent text-grey-darker border focus:outline-none py-2 px-4 leading-tight m-4 border-grey rounded' 
             value={ this.state.password }
-            placeholder='Enter a password' 
             type="text"/>
           <button
             onClick={ this.signup }
             className=' self-center btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>
-            Sign Up
+            Create Account
           </button>
           <div
             onClick={() => this.props.signupFn()} 
-            className='flex justify-center cursor-pointer'>
+            className='flex justify-center cursor-pointer text-smoke'>
             Cancel
           </div>
         </div>

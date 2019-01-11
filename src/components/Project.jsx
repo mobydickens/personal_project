@@ -42,6 +42,8 @@ class Project extends Component {
       //creates a new socket connection when component is created 
       this.socket = io('/');
 
+
+      //ADD IF INSIDE OF THESE FUNCTIONS TO FIGURE OUT IF EVENT RELATES TO CURRENT PAGE/PROJECT
       // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
       this.socket.on('tasksUpdated', data => {
         return this.props.getTasks(data)
@@ -51,6 +53,7 @@ class Project extends Component {
       this.socket.on('laneUpdated', data => {
         return this.props.getTasks(data)
       })
+      // _________________________________________________________________________________________
 
       //stuff unrelated to socket.io below, don't delete it
       await requireLogin(this.props.userLogin, this.props.history);
