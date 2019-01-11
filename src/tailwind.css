@@ -25,7 +25,7 @@
   @apply border-smoke-lighter bg-smoke-lightest shadow m-2 rounded-full;
 } 
 .span-progress {
-  background-color: #b5b6b9;
+  background-color: #55c348;
 }
 .progress > .span-progress {
   @apply block h-6 w-1/4 rounded-full
@@ -65,6 +65,7 @@
   z-index: 0;
 }
 
+//BACKGROUND IMAGES
 .bg-cityblock {
    background-image: url("./images/cityblock.jpg");
 }
@@ -74,20 +75,29 @@
 .bg-whitebrick {
   background-image: url("./images/whitewall.jpg");
 }
-.bg-bluewall {
-  background-image: url("./images/bluewall.jpg");
+.bg-books {
+  background-image: url("./images/books.jpg");
+}
+.bg-desert {
+  background-image: url("./images/desert.jpg");
 }
 .bg-coffee {
   background-image: url("./images/coffeemash.jpg");
 }
 .bg-flight {
-  background-image: url("./images/plane.jpg");
+  background-image: url("./images/flying.jpg");
 }
-.bg-misty {
-  background-image: url("./images/fogtree.jpg");
+.bg-pier {
+  background-image: url("./images/pier.jpg");
 }
 .bg-decay {
   background-image: url("./images/messedupplane.jpg");
+}
+.bg-field {
+  background-image: url("./images/field.jpg");
+}
+.bg-cityscape {
+  background-image: url("./images/cityscape.jpg");
 }
 
 .bg-image-main {
@@ -102,6 +112,7 @@
   /* filter: blur(2px); */
   overflow: hidden;
 }
+//END OF BACKGROUND IMAGES
 
  .input {
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
