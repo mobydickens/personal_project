@@ -22,7 +22,6 @@ class Backgrounds extends Component {
   render() {
     return (
       <div>
-        {this.state.backgroundSaved ? <div className='back'>Your background has been saved!</div> : ""}
         <select className='bg-palette-white border border-palette-white focus:outline-none ml-4' onChange={(e) => this.props.getBackground(e.target.value)}>
           <option defaultValue="selected">Choose background</option>
           <option value="City Block">City Block</option>
@@ -37,7 +36,7 @@ class Backgrounds extends Component {
         </select>
         <button
           onClick={ () => this.saveBackground(this.props.background) }
-          className='bg-palette-blue rounded mx-1 py-1 px-2 text-black'>Save
+          className={ this.state.backgroundSaved ? 'bg-green-dark rounded mx-1 py-1 px-2 text-white focus:outline-none' : 'bg-palette-blue rounded mx-1 py-1 px-2 text-black focus:outline-none'}>{this.state.backgroundSaved ? 'Saved!' : 'Save'}
         </button>
       </div>
     );
