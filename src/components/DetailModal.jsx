@@ -89,14 +89,14 @@ class DetailModal extends Component {
                 <span className='font-semibold'>{timelog.username} </span>
                 <span className='text-smoke'> - {moment(timelog.created_at).calendar()}</span>
               </div>
-              <div>Time spent: 
-                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
+              <div className='text-sm'>Time spent: 
+                <input className='ml-12 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
               </div> 
-              <div>Estimate change: 
-                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/>
+              <div className='text-sm'>Estimate change: 
+                <input className='ml-2 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/>
               </div>
-              <div>Comment: 
-                <input className='appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
+              <div className='text-sm'>Comment:   
+                <input className='ml-12 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
               </div>
               <button 
                 className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
@@ -108,10 +108,10 @@ class DetailModal extends Component {
               {/* regular history mode - not editing */}
               <div>
                 <span className='font-semibold'>{timelog.username} </span>
-                <span className='text-smoke'> - {moment(timelog.created_at).calendar()}</span>
+                <span className='text-smoke text-sm'> - {moment(timelog.created_at).calendar()}</span>
               </div>
-              <div>Spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}, estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
-              <div>Comment: {timelog.comment}</div>
+              <div className='text-sm'>Spent: {timelog.spent_time > 1 ? timelog.spent_time + ' hours' : timelog.spent_time + ' hour'}, estimate change: {timelog.estimate_change > 1 ? timelog.estimate_change + ' hours' : timelog.estimate_change + ' hour'}</div>
+              <div className='text-sm'>Comment: {timelog.comment}</div>
               {/* this ternary controls hiding and showing the edit button - only the person who created the timelog can edit it */}
               {  +this.props.userId === timelog.user_id ?
                 <div className='flex justify-end'>
@@ -145,13 +145,13 @@ class DetailModal extends Component {
             <button onClick={ () => this.props.detailModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
               <i className="fas fa-times"></i>
             </button>
-            <div className='w-full p-2 lg:p-4'>
+            <div className='w-full p-8 lg:p-4'>
               <EditTask 
                 task={ task }
                 getTasksAndLogs={ this.getTasksAndLogs}
                 needsUpdate={ this.props.needsUpdate } />
               <div>
-                <div className='flex'>
+                <div className='flex justify-center mt-6'>
                   <div 
                     className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
                   </div>

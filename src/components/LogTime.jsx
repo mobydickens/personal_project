@@ -34,7 +34,7 @@ class LogTime extends Component {
   render() {
     return (
       <div>
-         <div className='flex justify-center m-4'>
+         <div className='flex justify-center m-2'>
             {this.state.fieldsRequired ? <div className='text-red-lighter'>All fields required</div> : ""}
           </div>
         <label className='text-smoke'>Time spent: </label>

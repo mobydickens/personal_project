@@ -7,7 +7,7 @@ class ProgressBar extends Component {
     return (
       <div>
         <div className="progress gradient">
-          <span style={{width:`${percent}%`, transition: '1s linear' }} className="span-progress text-center text-xs p-2">{`${percent.toFixed()}%`}</span>
+          <span style={{width:`${percent}%`, transition: '1s linear' }} className="span-progress text-center text-xs text-white p-2">{`${percent.toFixed()}%`}</span>
         </div>
       </div>
     );

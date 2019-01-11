@@ -58,9 +58,9 @@ class EditTask extends Component {
         </div>
         <div 
           onClick={ () => this.setState({ showDescriptionInput: true, description: this.props.task.description }) } 
-          className='my-2 lg:my-4'>
+          className='m-2 mb-4 text-sm'>
           { !this.state.showDescriptionInput ?
-            <div>{this.props.task.description}</div>
+            <div className='text-sm'>{this.props.task.description}</div>
             :
             <div className='flex flex-col lg:flex-row'>
               <input

@@ -63,14 +63,14 @@ class ProjectEdit extends Component {
             <input
               autoFocus="autofocus"
               onChange={ (e) => this.setState({ title: e.target.value, fieldsRequired: false })} 
-              className='input-underlined focus:outline-none mb-4'  
+              className='input-underlined focus:outline-none mb-4 border-grey'  
               type="text" 
               value={ this.state.title}
             />
-            <label htmlFor="desc">Description:</label><br/>
+            <label htmlFor="desc">Description:</label>
             <input 
               onChange={ (e) => this.setState({ description: e.target.value, fieldsRequired: false }) }
-              className='input-underlined focus:outline-none' 
+              className='input-underlined focus:outline-none border-grey' 
             /><br/>
             <div className='m-2 text-smoke'>Don't have a team for this project? <Link className='no-underline text-smoke hover:text-palette-blue' to='/team'>Click here to start one now!</Link></div>
             <select className='bg-grey-light border border-grey focus:outline-none' onChange={ (e) => this.setState( { team: e.target.value, fieldsRequired: false })}>
@@ -80,7 +80,7 @@ class ProjectEdit extends Component {
             <label htmlFor="devhours">Team dev hours available per day:</label>
             <input
               onChange={ (e) => this.setState({ devHours: e.target.value, fieldsRequired: false }) }
-              className='input-underlined focus:outline-none'  
+              className='input-underlined focus:outline-none border-grey'  
               type="number"
               value={ this.state.devHours }
             />
@@ -92,13 +92,13 @@ class ProjectEdit extends Component {
                   this.newProject();
                 }
               }}
-              className='input-underlined focus:outline-none'  
+              className='input-underlined focus:outline-none border-grey'  
               type="date"/>
             <div className='flex justify-center'>
               <div>
                 <button 
                   onClick={ () => this.newProject() } 
-                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Submit
+                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2 mt-4'>Submit
                 </button>
               </div>
             </div>

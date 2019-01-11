@@ -25,7 +25,7 @@
   @apply border-smoke-lighter bg-smoke-lightest shadow m-2 rounded-full;
 } 
 .span-progress {
-  @apply bg-palette-blue
+  background-color: #b5b6b9;
 }
 .progress > .span-progress {
   @apply block h-6 w-1/4 rounded-full
