@@ -46,12 +46,20 @@ class Project extends Component {
       //ADD IF INSIDE OF THESE FUNCTIONS TO FIGURE OUT IF EVENT RELATES TO CURRENT PAGE/PROJECT
       // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
       this.socket.on('tasksUpdated', data => {
-        return this.props.getTasks(data)
+        if(Number(this.props.match.params.id) === data[0].project_id) {
+          return this.props.getTasks(data)
+        } else {
+          return;
+        }
       })
 
       //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
-      this.socket.on('laneUpdated', data => {
-        return this.props.getTasks(data)
+      this.socket.on('laneUpdated', (data) => {
+        if(Number(this.props.match.params.id) === data[0].project_id) {
+          return this.props.getTasks(data)
+        } else {
+          return;
+        }
       })
       // _________________________________________________________________________________________
 

@@ -54,9 +54,10 @@ app.put('/task', async function editLaneOrder (req, res) {
   }
   let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
   res.status(200).send(tasks);
-  // //notify socket client - FOR EACH SOCKET (so for each different computer connected)
+  //notify socket client - FOR EACH SOCKET (so for each different computer connected)
   sockets.forEach(socket => socket.broadcast.emit('tasksUpdated', tasks));
 }) 
+
 app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
   const { arrayOfChanges } = req.body;
   const taskList = [];
