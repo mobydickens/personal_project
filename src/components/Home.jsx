@@ -9,6 +9,10 @@ import BackgroundTernary from './BackgroundTernary.jsx';
 import Loading from './Loading.jsx';
 import { requireLogin } from '../helpers/login_service';
 
+import homeImage from '../images/home.png';
+import teamImage from '../images/team.png';
+import taskDetail from '../images/taskdetail.png';
+
 class Home extends Component {
 
   constructor(props) {
@@ -100,7 +104,7 @@ class Home extends Component {
                   <div className='flex justify-end'>
                     <div
                       onClick={ () => this.setState({newProjectModal: true}) } 
-                      className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 my-4 hover:bg-blue-darker cursor-pointer'>
+                      className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 my-4 hover:bg-blue-darker cursor-pointer shadow-md'>
                       {/* THE PLUS BUTTON */}
                       <i className="fas fa-plus m-4 px-8"></i>
                     </div>
@@ -122,13 +126,24 @@ class Home extends Component {
                  </div>
                  
                 // else if project list IS empty, show the start a new project promt
-                : <div className='m-8'>
-                    <div className='flex'>
-                      <div className='flex justify-center bg-palette-white rounded shadow-md text-xl p-4'>
-                        <div className='text-base mt-4'>Start your first project!</div>
+                : <div className='m-4'>
+                    <div className='w-full flex justify-center flex-col lg:flex-row'>
+                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
+                        <img src={ teamImage } alt='examples' className='home-image'></img>
+                      </div>
+                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
+                        <img src={ homeImage } alt='examples' className='home-image'></img>
+                      </div>
+                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
+                        <img src={ taskDetail } alt='examples' className='home-image'></img>
+                      </div>
+                    </div>
+                    <div className='w-full flex justify-center mt-6'>
+                      <div className='flex w-full lg:w-1/2'>
+                        <div className='text-2xl my-4 mx-4'>Start your first project!</div>
                         <div
                           onClick={ () => this.setState({ newProjectModal: true }) } 
-                          className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white ml-4 mr-2 hover:bg-palette-dark cursor-pointer'>
+                          className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white ml-4 mr-2 hover:bg-blue-dark cursor-pointer shadow-md'>
                           <i className="fas fa-plus m-4 px-4"></i>
                         </div>
                       </div>

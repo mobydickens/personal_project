@@ -64,7 +64,10 @@
   overflow: hidden;
   z-index: 0;
 }
-
+.home-image {
+  width: 100%;
+  height: auto;
+}
 //BACKGROUND IMAGES
 .bg-cityblock {
    background-image: url("./images/cityblock.jpg");

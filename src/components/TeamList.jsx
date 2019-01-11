@@ -103,11 +103,11 @@ class TeamList extends Component {
           
             { this.state.editing && this.state.currentTeamId === team.id ? 
               <div>
-                <div className='flex items-center w-full border border-grey p-2'>
+                <div className='flex items-center bg-white w-full border border-grey p-2'>
                   <input
                     placeholder='Add with email...'
                     onChange={ (e) => this.setState({ newEmail: e.target.value, emailNotFound: false })} 
-                    className='input focus:outline-none' 
+                    className='focus:outline-none' 
                     type="text"
                     value={ this.state.newEmail }/>
                   <button className='p-2' onClick={ () => this.add(team.id) }>Add</button>
