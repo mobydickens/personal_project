@@ -70,7 +70,7 @@ class TeamList extends Component {
           className='flex mt-2 p-4 hover:bg-grey-lighter rounded team-viewer'
           style={{ width: this.state.showDetails && this.state.currentTeamId === team.id ? '280px' : '200px'}}
           key={i}>
-          <div className='w-4 h-4 mr-2 bg-palette-blue rounded'></div>
+          <div className='w-4 h-4 mr-2 bg-blue rounded'></div>
           <div className='flex flex-col'>
             <div className={ !this.state.showDetails ? 'flex' : 'flex justify-between'}>
               <div onClick={ () => this.getTeamDetails(team.id) } className='cursor-pointer'>{team.name}</div>

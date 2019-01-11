@@ -144,7 +144,7 @@ class Team extends Component {
                       <div className='flex justify-center'>
                         <div> 
                           <button 
-                            className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
+                            className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2' 
                             onClick={ () => this.addTeam() }>
                             Start Team
                           </button>
@@ -160,7 +160,7 @@ class Team extends Component {
                 <div className='flex flex-col justify-center m-6'>
                   <div>Your team has been created!</div>
                   <div className='flex justify-center'>
-                    <button className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' onClick={() => this.setState({done: false})}>Start Another team?</button>
+                    <button className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2' onClick={() => this.setState({done: false})}>Start Another team?</button>
                   </div>
                   <div className='flex justify-center m-2'>
                     <Link to='/home'><button className='text-grey'>Cancel</button></Link>

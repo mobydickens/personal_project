@@ -56,7 +56,7 @@ let colors = {
 
   'palette-grey': '#2c2f33',
   'palette-white': '#ffffff',
-  'palette-blue': '#7289da',
+  'palette-blue': '#3490dc',
   'palette-light': '#99aab5',
   'palette-dark': '#4F5F98',
 

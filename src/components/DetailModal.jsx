@@ -99,7 +99,7 @@ class DetailModal extends Component {
                 <input className='ml-12 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
               </div>
               <button 
-                className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2' 
+                className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2' 
                 onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
               <button className='m-2' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
@@ -153,16 +153,16 @@ class DetailModal extends Component {
               <div>
                 <div className='flex justify-center mt-6'>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Initial estimate: {task.initial_estimate} { task.initial_estimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Current estimate: {currentEstimate} { currentEstimate > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent.toFixed()} { timeSpent > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Spent: {timeSpent.toFixed()} { timeSpent > 1 ? 'hours' : 'hour' }
                   </div>
                   <div 
-                    className='text-white border border-palette-blue bg-palette-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
+                    className='text-white border border-blue bg-blue rounded py-1 px-2 m-1 text-xs'>Remaining: {remaining} { remaining > 1 ? 'hours' : 'hour' }
                   </div>
                 </div>
               </div>

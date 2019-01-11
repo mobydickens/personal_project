@@ -6,7 +6,7 @@ class Sidebar extends Component {
     return (
       <div className={this.props.showSidebar ? 'absolute slider visible font-josefin bg-palette-grey pin-t pin-l pin-r h-64 z-40' : 'absolute slider bg-palette-grey pin-l pin-r gone z-40' } >
         <div className='pin-t pin-r pin-l absolute flex justify-between z-40'>
-          <div className='text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-palette-blue m-4'>J</div>
+          <div className='text-5xl bg-white rounded-full h-16 w-16 flex items-center justify-center text-blue m-4'>J</div>
           <div className='text-xl my-6 text-palette-white'>{this.props.username}</div><br/>
           <div onClick={ () => this.props.hideSidebarFn() }><i className="cursor-pointer absolute mx-6 my-8 pin-t pin-r fas fa-bars lg:invisible text-lg text-white"></i></div>
         </div>

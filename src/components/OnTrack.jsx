@@ -28,7 +28,7 @@ class OnTrack extends Component {
           : onTrackInfo.remaining_expected > onTrackInfo.remaining_actual + threshholdHours
           ?
             <div className="text-center py-4 lg:px-4 mt-8">
-              <div className="p-2 bg-palette-blue items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+              <div className="p-2 bg-blue items-center text-white leading-none lg:rounded-full flex lg:inline-flex" role="alert">
                 <span className="flex rounded-full bg-blue-darkest uppercase px-4 py-2 text-xs font-bold mr-3">Excellent!</span>
                 <span className="font-semibold mr-2 text-left flex-auto">You are ahead of schedule!</span>
               </div>

@@ -47,7 +47,7 @@ class Signup extends Component {
         <div className='relative p-8 lg:p-8 w-full lg:w-1/4 m-auto flex-col flex lg:rounded bg-white'>
           <div className='flex justify-center'>
             <div 
-              className='font-josefin text-5xl bg-palette-blue rounded-full h-16 w-16 flex items-center justify-center text-palette-white m-4'>
+              className='font-josefin text-5xl bg-blue rounded-full h-16 w-16 flex items-center justify-center text-palette-white m-4'>
               J
             </div>
           </div>
@@ -81,7 +81,7 @@ class Signup extends Component {
             type="text"/>
           <button
             onClick={ this.signup }
-            className=' self-center btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>
+            className='self-center btn-reg bg-blue hover:bg-blue-dark hover:border-palette-dark m-2'>
             Create Account
           </button>
           <div

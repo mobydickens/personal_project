@@ -64,7 +64,7 @@ class LogTime extends Component {
         <div className='flex justify-end'>
           <button
             onClick={ () => this.newTimelog() } 
-            className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2'>Save
+            className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2'>Save
           </button>
         </div>
       </div>

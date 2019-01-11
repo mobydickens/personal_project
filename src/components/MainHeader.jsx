@@ -70,13 +70,13 @@ class MainHeader extends Component {
                   <div className='flex'>
                   <div>
                     <button
-                      className='btn-reg mt-2 hover:bg-palette-dark hover:border-palette-dark ml-2 text-sm lg:mt-0' 
+                      className='btn-reg bg-blue mt-2 hover:bg-blue-dark hover:border-blue-dark ml-2 text-sm lg:mt-0' 
                       onClick={ () => this.login() }>LOGIN
                     </button>
                   </div>
                   <div>
                     <button 
-                      className='btn-white mt-6 lg:mt-2'
+                      className='btn-white text-blue mt-6 lg:mt-2'
                       onClick={ () => this.setState({ inputShowing: !this.state.inputShowing, email: '', password: '' }) }>CANCEL
                     </button>
                   </div>
@@ -85,14 +85,14 @@ class MainHeader extends Component {
     return (
       <div className='bg-palette-grey p-2'>
         <div className='flex justify-between m-2'>
-          <div className='jello lg:text-2xl text-white'><span className='text-palette-blue'>J</span>ello</div>
+          <div className='jello lg:text-2xl text-white'><span className='text-blue'>J</span>ello</div>
             { this.state.inputShowing ? 
               <div className='hidden lg:block w-full max-w-sm'>
                 {login}
               </div> :
               <div className='flex mt-2'>
                 <div className='invisible lg:visible text-sm text-white font-josefin'>ALREADY A MEMBER? </div>
-                <div onClick={ () => this.showLogin() } className='btn-white text-palette-blue'>LOGIN</div>
+                <div onClick={ () => this.showLogin() } className='btn-white text-blue'>LOGIN</div>
               </div>
           }
         </div>

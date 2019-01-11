@@ -39,8 +39,8 @@ class Project extends Component {
     this.updateOrderAndStatus = this.updateOrderAndStatus.bind(this);
   }
     
-  notify = () => {
-    toast("Default Notification !");
+  notify = (message) => {
+    toast.info(message);
   }
 
   async componentDidMount() {
@@ -68,8 +68,7 @@ class Project extends Component {
     
     this.socket.on('alertClients', (data) => {
       if(data.user !== this.props.username && Number(this.props.match.params.id) === data.projectId) {
-        console.log("in the right func")
-        this.notify();  
+        this.notify(data.message);  
       } else {
         return;
       }

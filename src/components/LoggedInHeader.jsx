@@ -56,7 +56,7 @@ class LoggedInHeader extends Component {
           hideSidebarFn={ this.hideSidebar }
           hideAndLogout={ this.hideSidebarLogout } />
         <div className='flex'>
-          <div className='jello lg:text-2xl m-2 mx-6 text-white'><span className='text-palette-blue'>J</span>ello</div>
+          <div className='jello lg:text-2xl m-2 mx-6 text-white'><span className='text-blue'>J</span>ello</div>
           <div className='font-josefin m-4 text-grey-lighter text-xs'>Hello, {this.props.username}!</div>
         </div>
 
@@ -64,15 +64,15 @@ class LoggedInHeader extends Component {
         <div className='flex absolute pin-t pin-r invisible lg:visible mx-8 mt-6 font-josefin text-xs'>
           <button 
             onClick={ this.projectClick } 
-            className={this.props.history.location.pathname === '/home' ? 'mx-4 hover:text-palette-blue text-palette-blue focus:outline-none' : 'mx-4 text-white hover:text-palette-blue focus:outline-none'}
+            className={this.props.history.location.pathname === '/home' ? 'mx-4 hover:text-blue text-blue focus:outline-none' : 'mx-4 text-white hover:text-blue focus:outline-none'}
           >PROJECTS</button>
           <button 
             onClick={ this.teamClick } 
-            className={this.props.history.location.pathname === '/team' ? 'mx-4 hover:text-palette-blue text-palette-blue focus:outline-none' : 'mx-4 text-white hover:text-palette-blue focus:outline-none'}>TEAMS
+            className={this.props.history.location.pathname === '/team' ? 'mx-4 hover:text-blue text-blue focus:outline-none' : 'mx-4 text-white hover:text-blue focus:outline-none'}>TEAMS
           </button>
           <button 
             onClick={ () => this.logout() }
-            className='mx-4 text-white hover:text-palette-blue'>LOGOUT
+            className='mx-4 text-white hover:text-blue'>LOGOUT
           </button>
         </div>
 

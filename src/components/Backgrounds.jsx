@@ -36,7 +36,7 @@ class Backgrounds extends Component {
         </select>
         <button
           onClick={ () => this.saveBackground(this.props.background) }
-          className={ this.state.backgroundSaved ? 'bg-green-dark rounded mx-1 py-1 px-2 text-white focus:outline-none' : 'bg-palette-blue rounded mx-1 py-1 px-2 text-black focus:outline-none'}>{this.state.backgroundSaved ? 'Saved!' : 'Save'}
+          className={ this.state.backgroundSaved ? 'bg-green-dark rounded mx-1 py-1 px-2 text-white focus:outline-none' : 'bg-blue rounded mx-1 py-1 px-2 text-black focus:outline-none'}>{this.state.backgroundSaved ? 'Saved!' : 'Save'}
         </button>
       </div>
     );

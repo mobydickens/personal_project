@@ -72,7 +72,7 @@ class ProjectEdit extends Component {
               onChange={ (e) => this.setState({ description: e.target.value, fieldsRequired: false }) }
               className='input-underlined focus:outline-none border-grey' 
             /><br/>
-            <div className='m-2 text-smoke'>Don't have a team for this project? <Link className='no-underline text-smoke hover:text-palette-blue' to='/team'>Click here to start one now!</Link></div>
+            <div className='m-2 text-smoke'>Don't have a team for this project? <Link className='no-underline text-smoke hover:text-blue' to='/team'>Click here to start one now!</Link></div>
             <select className='bg-grey-light border border-grey focus:outline-none' onChange={ (e) => this.setState( { team: e.target.value, fieldsRequired: false })}>
               <option defaultValue="selected">Choose a team</option>
               {dropdown}
@@ -98,7 +98,7 @@ class ProjectEdit extends Component {
               <div>
                 <button 
                   onClick={ () => this.newProject() } 
-                  className='btn-reg hover:bg-palette-dark hover:border-palette-dark m-2 mt-4'>Submit
+                  className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2 mt-4'>Submit
                 </button>
               </div>
             </div>

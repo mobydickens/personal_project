@@ -65,7 +65,7 @@ class Home extends Component {
     let newProjectList = this.state.projectList.map((project, i) => {
       return (
         <div className='w-auto md:w-1/2 lg:w-1/3' key={i}>
-          <div className='shadow-lg border-l-4 border-palette-blue m-4 p-6 rounded-sm lg:my-4 lg:mr-2 bg-palette-white rounded lg:h-32'>
+          <div className='shadow-lg border-l-4 border-blue m-4 p-6 rounded-sm lg:my-4 lg:mr-2 bg-palette-white rounded lg:h-32'>
           <div onClick={ () => this.navigateToProject(project.id) }><div className='text-lg cursor-pointer'>{project.title}</div></div>
           {/* displays the team name */}
           <p className='pb-2 text-sm'>{project.name}</p>
@@ -100,7 +100,7 @@ class Home extends Component {
                   <div className='flex justify-end'>
                     <div
                       onClick={ () => this.setState({newProjectModal: true}) } 
-                      className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 my-4 hover:bg-palette-dark cursor-pointer'>
+                      className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white mx-10 my-4 hover:bg-blue-darker cursor-pointer'>
                       {/* THE PLUS BUTTON */}
                       <i className="fas fa-plus m-4 px-8"></i>
                     </div>
@@ -128,7 +128,7 @@ class Home extends Component {
                         <div className='text-base mt-4'>Start your first project!</div>
                         <div
                           onClick={ () => this.setState({ newProjectModal: true }) } 
-                          className='text-sm bg-palette-blue rounded-full h-12 w-12 flex items-center justify-center text-white ml-4 mr-2 hover:bg-palette-dark cursor-pointer'>
+                          className='text-sm bg-blue rounded-full h-12 w-12 flex items-center justify-center text-white ml-4 mr-2 hover:bg-palette-dark cursor-pointer'>
                           <i className="fas fa-plus m-4 px-4"></i>
                         </div>
                       </div>
