@@ -53,9 +53,12 @@ app.put('/task', async function editLaneOrder (req, res) {
     taskList.push(task);
   }
   let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
+  let email = req.session.user.email;
+  let user = await db.find_user([ email ]);
   res.status(200).send(tasks);
   //notify socket client - FOR EACH SOCKET (so for each different computer connected)
-  sockets.forEach(socket => socket.broadcast.emit('tasksUpdated', tasks));
+  sockets.forEach(socket => socket.emit('tasksUpdated', tasks));
+  sockets.forEach(socket => socket.emit('alertClients', { projectId: taskList[0][0].project_id, user: user[0].username, message: `${user[0].username} has moved a task!`}));
 }) 
 
 app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
@@ -68,9 +71,12 @@ app.put('/taskstatus', async function updateOrderAndStatus(req, res) {
     taskList.push(task);
   }
   let tasks = await db.all_lane_tasks([ taskList[0][0].project_id ]);
+  let email = req.session.user.email;
+  let user = await db.find_user([ email ]);
   res.status(200).send(tasks);
   // //notify socket client in project component
-  sockets.forEach(socket => socket.broadcast.emit('laneUpdated', tasks))
+  sockets.forEach(socket => socket.emit('laneUpdated', tasks))
+  sockets.forEach(socket => socket.emit('alertClients', { projectId: taskList[0][0].project_id, user: user[0].username, message: `${user[0].username} has moved a task!`}));
 }) 
 
 app.post('/auth/signup', controller.signup); //signup

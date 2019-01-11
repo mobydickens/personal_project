@@ -42,17 +42,16 @@ class Project extends Component {
       //creates a new socket connection when component is created 
       this.socket = io('/');
 
-
-      //ADD IF INSIDE OF THESE FUNCTIONS TO FIGURE OUT IF EVENT RELATES TO CURRENT PAGE/PROJECT
       // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
       this.socket.on('tasksUpdated', data => {
+        //if the user is not on the project page that has been updated, do nothing
         if(Number(this.props.match.params.id) === data[0].project_id) {
           return this.props.getTasks(data)
         } else {
           return;
         }
       })
-
+      
       //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
       this.socket.on('laneUpdated', (data) => {
         if(Number(this.props.match.params.id) === data[0].project_id) {
@@ -61,7 +60,17 @@ class Project extends Component {
           return;
         }
       })
-      // _________________________________________________________________________________________
+      
+      this.socket.on('alertClients', (data) => {
+        console.log("user", data.user, "props username: ", this.props.username)
+        console.log("project id", data.projectId, this.props.match.params.id)
+        if(data.user !== this.props.username && Number(this.props.match.params.id) === data.projectId) {
+          console.log("running?")
+          return alert(data.message);
+        } else {
+          return;
+        }
+      })
 
       //stuff unrelated to socket.io below, don't delete it
       await requireLogin(this.props.userLogin, this.props.history);
@@ -373,7 +382,8 @@ function mapState(state) {
   return {
     tasks: state.currentProjectTasks,
     projectId: state.currentProjectId,
-    userId: state.userId
+    userId: state.userId,
+    username: state.username
   }
 }
 
