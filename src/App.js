@@ -6,6 +6,8 @@ import Home from './components/Home.jsx';
 import Project from './components/Project.jsx';
 import Team from './components/Team.jsx';
 import Reports from './components/Reports.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class App extends Component {
@@ -22,6 +24,7 @@ class App extends Component {
             <Route path='/reports/:id' component={ Reports }/>
           </Switch>
         </HashRouter>
+        <ToastContainer />
       </div>
     );
   }

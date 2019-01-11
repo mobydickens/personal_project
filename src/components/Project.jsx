@@ -14,6 +14,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import BackgroundTernary from './BackgroundTernary.jsx';
 
 import io from 'socket.io-client';
+import { toast } from 'react-toastify';
 
 class Project extends Component {
 
@@ -38,51 +39,53 @@ class Project extends Component {
     this.updateOrderAndStatus = this.updateOrderAndStatus.bind(this);
   }
     
-    async componentDidMount() {
-      //creates a new socket connection when component is created 
-      this.socket = io('/');
+  notify = () => {
+    toast("Default Notification !");
+  }
 
-      // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
-      this.socket.on('tasksUpdated', data => {
-        //if the user is not on the project page that has been updated, do nothing
-        if(Number(this.props.match.params.id) === data[0].project_id) {
-          return this.props.getTasks(data)
-        } else {
-          return;
-        }
-      })
-      
-      //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
-      this.socket.on('laneUpdated', (data) => {
-        if(Number(this.props.match.params.id) === data[0].project_id) {
-          return this.props.getTasks(data)
-        } else {
-          return;
-        }
-      })
-      
-      this.socket.on('alertClients', (data) => {
-        console.log("user", data.user, "props username: ", this.props.username)
-        console.log("project id", data.projectId, this.props.match.params.id)
-        if(data.user !== this.props.username && Number(this.props.match.params.id) === data.projectId) {
-          console.log("running?")
-          return alert(data.message);
-        } else {
-          return;
-        }
-      })
+  async componentDidMount() {
+    //creates a new socket connection when component is created 
+    this.socket = io('/');
 
-      //stuff unrelated to socket.io below, don't delete it
-      await requireLogin(this.props.userLogin, this.props.history);
-      await Promise.all([
-        this.props.getProjectId(this.props.match.params.id), 
-        this.fetchTasks(this.props.match.params.id)
-      ]);
-      await this.sortColumns();
-      this.setState({
-        loading: false,
-        loggedIn: true
-      })
+    // when a TASK is updated, tell redux (see updateLaneOrder function in this file)
+    this.socket.on('tasksUpdated', data => {
+      //if the user is not on the project page that has been updated, do nothing
+      if(Number(this.props.match.params.id) === data[0].project_id) {
+        return this.props.getTasks(data)
+      } else {
+        return;
+      }
+    })
+    
+    //when a LANE is updated, tell redux (see updateOrderAndStatus function in this file)
+    this.socket.on('laneUpdated', (data) => {
+      if(Number(this.props.match.params.id) === data[0].project_id) {
+        return this.props.getTasks(data)
+      } else {
+        return;
+      }
+    })
+    
+    this.socket.on('alertClients', (data) => {
+      if(data.user !== this.props.username && Number(this.props.match.params.id) === data.projectId) {
+        console.log("in the right func")
+        this.notify();  
+      } else {
+        return;
+      }
+    })
+
+    //stuff unrelated to socket.io below, don't delete it
+    await requireLogin(this.props.userLogin, this.props.history);
+    await Promise.all([
+      this.props.getProjectId(this.props.match.params.id), 
+      this.fetchTasks(this.props.match.params.id)
+    ]);
+    await this.sortColumns();
+    this.setState({
+      loading: false,
+      loggedIn: true
+    })
   }
 
   //clean up for sockets
