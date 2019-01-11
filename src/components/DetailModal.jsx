@@ -83,25 +83,28 @@ class DetailModal extends Component {
           key={timelog.id}>
           {/* this ternary will control whether an item in the history is being edited, and will show/hide inputs */}
           { this.state.editingLog && this.state.editingId === timelog.id ? 
-            <div>
+            <div className='border bg-grey-lighter p-2'>
               {/* editing mode */}
               <div>
                 <span className='font-semibold'>{timelog.username} </span>
-                <span className='text-smoke'> - {moment(timelog.created_at).calendar()}</span>
+                <span className='text-smoke text-sm'> - {moment(timelog.created_at).calendar()}</span>
               </div>
-              <div className='text-sm'>Time spent: 
-                <input className='ml-12 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
+              <div className='flex justify-between text-sm mt-2'>
+                <span>Time spent: </span> 
+                <input className='lg:w-3/5 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ spent_time: e.target.value})}value={this.state.spent_time} type="number"/>
               </div> 
-              <div className='text-sm'>Estimate change: 
-                <input className='ml-2 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/>
+              <div className='flex justify-between text-sm'>
+                <span>Estimate change: </span> 
+                <input className='lg:w-3/5 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey' onChange={ (e) => this.setState({ estimate_change: e.target.value})}value={this.state.estimate_change} type="number"/>
               </div>
-              <div className='text-sm'>Comment:   
-                <input className='ml-12 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
+              <div className='flex justify-between text-sm'>
+                <span>Comment: </span> 
+                <input className='lg:w-3/5 appearance-none text-grey-darker py-1 px-2 leading-tight focus:outline-none border-b border-grey'onChange={ (e) => this.setState({ comment: e.target.value})}value={this.state.comment} type="text"/>
               </div>
               <button 
-                className='btn-reg bg-blue hover:bg-blue-dark hover:border-blue-dark m-2' 
+                className='p-1 focus:outline-none rounded bg-blue hover:bg-blue-dark hover:border-blue-dark text-sm text-white' 
                 onClick={ () => this.saveTimelogEdit(timelog.id) }>Save</button>
-              <button className='m-2' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
+              <button className='m-2 text-sm text-smoke' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
             : 
             <div className={ +this.props.userId === timelog.user_id ? 'border-b border-grey-lighter' : 'border-b border-grey-lighter pb-4'}>
