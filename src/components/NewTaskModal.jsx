@@ -45,12 +45,12 @@ class NewTaskModal extends Component {
   render() {
     return (
       <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-        <div className='relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded'>
+        <div className='relative p-12 bg-white w-full max-w-md m-auto flex-col flex rounded'>
           <button onClick={ () => this.props.exitModal() } className='absolute pin-t pin-r p-4 cursor-pointer'>
             <i className="fas fa-times"></i>
           </button>
           <div className='flex justify-center'>
-            <div className='mt-4'>New task</div>
+            <div className='mt-4 text-xl'>New task</div>
           </div>
           <div className='flex justify-center mb-4'>
             {this.state.titleRequired ? <div className='text-red-lighter'>Title required</div> : ""}

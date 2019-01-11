@@ -109,7 +109,7 @@ class Team extends Component {
             {/* form box */}
             <div className='bg-white shadow-lg p-6 rounded'>
               <div className='flex justify-center'>
-                <div className='mt-4'>Start a new team</div>
+                <div className='mt-4 text-xl'>Start a new team</div>
               </div>
 
 
@@ -123,13 +123,13 @@ class Team extends Component {
                     <input
                       autoFocus="autofocus"
                       onChange={ (e) => this.setState({ teamName: e.target.value, fieldsRequired: false })} 
-                      className='input-underlined focus:outline-none' 
+                      className='input-underlined focus:outline-none border-grey' 
                       type="text" 
                       value={ this.state.teamName }
                     />
                     <label className='my-4'>Enter new teammate's email: </label>
                     {this.state.emailNotFound ? <div className='text-red-lighter'>User not found!</div> : ""}
-                    <div className='flex items-center w-full border-b border-palette-blue'>
+                    <div className='flex items-center w-full border-b border-grey'>
                       <input
                         onChange={ (e) => this.setState({ memberEmail: e.target.value, emailNotFound: false })} 
                         className='input focus:outline-none' 

@@ -52,7 +52,7 @@ class ProjectEdit extends Component {
     })
     return (
         <div className='fixed pin z-50 overflow-auto bg-smoke-light flex'>
-          <form className='relative p-8 lg:p-8 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
+          <form className='relative p-8 lg:p-16 bg-white w-full max-w-md m-auto flex-col flex lg:rounded'>
             <div className='flex justify-center'>
               <div className='mb-4 text-xl'>Start a new project</div>
             </div>

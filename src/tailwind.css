@@ -107,7 +107,7 @@
    @apply appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight;
  }
  .input-underlined {
-   @apply appearance-none bg-transparent w-full text-grey-darker py-2 px-4 leading-tight border-b border-palette-blue;
+   @apply appearance-none bg-transparent text-grey-darker py-2 px-4 leading-tight border-b border-palette-blue;
  }
  .input-signup {
    @apply appearance-none bg-transparent text-grey-darker border py-2 px-4 leading-tight m-4 border-grey rounded;
