@@ -69,7 +69,7 @@ class Home extends Component {
           <div onClick={ () => this.navigateToProject(project.id) }><div className='text-lg cursor-pointer'>{project.title}</div></div>
           {/* displays the team name */}
           <p className='pb-2 text-sm'>{project.name}</p>
-          <p className='text-grey-darker text-sm'>{project.description.length > 40 ? project.description.slice(0, 40) + "..." : project.description}</p>
+          <p className='text-grey-darker text-sm'>{project.description.length > 40 ? project.description.slice(0, 50) + "..." : project.description}</p>
           </div>
         </div>
       )

@@ -54,7 +54,7 @@ class ProjectHeader extends Component {
     return (
       <div className='bg-white opacity-75 pb-4'>
         <div className={this.state.editName ? 'flex flex-col lg:flex-row w-full':'flex flex-col lg:flex-row justify-between'}>
-          { !this.state.editName ? <h3 onClick={ () => this.setState({ editName: true }) } className='font-josefin mt-4 ml-6'>{this.state.projectName}</h3>
+          { !this.state.editName ? <div onClick={ () => this.setState({ editName: true }) } className='font-josefin mt-4 ml-6 text-2xl'>{this.state.projectName}</div>
             : <div className='mx-6 flex flex-col lg:flex-row items-center w-full'>
                 <input
                   className='input-underlined focus:outline-none mb-2' 

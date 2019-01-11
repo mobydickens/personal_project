@@ -104,7 +104,7 @@ class DetailModal extends Component {
               <button className='m-2' onClick={ () => this.setState({ editingLog: false })}>Cancel</button>
             </div>
             : 
-            <div className='border-b border-grey-lighter'>
+            <div className={ +this.props.userId === timelog.user_id ? 'border-b border-grey-lighter' : 'border-b border-grey-lighter pb-4'}>
               {/* regular history mode - not editing */}
               <div>
                 <span className='font-semibold'>{timelog.username} </span>

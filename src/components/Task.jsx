@@ -18,8 +18,8 @@ class Task extends Component {
             <div 
               className='border border-grey shadow bg-white rounded-r p-2'
               onClick={ () => this.props.openDetailModal(this.props.task.id) } >
-              <div className='py-2 px-2'>{this.props.task.title}</div>
-              <div className='text-smoke px-2'>{this.props.task.description}</div>
+              <div className='py-2 px-2 text-base'>{this.props.task.title}</div>
+              <div className='text-smoke px-2 text-sm'>{this.props.task.description}</div>
             </div>
           </div>
         )}
