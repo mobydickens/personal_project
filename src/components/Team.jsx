@@ -129,7 +129,7 @@ class Team extends Component {
                     />
                     <label className='my-4'>Enter new teammate's email: </label>
                     {this.state.emailNotFound ? <div className='text-red-lighter'>User not found!</div> : ""}
-                    <div className='flex items-center w-full border-b border-grey'>
+                    <div className='flex justify-between w-full border-b border-grey'>
                       <input
                         onChange={ (e) => this.setState({ memberEmail: e.target.value, emailNotFound: false })} 
                         className='input focus:outline-none' 
