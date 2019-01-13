@@ -1,0 +1,27 @@
+.bg-newproject {
+  background-image: url("./images/newprojectdetail.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-feature {
+  background-image: url("./images/feature.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-task {
+  background-image: url("./images/taskdetail.png");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.box-height {
+  height: 500px;
+}
