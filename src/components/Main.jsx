@@ -24,11 +24,11 @@ class Main extends Component {
         <Header />
         {this.state.showSignup ?
         <Signup signupFn={this.signup}/>
-        : 
-        <div>
-          <div className='flex m-2 p-2 flex-col lg:mx-16 lg:my-8 lg:justify-center'>
-            <div className='flex flex-col w-full lg:w-1/2'>
-              <div className='font-josefin p-6 text-3xl lg:text-4xl z-10'>Your place for organizing and staying on track.</div>
+        : "" }
+        <div className='flex justify-center w-full'>
+          <div className='flex m-2 p-2 flex-col lg:my-4 lg:justify-center w-full lg:w-4/5'>
+            <div className='flex flex-col w-full'>
+              <div className='font-josefin p-6 text-3xl lg:text-4xl z-10 pt-6'>Your place for organizing and staying on track.</div>
               <div className='z-10'>
                 <button
                   onClick={ () => this.signup() } 
@@ -37,20 +37,22 @@ class Main extends Component {
                 </button> 
               </div>
             </div>
-            <div className='w-full flex justify-center flex-col lg:flex-row'>
-              <div className='m-4 p-6 w-full box-height border-2 border-grey rounded`'>
-                <div className='bg-newproject'></div>
+            <div className='w-full flex justify-center flex-col lg:flex-row pt-12'>
+              <div className='m-4 lg:w-full box-height rounded'>
+                <div className='bg-feature border border-grey rounded image-height'></div>
+                <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Log your time</div>
               </div>
-              <div className='m-4 w-full border-2 border-grey rounded`'>
-                <div className='bg-task'></div>
+              <div className='m-4 lg:w-full box-height rounded'>
+                <div className='bg-task border border-grey rounded image-height'></div>
+                <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Track task completion</div>
               </div>
-              <div className='m-4 p-6 w-full border-2 border-grey rounded`'>
-                <div className='bg-feature'></div>
+              <div className='m-4 lg:w-full box-height rounded'>
+                <div className='bg-newproject border border-grey rounded image-height'></div>
+                <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Create projects for yourself and teams</div>
               </div>
             </div>
           </div>
         </div>
-        }
       </div>
     );
   }

@@ -4,6 +4,7 @@
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .bg-feature {
@@ -23,5 +24,18 @@
 }
 
 .box-height {
-  height: 500px;
+  height: 300px;
+}
+
+.image-height {
+  height: 250px;
+}
+
+@media (min-width: 500px) {
+  .box-height {
+  height: 400px;
+  }
+  .image-height {
+    height: 350px;
+  }
 }
