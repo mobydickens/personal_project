@@ -68,6 +68,15 @@
   width: 100%;
   height: auto;
 }
+
+//MAIN IMAGES 
+
+.bg-newproject {
+  background-image: url("./images/newprojectdetail.png");
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
 //BACKGROUND IMAGES
 .bg-cityblock {
    background-image: url("./images/cityblock.jpg");

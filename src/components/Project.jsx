@@ -40,7 +40,7 @@ class Project extends Component {
   }
     
   notify = (message) => {
-    toast.info(message);
+    toast.info(message, {position: "bottom-right"});
   }
 
   async componentDidMount() {

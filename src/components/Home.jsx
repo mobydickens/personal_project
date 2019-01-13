@@ -9,10 +9,6 @@ import BackgroundTernary from './BackgroundTernary.jsx';
 import Loading from './Loading.jsx';
 import { requireLogin } from '../helpers/login_service';
 
-import homeImage from '../images/home.png';
-import teamImage from '../images/team.png';
-import taskDetail from '../images/taskdetail.png';
-
 class Home extends Component {
 
   constructor(props) {
@@ -127,17 +123,6 @@ class Home extends Component {
                  
                 // else if project list IS empty, show the start a new project promt
                 : <div className='m-4'>
-                    <div className='w-full flex justify-center flex-col lg:flex-row'>
-                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
-                        <img src={ teamImage } alt='examples' className='home-image'></img>
-                      </div>
-                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
-                        <img src={ homeImage } alt='examples' className='home-image'></img>
-                      </div>
-                      <div className='m-4 lg:w-1/3 w-full h-48 lg:h-64 border'>
-                        <img src={ taskDetail } alt='examples' className='home-image'></img>
-                      </div>
-                    </div>
                     <div className='w-full flex justify-center mt-6'>
                       <div className='flex w-full lg:w-1/2'>
                         <div className='text-2xl my-4 mx-4'>Start your first project!</div>
@@ -178,4 +163,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { userProjects, getMyTeams, userLogin })(Home);
-// md:flex-row md:flex-wrap md:justify-center lg:flex-row lg:flex-wrap lg:justify-start
