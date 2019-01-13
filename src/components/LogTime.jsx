@@ -33,32 +33,32 @@ class LogTime extends Component {
   
   render() {
     return (
-      <div>
+      <div className='flex flex-col'>
          <div className='flex justify-center m-2'>
             {this.state.fieldsRequired ? <div className='text-red-lighter'>All fields required</div> : ""}
           </div>
-        <label className='text-smoke'>Time spent: </label>
+        <label className='text-smoke p-2'>Time spent: </label>
         <input
           autoFocus="autofocus"
           onChange={ (e) => this.setState({ spent_time: e.target.value, fieldsRequired: false })}
-          className='input-underlined focus:outline-none my-2 border-grey' 
+          className='appearance-none bg-transparent text-grey-darker px-4 leading-tight focus:outline-none border-b border-grey m-2 pb-2' 
           type="number"
           value={ this.state.spent_time } />
-        <label className='text-smoke'>Estimate change: </label>
+        <label className='text-smoke p-2'>Estimate change: </label>
         <input
           onChange={ (e) => this.setState({ estimate_change: e.target.value, fieldsRequired: false })} 
-          className='input-underlined focus:outline-none my-2 border-grey'
+          className='appearance-none bg-transparent text-grey-darker px-4 leading-tight focus:outline-none border-b border-grey m-2 pb-2'
           type="number"
-          value={ this.state.estimate_change } /><br/>
-        <label className='text-smoke'>Comment: </label>
+          value={ this.state.estimate_change }/>
+        <label className='text-smoke p-2'>Comment: </label>
         <input
+          className='appearance-none bg-transparent text-grey-darker px-4 leading-tight focus:outline-none border-b border-grey m-2 pb-2'
           onChange={ (e) => this.setState({ comment: e.target.value, fieldsRequired: false })}
           onKeyUp={event => {
             if (event.key === 'Enter') {
               this.newTimelog()
             }
           }} 
-          className='input-underlined focus:outline-none my-2 border-grey'
           type="text"
           value={ this.state.comment } />
         <div className='flex justify-end'>
