@@ -20,7 +20,7 @@ class Main extends Component {
 
   render() {
     return (
-      <div className='bg-main lg:h-screen'>
+      <div className='bg-main h-screen'>
         <Header />
         {this.state.showSignup ?
         <Signup signupFn={this.signup}/>
@@ -29,7 +29,7 @@ class Main extends Component {
           <div className='flex m-2 p-2 flex-col lg:my-4 lg:justify-center w-full lg:w-4/5'>
             <div className='flex flex-col w-full'>
               <div className='p-2 font-josefin text-3xl lg:text-4xl z-10 pt-6'>Your place for organizing and staying on track.</div>
-              <div className='w-1/2 p-2 text-xl tracking-wide'>Jello is a place to collaborate with your peers on projects. With an easy time logging system, you are able to track tasks and see whether you need to step up your pace to complete on time. Sign up now to get started!</div>
+              <div className='w-full lg:w-1/2 p-2 text-xl tracking-wide'>Jello is a place to collaborate with your peers on projects. With an easy time logging system, you are able to track tasks and see whether you need to step up your pace to complete on time. Sign up now to get started!</div>
               <div className='z-10'>
                 <button
                   onClick={ () => this.signup() } 
