@@ -38,13 +38,13 @@ class Main extends Component {
               </div>
             </div>
             <div className='w-full flex justify-center flex-col lg:flex-row'>
-              <div className='m-4 p-6 w-full box-height border-2 border-grey rounded'>
+              <div className='m-4 p-6 w-full box-height border-2 border-grey rounded`'>
                 <div className='bg-newproject'></div>
               </div>
-              <div className='m-4 w-full border-2 border-grey rounded'>
+              <div className='m-4 w-full border-2 border-grey rounded`'>
                 <div className='bg-task'></div>
               </div>
-              <div className='m-4 p-6 w-full border-2 border-grey rounded'>
+              <div className='m-4 p-6 w-full border-2 border-grey rounded`'>
                 <div className='bg-feature'></div>
               </div>
             </div>
