@@ -32,22 +32,22 @@ class Main extends Component {
               <div className='z-10'>
                 <button
                   onClick={ () => this.signup() } 
-                  className='bg-blue hover:bg-blue-dark hover:border-blue-dark text-white border border-blue mx-6 lg:mx-6 py-2 lg:py-4 px-4 lg:px-8 text-xl rounded z-10'>
+                  className='bg-blue hover:bg-blue-dark hover:border-blue-dark text-white border border-blue mx-6 lg:mx-6 py-2 lg:py-4 px-4 lg:px-8 text-xl rounded z-10 mb-8'>
                   Sign Up
                 </button> 
               </div>
             </div>
-            <div className='w-full flex justify-center flex-col lg:flex-row pt-12'>
+            <div className='flex justify-center flex-col lg:flex-row p-6 bg-white shadow-lg rounded-lg'>
               <div className='m-4 lg:w-full box-height rounded'>
-                <div className='bg-feature border border-grey rounded image-height'></div>
+                <div className='bg-feature border border-grey rounded image-height shadow'></div>
                 <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Log your time</div>
               </div>
               <div className='m-4 lg:w-full box-height rounded'>
-                <div className='bg-task border border-grey rounded image-height'></div>
+                <div className='bg-task border border-grey rounded image-height shadow'></div>
                 <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Track task completion</div>
               </div>
               <div className='m-4 lg:w-full box-height rounded'>
-                <div className='bg-newproject border border-grey rounded image-height'></div>
+                <div className='bg-newproject border border-grey rounded image-height shadow'></div>
                 <div className='font-josefin text-lg text-center pt-4 lg:pt-8 text-grey-darker'>Create projects for yourself and teams</div>
               </div>
             </div>
