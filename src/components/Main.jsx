@@ -20,7 +20,7 @@ class Main extends Component {
 
   render() {
     return (
-      <div className='h-screen'>
+      <div className='bg-main lg:h-screen'>
         <Header />
         {this.state.showSignup ?
         <Signup signupFn={this.signup}/>

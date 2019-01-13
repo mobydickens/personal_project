@@ -61,7 +61,7 @@
   background-position: center;
   background-attachment: scroll;
   background-size: cover; 
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: 0;
 }
 .home-image {
@@ -70,6 +70,7 @@
 }
 
 //BACKGROUND IMAGES
+
 .bg-cityblock {
    background-image: url("./images/cityblock.jpg");
 }
