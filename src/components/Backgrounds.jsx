@@ -24,7 +24,7 @@ class Backgrounds extends Component {
       <div>
         <select className='bg-palette-white border border-palette-white focus:outline-none ml-4' onChange={(e) => this.props.getBackground(e.target.value)}>
           <option defaultValue="selected">Choose background</option>
-          <option value="City Block">City Block</option>
+          <option value="Keyboard">Keyboard</option>
           <option value="White Brick">White Brick</option>
           <option value="Coffee">Coffee</option>
           <option value="Flight">Flight</option>

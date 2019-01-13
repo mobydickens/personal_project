@@ -9,8 +9,8 @@ class BackgroundTernary extends Component {
     return (
       <div>
         {/* start of background ternary */}
-        {background === 'City Block' 
-          ? <div className='bg-cityblock image-position h-screen z-0'></div> 
+        {background === 'Keyboard' 
+          ? <div className='bg-main image-position h-screen z-0'></div> 
           : background === 'Puppers' 
           ? <div className='bg-puppers image-position h-screen z-0'></div>
           : background === 'White Brick'
