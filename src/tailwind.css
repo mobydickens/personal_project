@@ -28,11 +28,11 @@
   background-color: #55c348;
 }
 .progress > .span-progress {
-  @apply block h-6 w-1/4 rounded-full
+  @apply block h-6 w-1/4 rounded-full;
 }
 
 .gradient > .span-progress {
-  @apply shadow-inner
+  @apply shadow-inner;
 }
 /* END OF PROGRESS BAR */
 
@@ -69,14 +69,6 @@
   height: auto;
 }
 
-//MAIN IMAGES 
-
-.bg-newproject {
-  background-image: url("./images/newprojectdetail.png");
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
 //BACKGROUND IMAGES
 .bg-cityblock {
    background-image: url("./images/cityblock.jpg");
