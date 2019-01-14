@@ -24,7 +24,7 @@
 }
 
 .bg-main {
-  background-image: url("./images/mainback.jpg");
+  background-image: url("./images/mainbackgrey.jpg");
   top: 0px;
   left: 0;
   width: 100%;
@@ -50,5 +50,8 @@
   }
   .image-height {
     height: 350px;
+  }
+  .bg-main {
+    background-image: url("./images/mainback.jpg");
   }
 }
